@@ -1,0 +1,35 @@
+{% extends 'hairdresserapp/base.html' %}	
+{% load static %}
+{% block content %}
+<div class="jumbotron">
+	<div class="container">
+		<h1>Contacto</h1>
+	</div>
+</div>
+<div class="container my-5">
+    <h3 class="mb-3">Información de Contacto</h3>
+    <p>Dirección: AVINGUDA MADRID, 61, 03119, JIJONA/XIXONA(ALICANTE/ALACANT)</p>
+    <p>Teléfono: 952506038</p>
+    <p>Email: hairdresserapp@hairdresserapp.com</p>
+</div>
+<div class="container my-5">
+    <h3>Email</h3>
+    <p>Por favor, rellena el formulario de contacto a continuación y te responderemos lo antes posible.</p>
+
+    <form action="#" method="POST">
+    <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="text" class="form-control" id="nombre" name="nombre" required>
+    </div>
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+    </div>
+    <div class="form-group">
+        <label for="mensaje">Mensaje:</label>
+        <textarea class="form-control" id="mensaje" name="mensaje" rows="5" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</div>
+{% endblock content %} 

@@ -1,0 +1,28 @@
+{% extends 'hairdresserapp/base.html' %}	
+{% load static %}
+{% block content %}
+<div class="jumbotron">
+	<div class="container">
+		<h1>Bienvenido a Hairdresser App</h1>
+		<p>Tu portal especializado para peluquerias.</p>
+		<p><a class="btn btn-primary btn-lg" href="#" role="button">Regístrate ahora</a></p>
+	</div>
+</div>
+
+{% comment %} <img src="{% static 'hairdresserapp/img/logo.png' %}" > {% endcomment %}
+
+<!-- Heading -->
+<section class="page-section clearfix">
+	<div class="container">
+		<div class="intro">
+			<div class="intro-text left-0 text-center bg-faded p-5 rounded">
+				<h2 class="section-heading mb-4" >
+					<span class="section-heading-upper">Puntualidad</span>
+					<span class="section-heading-lower">El mejor stock</span>
+				</h2>
+				<p class="mb-3">En la puertra de tu casa en menos de 48 h con el envío normal. En menos de 24 h con el envío express.</p>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock content %} 

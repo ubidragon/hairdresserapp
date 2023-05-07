@@ -1,0 +1,5 @@
+.vscode
+data/*
+postgres/*
+run-app.sh
+run-build.sh
