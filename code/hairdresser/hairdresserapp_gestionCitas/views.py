@@ -11,6 +11,6 @@ def servicios(request):
     
     return render(request, "hairdresserapp_gestionCitas/servicios.html")
 
-def contacto(request):
+def citas(request):
     
-    return render(request, "hairdresserapp_gestionCitas/contacto.html")
+    return render(request, "hairdresserapp_gestionCitas/citas.html")
