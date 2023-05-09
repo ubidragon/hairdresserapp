@@ -23,7 +23,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('hairdresserapp.urls')),
     path('gestion', include('hairdresserapp_gestionCitas.urls')),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 """Carga de estaticos
 + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 Para realizar la carga de estaticos de subapps deberemos de especificar esta configuracion
