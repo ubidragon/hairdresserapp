@@ -2,19 +2,20 @@ version: "3.9"
    
 services:
   db:
-    image: postgres:15.2
+    image: mariadb:10.11
     container_name: hairdresserapp_db
     environment:
-      - POSTGRES_NAME=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - MARIADB_ROOT_PASSWORD=h4irdress3rapp
+      - MARIADB_DATABASE=hairdresserapp
+      - MARIADB_USER=hairdresserapp
+      - MARIADB_PASSWORD=postgres
     volumes:
-      - ./postgres/data/db:/var/lib/postgresql/data
+      - ./mariadb/var_lib_mysql/:/var/lib/mysql/:rw
     ports:
-      - "0.0.0.0:5432:5432"
+      - "0.0.0.0:5432:3306"
 
   web:
-    image: hairdresserapp:0.1
+    image: hairdresserapp:0.2
     container_name: hairdresserapp_web
     hostname: hairdresserapp_web
     #command: python manage.py runserver 0.0.0.0:80
@@ -25,10 +26,6 @@ services:
     volumes:
       - ./code/hairdresser/:/code/:rw
       - .vscode-container/:/root/.vscode-server/:rw
-    environment:
-      - POSTGRES_NAME=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
     depends_on:
       - db
 
