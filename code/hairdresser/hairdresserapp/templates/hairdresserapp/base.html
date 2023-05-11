@@ -25,12 +25,12 @@
 					<li class="nav-item">
 					<a class="nav-link" href="{% url 'Contacto' %}">Contacto</a>
 					</li>
-					<li class="nav-item">
+					{% comment %} <li class="nav-item">
 					<a class="nav-link" href="{% url 'Gestion' %}">Area de Clientes</a>
-					</li>
+					</li> {% endcomment %}
 				</ul>
-				<a href="#" role="button" class="btn btn-primary ms-2">Iniciar sesión</a>
-				<a href="#" role="button" class="btn btn-success ms-2">Registro</a>
+				<a href="{% url 'Login' %}" role="button" class="btn btn-primary ms-2">Iniciar sesión</a>
+				<a href="{% url 'SignUp' %}" role="button" class="btn btn-success ms-2">Registro</a>
 			</div>
 		</div>
 		</nav>
