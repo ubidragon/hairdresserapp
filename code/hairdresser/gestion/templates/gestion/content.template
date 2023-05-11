@@ -1,4 +1,4 @@
-{% extends 'hairdresserapp_gestionCitas/base.html' %}	
+{% extends 'gestion/base.html' %}	
 {% load static %}
 {% block content %}
 <div class="jumbotron">
@@ -9,7 +9,7 @@
 	</div>
 </div>
 
-<img src="{% static 'hairdresserapp_gestionCitas/img/logo.png' %}" >
+<img src="{% static 'gestion/img/logo.png' %}" >
 
 <!-- Heading -->
 <section class="page-section clearfix">
