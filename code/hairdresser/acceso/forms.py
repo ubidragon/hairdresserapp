@@ -1,6 +1,5 @@
 from django import forms
 from django.core.validators import RegexValidator
-from phone_field import PhoneField
 
 class inicioSesion(forms.Form):
 
