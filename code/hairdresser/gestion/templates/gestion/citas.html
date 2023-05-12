@@ -1,10 +1,21 @@
 {% extends 'gestion/base.html' %}	
 {% load static %}
 {% block content %}
-<div class="jumbotron">
-	<div class="container">
-		<h1>Citas</h1>
+<div class="container">
+    <div class="header-container">
+		<h1 class="m-0">Gestión de citas</h1>
+	</div>
+	<div class="row justify-content-center">
+		<div class="col-4 center-content">
+			<a href="{% url 'Citas' %}?action=crearCita" role="button" class="btn btn-primary btn-block w-100">Pedir cita</a>
+		</div>
+		<div class="col-4 center-content">
+			<a href="#" role="button" class="btn btn-primary btn-block w-100">Próximas citas</a>
+		</div>
+		<div class="col-4 center-content">
+			<a href="#" role="button" class="btn btn-primary btn-block w-100">Historico de citas</a>
+		</div>
 	</div>
 </div>
-
+{{request.path}}
 {% endblock content %} 
