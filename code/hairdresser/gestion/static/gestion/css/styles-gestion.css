@@ -20,3 +20,11 @@ height: 60px;
   align-items: center;
   height: 65vh;
 }
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 5vh 0;
+} 
