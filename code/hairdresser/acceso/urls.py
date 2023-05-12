@@ -3,8 +3,9 @@ from django.urls import path
 from acceso import views
 
 urlpatterns = [
-    path('/login', views.login, name="Login"),
-    path('/signup', views.signUp, name="SignUp"),
+    path('login', views.login, name="Login"),
+    path('signup', views.signUp, name="SignUp"),
+    path('logout', views.logout, name="LogOut"),
 ]
 
 # handler404 = 'views.pag_404_not_found'
