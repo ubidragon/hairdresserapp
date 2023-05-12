@@ -6,7 +6,9 @@ from django.utils.translation import gettext_lazy as _
 class Roles(models.Model):
 	nombre=models.CharField(max_length=255, blank=False, null=False)
 	activo=models.BooleanField(default=True,null=False)
-
+	created=models.DateTimeField(auto_now_add=True)
+	updated=models.DateTimeField(auto_now_add=True)
+ 
 	class Meta:
 		verbose_name="roles"
 		verbose_name_plural="roles"
@@ -24,7 +26,10 @@ class Usuario(models.Model):
 	)
 
 	fecha_nacimiento=models.DateField( null=True)
+	created=models.DateTimeField(auto_now_add=True)
+	updated=models.DateTimeField(auto_now_add=True)
 	activo=models.BooleanField(default=True,null=False)
+
 
 	class Meta:
 		verbose_name="usuario"
@@ -36,6 +41,7 @@ class Oferta(models.Model):
 	fecha_fin=models.DateField(null=True)
 	descuento=models.FloatField(null=False)
 	activo=models.BooleanField(default=True,null=False)
+	updated=models.DateTimeField(auto_now_add=True)
  
 	class Meta:
 		verbose_name="oferta"
@@ -44,7 +50,8 @@ class Oferta(models.Model):
 
 class Ubicacion(models.Model):
 	nombre=models.CharField(max_length=255, blank=False, null=False)
-
+	updated=models.DateTimeField(auto_now_add=True)
+ 
 	class Meta:
 		verbose_name="ubicacion"
 		verbose_name_plural="ubicaciones"
@@ -63,7 +70,8 @@ class Servicio(models.Model):
 		Oferta
 	)
 	activo=models.BooleanField(default=True,null=False)
-
+	updated=models.DateTimeField(auto_now_add=True)
+ 
 	class Meta:
 		verbose_name="servicio"
 		verbose_name_plural="servicios"
