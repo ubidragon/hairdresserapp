@@ -1,7 +1,7 @@
 {% extends 'gestion/base.html' %}	
 {% load static %}
 {% block content %}
-<div class="container">
+<div class="container mb-5">
 	<div class="header-container">
 		<h1 class="m-0">Gestión de ofertas</h1>
 	</div>
@@ -12,6 +12,32 @@
 		<div class="col-4 center-content">
 			<a href="#" role="button" class="btn btn-primary btn-block w-100">Listado de ofertas</a>
 		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="table-responsive">
+		<table id="tabla" class="table">
+			<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Descuento</th>
+				<th>Fecha Finalizacion</th>
+				<th>Acciones</th>
+			</tr>
+			</thead>
+			<tbody>
+				{% for oferta in ofertas %}
+				<tr class="align-middle">
+					<td>{{oferta.nombre}}</td>
+					<td>{{oferta.descuento}}</td>
+					<td>{{oferta.fecha_fin}}</td>
+					<td>
+						{% include './snippets/botones-acciones.html' with element="oferta" %}
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
 	</div>
 </div>
 {% endblock content %} 

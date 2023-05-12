@@ -1,7 +1,7 @@
 {% extends 'gestion/base.html' %}	
 {% load static %}
 {% block content %}
-<div class="container">
+<div class="container mb-5">
 	<div class="header-container">
 		<h1 class="m-0">Gestión de servicios</h1>
 	</div>
@@ -12,6 +12,38 @@
 		<div class="col-3 center-content">
 			<a href="#" role="button" class="btn btn-primary btn-block w-100">Listado de servicios</a>
 		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="table-responsive">
+		<table id="tabla" class="table">
+			<thead>
+			<tr>
+				<th>Nombre</th>
+				<th><i class="fa-regular fa-clock"></i> Duración</th>
+				<th><i class="fa-solid fa-money-bill-1-wave"></i> Precio</th>
+				<th><i class="fa-solid fa-location-dot"></i> Ubicación</th>
+				<th>Estado</th>
+				<th>Acciones</th>
+			</tr>
+			</thead>
+			<tbody>
+				{% for servicio in servicios %}
+				<tr class="align-middle">
+					<td>{{servicio.nombre}}</td>
+					<td>{{servicio.duracion}} minutos</td>
+					<td>{{servicio.precio}}€</td>
+					<td>{{servicio.ubicacion.nombre}}</td>
+					<td>
+						{% include './snippets/estado.html' with status=servicio.activo %}
+					</td>
+					<td>
+					{% include './snippets/botones-acciones.html' with element="servicio" %}
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
 	</div>
 </div>
 {% endblock content %} 

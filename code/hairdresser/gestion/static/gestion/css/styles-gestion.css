@@ -28,3 +28,21 @@ height: 60px;
   margin-bottom: 20px;
   padding: 5vh 0;
 } 
+/* Ajusta el tamaño de fuente en pantallas pequeñas */
+@media (max-width: 576px) {
+  table.table {
+    font-size: 12px;
+  }
+}
+table {
+  table-layout: fixed; /* Asegura que todas las celdas tengan el mismo tamaño */
+  justify-content: space-between;
+
+} 
+.align-middle {
+  vertical-align: middle !important;
+}
+
+.custom-brand{
+  font-size: 2vw; /* Tamaño de fuente responsive */
+}
