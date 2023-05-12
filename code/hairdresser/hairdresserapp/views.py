@@ -2,6 +2,7 @@ from django.shortcuts import render,  redirect, HttpResponse
 from django.http import HttpResponseRedirect
 from django.core.mail import EmailMessage
 from .forms import FormularioContacto
+from gestion.models import Servicio
 # render_to_response,
 # Create your views here.
 
@@ -11,8 +12,8 @@ def home(request):
     return render(request, "hairdresserapp/home.html")
 
 def servicios(request):
-    
-    return render(request, "hairdresserapp/servicios.html")
+    servicios=Servicio.objects.all().order_by()
+    return render(request, "hairdresserapp/servicios.html", {"servicios":servicios})
 
 def contacto(request):
     formulario_Contacto=FormularioContacto()

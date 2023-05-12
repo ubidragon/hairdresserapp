@@ -6,4 +6,38 @@
 		<h1>Servicios</h1>
 	</div>
 </div>
+<div class="container">
+	<div class="table-responsive">
+		<table id="tabla" class="table">
+			<thead>
+			<tr>
+				<th>Nombre</th>
+				<th><i class="fa-regular fa-newspaper"></i> Descripcion</th>
+				<th><i class="fa-regular fa-clock"></i> Duración</th>
+				<th><i class="fa-solid fa-money-bill-1-wave"></i> Precio</th>
+				<th><i class="fa-solid fa-location-dot"></i> Ubicación</th>
+			</tr>
+			</thead>
+			<tbody>
+				{% for servicio in servicios %}
+					{% if servicio.activo %}
+						<tr class="align-middle">
+							<td>{{servicio.nombre}}</td>
+							<td>
+								{% if not servicio.descripcion %}
+									Consulte con su peluquer@ sobre este servicio
+								{% else %}
+									{{servicio.descripcion}}
+								{% endif %}
+							</td>
+							<td>{{servicio.duracion}} minutos</td>
+							<td>{{servicio.precio}}€</td>
+							<td>{{servicio.ubicacion.nombre}}</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
 {% endblock content %} 
