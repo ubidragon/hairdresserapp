@@ -5,6 +5,8 @@ html {
 
 body {
 margin-bottom: 60px;
+background-image: url("../img/background.jpg");
+background-size: cover;
 }
 
 .footer {
