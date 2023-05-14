@@ -7,13 +7,16 @@
 	</div>
 	<div class="row justify-content-center">
 		<div class="col-3 center-content">
-			<a href="#" role="button" class="btn btn-primary btn-block w-100">Crear servicio</a>
-		</div>
-		<div class="col-3 center-content">
-			<a href="#" role="button" class="btn btn-primary btn-block w-100">Listado de servicios</a>
+			<a href="{% url 'ServiciosCrear' %}" role="button" class="btn btn-primary btn-block w-100">Crear servicio</a>
 		</div>
 	</div>
 </div>
+{% comment %} {% if  not request.GET.get(action) && request.GET.get(action) == "crearServicio" %} {% endcomment %}
+{% comment %} {% if  not request.GET%} {% endcomment %}
+	{% comment %} {% include 'creacion.html' with data=servicio %} {% endcomment %}
+{% comment %} {% elif %} {% endcomment %}
+
+{% comment %} {% else %} {% endcomment %}
 <div class="container">
 	<div class="table-responsive">
 		<table id="tabla" class="table">
@@ -38,12 +41,13 @@
 						{% include './snippets/estado.html' with status=servicio.activo %}
 					</td>
 					<td>
-					{% include './snippets/botones-acciones.html' with element="servicio" %}
+						{% include './snippets/botones-acciones.html' with element="servicio" id=servicio.id %}
 					</td>
 				</tr>
 				{% endfor %}
 			</tbody>
 		</table>
 	</div>
-</div>
+{% comment %} </div>
+{% endif %} {% endcomment %}
 {% endblock content %} 
