@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from django.http import HttpResponse,  HttpRequest
 from django.views.generic import FormView
 from .models import *
-from .forms import crearServicioForm
+from .forms import *
 # Create your views here.
 
 
@@ -35,7 +36,7 @@ def obtener_objeto_por_id(Modelo, id):
 		except Modelo.DoesNotExist:
 				return None
 
-def crear(request):
+def accionesServicio(request):
 		referer = request.POST.get('referer')
 		if referer is not None:
 			if "servicios/crear" in referer :
@@ -44,33 +45,48 @@ def crear(request):
 					ubicacion_nombre = nuevoServicio.cleaned_data['ubicacion']
 					ubicacionObject = Ubicacion.objects.get(nombre=ubicacion_nombre)
 			
-					servicioObject = Servicio(nombre = nuevoServicio.cleaned_data['servicio'], precio = nuevoServicio.cleaned_data['precio'], duracion = nuevoServicio.cleaned_data['duracion'], ubicacion = ubicacionObject, descripcion = nuevoServicio.cleaned_data['descripcion'])
+					servicioObject = Servicio(nombre = nuevoServicio.cleaned_data['nombre'], precio = nuevoServicio.cleaned_data['precio'], duracion = nuevoServicio.cleaned_data['duracion'], ubicacion = ubicacionObject, descripcion = nuevoServicio.cleaned_data['descripcion'], activo = nuevoServicio.cleaned_data['activo'])
 			
 					if nuevoServicio.cleaned_data['oferta'] is not None:
-						oferta_nombre = nuevoServicio.cleaned_data['oferta']
-						servicioObject.oferta = Oferta.objects.get(nombre=oferta_nombre)
+						oferta_id = nuevoServicio.cleaned_data['oferta'].id
+						servicioObject.oferta = Oferta.objects.get(id=oferta_id)
 
 					servicioObject.save()
 			return redirect("Servicios")
  
-		# elemento = get_object_or_404(Servicio, pk=pk)
 		if len(request.GET) > 0:
-			elementoDb = obtener_objeto_por_id(Servicio, request.GET.get('id'))
-			
-			# elemento.initial["ubicacion"] = elementoDb.ubicacion.id
-			initial_data = {'ubicacion':  elementoDb.ubicacion.nombre,
-                   'oferta':  elementoDb.servicio_oferta_set.first().oferta_id
+      
+			ofertaData=""
+			ubicacionData=""      
+			servicioDb = obtener_objeto_por_id(Servicio, request.GET.get('id'))
+   
+			if servicioDb.oferta.first() is not None:
+				ofertaDb= obtener_objeto_por_id(Oferta, servicioDb.oferta.first().id)
+				ofertaData=ofertaDb.nombre
+      
+			if  servicioDb.ubicacion.nombre is not None:
+				ubicacionData= servicioDb.ubicacion.nombre
+   
+   
+			initial_data = {'ubicacion': ubicacionData,
+                   'oferta': ofertaData,
+                   'activo': servicioDb.activo
                    }
-			elemento = crearServicioForm(instance=elementoDb,initial=initial_data)
+			elemento = modificarServicioForm(instance=servicioDb,initial=initial_data)
 
-			# elemento.get_initial(elementoDb.ubicacion.nombre)
-			# elemento(initial={'ubicacion':  elementoDb.ubicacion.nombre})
-	 		# elemento.initial.set
-			return render(request, "gestion/snippets/creacion.html", {"data":[elemento]})
+			return render(request, "gestion/snippets/creacion.html", {
+       			"accion":"modificar",
+				"data":[elemento],
+				"url_destino": reverse('ServiciosModificar'),
+				"url_listado": reverse('Servicios'),
+				"tipo" : "servicio"
+    		})
 	 
 	
-		return render(request, "gestion/snippets/creacion.html", {"data":crearServicioForm})
-
-# def crearServicio(request):
-#     servicios=Servicio.objects.all()
-#     return redirect("Crear")
+		return render(request, "gestion/snippets/creacion.html", {
+      		"accion":"crear",
+        	"data":crearServicioForm,
+         	"url_destino": reverse('ServiciosCrear'),
+			"url_listado": reverse('Servicios'),
+			"tipo" : "servicio"
+          	})

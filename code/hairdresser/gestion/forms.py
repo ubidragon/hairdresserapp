@@ -24,28 +24,81 @@ class crearServicioForm(forms.ModelForm):
 	duracion = PositiveIntegerField(label="Duración", 
 		widget=forms.NumberInput(attrs={"placeholder" : "Duración","class": "form-control", "step": "1", "min" : "1", "suffix": "minutos"}), 
 		required=True)
-	ubicacion = forms.ModelChoiceField(queryset=Ubicacion.objects.values_list("nombre", flat=True),
+	ubicacion = forms.ModelChoiceField(queryset=Ubicacion.objects.all(),
         empty_label="",
-        initial="",
         required=False)
-	oferta = forms.ModelChoiceField(queryset=Oferta.objects.values_list("nombre", flat=True),
+	oferta = forms.ModelChoiceField(queryset=Oferta.objects.all(),
         empty_label="",
         required=False)
 	descripcion = forms.CharField(label="Descripcion",
         widget=forms.Textarea(attrs={"class": "form-control"}),
         required=False)
+	activo = forms.BooleanField(label="Activo",
+        widget=forms.CheckboxInput(attrs={"class":"form-check-input"}),
+        required=False)
  
-	fields = ['nombre', 'precio', 'duracion', 'ubicacion', 'oferta', 'descripcion']
+	fields = ['nombre', 'precio', 'duracion', 'ubicacion', 'oferta', 'descripcion', 'activo']
 
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
-		ubicaciones = Ubicacion.objects.values_list("nombre", flat=True)
-		choices = [(nombre, nombre) for nombre in ubicaciones]
+		# ubicaciones = Ubicacion.objects.values_list("nombre", flat=True)
+		# choices = [(nombre, nombre) for nombre in ubicaciones]
 		self.fields['ubicacion'].widget.attrs['class'] = 'form-control'
 		self.fields['ubicacion'].widget.attrs['placeholder'] = 'Ubicacion'
 		self.fields['oferta'].widget.attrs['class'] = 'form-control'
 		self.fields['oferta'].widget.attrs['placeholder'] = 'Oferta'
+	
+	# def get_initial(self, value):
+	# 	initial = super().get_initial()
+	# 	initial["ubicacion"] = value  # Establece el ID de la ubicación deseada
+	# 	return initial
+ 
+ 
+	class Meta:
+		model = Servicio
+		fields = '__all__'
 
+
+class modificarServicioForm(forms.ModelForm):
+
+	nombre = forms.CharField(label="Nombre", 
+		widget=forms.TextInput(attrs={"placeholder" : "Servicio", "class": "form-control"}),
+		required=True)
+	precio = forms.FloatField(label="Precio", 
+		widget=forms.NumberInput(attrs={"placeholder" : "Precio","class": "form-control", "min" : "1", "suffix": "€"}), 
+		required=True)
+	duracion = PositiveIntegerField(label="Duración", 
+		widget=forms.NumberInput(attrs={"placeholder" : "Duración","class": "form-control", "step": "1", "min" : "1", "suffix": "minutos"}), 
+		required=True)
+	ubicacion = forms.ModelChoiceField(queryset=Ubicacion.objects.values_list('nombre', flat=True),
+        empty_label="",
+        required=False)
+	oferta = forms.ModelChoiceField(queryset=Oferta.objects.all(),
+        empty_label="",
+        required=False)
+	descripcion = forms.CharField(label="Descripcion",
+        widget=forms.Textarea(attrs={"class": "form-control"}),
+        required=False)
+	activo = forms.BooleanField(label="Activo",
+        widget=forms.CheckboxInput(attrs={"class":"form-check-input"}),
+        required=False)
+ 
+	fields = ['nombre', 'precio', 'duracion', 'ubicacion', 'oferta', 'descripcion', 'activo']
+
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		# ubicaciones = Ubicacion.objects.values_list("nombre", flat=True)
+		# choices = [(nombre, nombre) for nombre in ubicaciones]
+		self.fields['ubicacion'].widget.attrs['class'] = 'form-control'
+		self.fields['ubicacion'].widget.attrs['placeholder'] = 'Ubicacion'
+		self.fields['oferta'].widget.attrs['class'] = 'form-control'
+		self.fields['oferta'].widget.attrs['placeholder'] = 'Oferta'
+	
+	# def get_initial(self, value):
+	# 	initial = super().get_initial()
+	# 	initial["ubicacion"] = value  # Establece el ID de la ubicación deseada
+	# 	return initial
+ 
  
 	class Meta:
 		model = Servicio

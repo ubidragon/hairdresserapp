@@ -43,6 +43,9 @@ class Oferta(models.Model):
 	activo=models.BooleanField(default=True,null=False)
 	updated=models.DateTimeField(auto_now_add=True)
  
+	def __str__(self):
+		return self.nombre
+ 
 	class Meta:
 		verbose_name="oferta"
 		verbose_name_plural="ofertas"
@@ -51,6 +54,9 @@ class Oferta(models.Model):
 class Ubicacion(models.Model):
 	nombre=models.CharField(max_length=255, blank=False, null=False)
 	updated=models.DateTimeField(auto_now_add=True)
+ 
+	def __str__(self):
+		return self.nombre
  
 	class Meta:
 		verbose_name="ubicacion"
