@@ -7,10 +7,7 @@
 	</div>
 	<div class="row justify-content-center">
 		<div class="col-4 center-content">
-			<a href="#" role="button" class="btn btn-primary btn-block w-100">Crear oferta</a>
-		</div>
-		<div class="col-4 center-content">
-			<a href="#" role="button" class="btn btn-primary btn-block w-100">Listado de ofertas</a>
+			<a href="{% url 'OfertasCrear' %}" role="button" class="btn btn-primary btn-block w-100">Crear oferta</a>
 		</div>
 	</div>
 </div>
@@ -32,7 +29,7 @@
 					<td>{{oferta.descuento}}</td>
 					<td>{{oferta.fecha_fin}}</td>
 					<td>
-						{% include './snippets/botones-acciones.html' with element="oferta" id=oferta.id%}
+						{% include './snippets/botones-acciones.html' with element="oferta" url_modificar=url_modificar id=oferta.id%}
 					</td>
 				</tr>
 				{% endfor %}

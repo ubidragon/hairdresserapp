@@ -26,7 +26,7 @@ def citas(request):
 
 def ofertas(request):
 	ofertas=Oferta.objects.all()
-	return render(request, "gestion/ofertas.html", {"ofertas":ofertas})
+	return render(request, "gestion/ofertas.html", {"ofertas":ofertas, "url_modificar": reverse('OfertasModificar')})
 
 def usuarios(request):
 	usuarios=Usuario.objects.all() 
@@ -38,6 +38,16 @@ def obtener_objeto_por_id(Modelo, id):
 				return objeto
 		except Modelo.DoesNotExist:
 				return None
+
+def accionesOferta(request):
+	return render(request, "gestion/snippets/creacion.html", {
+		"accion":"crear",
+		"data":crearOfertaForm,
+		"url_destino": reverse('OfertasCrear'),
+		"url_listado": reverse('Ofertas'),
+		"tipo" : "oferta"
+		})
+
 
 def accionesServicio(request):
 		referer = request.POST.get('referer')
@@ -87,9 +97,9 @@ def accionesServicio(request):
 	 
 	
 		return render(request, "gestion/snippets/creacion.html", {
-      		"accion":"crear",
-        	"data":crearServicioForm,
-         	"url_destino": reverse('ServiciosCrear'),
+			"accion":"crear",
+			"data":crearServicioForm,
+			"url_destino": reverse('ServiciosCrear'),
 			"url_listado": reverse('Servicios'),
 			"tipo" : "servicio"
-          	})
+			})

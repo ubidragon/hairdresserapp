@@ -88,3 +88,30 @@ class modificarServicioForm(forms.ModelForm):
 	class Meta:
 		model = Servicio
 		fields = '__all__'
+
+
+
+
+class crearOfertaForm(forms.ModelForm):
+
+	nombre = forms.CharField(label="Oferta", 
+		widget=forms.TextInput(attrs={"placeholder" : "Oferta", "class": "form-control"}),
+		required=True)
+	descuento = forms.FloatField(label="Descuento", 
+		widget=forms.NumberInput(attrs={"placeholder" : "Descuento","class": "form-control", "min" : "0", "suffix": "€"}), 
+		required=True)
+	fecha_fin = forms.DateField(
+		label="Fecha Fin",
+		input_formats='%d-%m-%Y',
+		widget=forms.DateInput(attrs={"placeholder" : "dd/mm/YYYY", "class": "form-control datepicker"}),
+		required=True)
+
+	activo = forms.BooleanField(label="Activo",
+        widget=forms.CheckboxInput(attrs={"class":"form-check-input"}),
+        required=False)
+ 
+	fields = ['nombre', 'descuento', 'fecha_fin''activo']
+
+	class Meta:
+		model = Oferta
+		fields = '__all__'
