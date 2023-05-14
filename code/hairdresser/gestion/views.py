@@ -13,7 +13,10 @@ def home(request):
 
 def servicios(request):
 	servicios=Servicio.objects.all()
-	return render(request, "gestion/servicios.html", {"servicios":servicios})
+	return render(request, "gestion/servicios.html", {
+     	"servicios":servicios,
+      	"url_modificar": reverse('ServiciosModificar')
+    	})
 
 def citas(request):
 	citas=Cita.objects.all()

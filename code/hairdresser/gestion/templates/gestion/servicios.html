@@ -41,7 +41,7 @@
 						{% include './snippets/estado.html' with status=servicio.activo %}
 					</td>
 					<td>
-						{% include './snippets/botones-acciones.html' with element="servicio" id=servicio.id %}
+						{% include './snippets/botones-acciones.html' with element="servicio" url_modificar=url_modificar id=servicio.id %}
 					</td>
 				</tr>
 				{% endfor %}

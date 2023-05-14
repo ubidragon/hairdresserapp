@@ -32,7 +32,7 @@
 					<td>{{oferta.descuento}}</td>
 					<td>{{oferta.fecha_fin}}</td>
 					<td>
-						{% include './snippets/botones-acciones.html' with element="oferta" %}
+						{% include './snippets/botones-acciones.html' with element="oferta" id=oferta.id%}
 					</td>
 				</tr>
 				{% endfor %}

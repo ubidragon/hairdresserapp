@@ -34,7 +34,7 @@
 						{% include './snippets/estado.html' with status=usuario.activo %}
 					</td>
 					<td>
-						{% include './snippets/botones-acciones.html' with element="usuario" %}
+						{% include './snippets/botones-acciones.html' with element="usuario"  id=usuario.id%}
 					</td>
 				</tr>
 				{% endfor %}

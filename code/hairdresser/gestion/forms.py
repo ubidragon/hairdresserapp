@@ -41,23 +41,14 @@ class crearServicioForm(forms.ModelForm):
 
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
-		# ubicaciones = Ubicacion.objects.values_list("nombre", flat=True)
-		# choices = [(nombre, nombre) for nombre in ubicaciones]
 		self.fields['ubicacion'].widget.attrs['class'] = 'form-control'
 		self.fields['ubicacion'].widget.attrs['placeholder'] = 'Ubicacion'
 		self.fields['oferta'].widget.attrs['class'] = 'form-control'
 		self.fields['oferta'].widget.attrs['placeholder'] = 'Oferta'
-	
-	# def get_initial(self, value):
-	# 	initial = super().get_initial()
-	# 	initial["ubicacion"] = value  # Establece el ID de la ubicación deseada
-	# 	return initial
- 
- 
+
 	class Meta:
 		model = Servicio
 		fields = '__all__'
-
 
 class modificarServicioForm(forms.ModelForm):
 
@@ -73,7 +64,7 @@ class modificarServicioForm(forms.ModelForm):
 	ubicacion = forms.ModelChoiceField(queryset=Ubicacion.objects.values_list('nombre', flat=True),
         empty_label="",
         required=False)
-	oferta = forms.ModelChoiceField(queryset=Oferta.objects.all(),
+	oferta = forms.ModelChoiceField(queryset=Oferta.objects.values_list('nombre', flat=True),
         empty_label="",
         required=False)
 	descripcion = forms.CharField(label="Descripcion",
@@ -93,12 +84,6 @@ class modificarServicioForm(forms.ModelForm):
 		self.fields['ubicacion'].widget.attrs['placeholder'] = 'Ubicacion'
 		self.fields['oferta'].widget.attrs['class'] = 'form-control'
 		self.fields['oferta'].widget.attrs['placeholder'] = 'Oferta'
-	
-	# def get_initial(self, value):
-	# 	initial = super().get_initial()
-	# 	initial["ubicacion"] = value  # Establece el ID de la ubicación deseada
-	# 	return initial
- 
  
 	class Meta:
 		model = Servicio

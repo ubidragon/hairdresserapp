@@ -43,7 +43,7 @@
 					<td>{{cita.servicio.nombre}}</td>
 					<td>{{cita.cliente.nombre}} {{cita.cliente.apellidos}}</td>
 					<td>
-						{% include './snippets/botones-acciones.html' with element="cita" %}
+						{% include './snippets/botones-acciones.html' with element="cita" id=cita.id%}
 					</td>
 				</tr>
 				{% endfor %}
