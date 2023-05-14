@@ -4,7 +4,7 @@ from hairdresserapp import views
 
 urlpatterns = [
     path('', views.home, name="Inicio"),
-    path('servicios', views.servicios, name="Servicios"),
+    path('servicios', views.servicios, name="ServiciosWeb"),
     path('contacto', views.contacto, name="Contacto"),
 ]
 
