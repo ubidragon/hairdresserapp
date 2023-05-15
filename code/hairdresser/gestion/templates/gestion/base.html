@@ -17,10 +17,11 @@
 							<a class="nav-link" href="{% url 'Gestion' %}">Area de Usuario</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="{% url 'Servicios' %}">Servicios</a>
-						</li>
-						<li class="nav-item">
 							<a class="nav-link" href="{% url 'Citas' %}">Citas</a>
+						</li>
+						{% if rol == "administrador"%}
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'Servicios' %}">Servicios</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="{% url 'Ofertas' %}">Ofertas</a>
@@ -28,6 +29,7 @@
 						<li class="nav-item">
 							<a class="nav-link" href="{% url 'Usuarios' %}">Usuarios</a>
 						</li>
+						{% endif %}
 					</ul>
 					<a href="{% url 'LogOut' %}" role="button" class="btn btn-danger ms-2"><i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar sesión</a>
 				</div>
