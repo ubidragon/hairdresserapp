@@ -1,4 +1,4 @@
 #!/bin/bash
 
-docker image rm -f hairdresserapp:0.2
-docker build --no-cache -t hairdresserapp:0.2 .
+docker image rm -f hairdresserapp:1.0
+docker build --no-cache -t hairdresserapp:1.0 .
