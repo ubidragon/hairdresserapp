@@ -7,7 +7,7 @@
 	</div>
 	<div class="row justify-content-center">
 		<div class="col-4">
-			<a href="{% url 'Citas' %}?action=crearCita" role="button" class="btn btn-primary btn-block w-100">Pedir cita</a>
+			<a href="{% url 'CitasCrear' %}?action=crearCita" role="button" class="btn btn-primary btn-block w-100">Pedir cita</a>
 		</div>
 		<div class="col-4">
 			<a href="#" role="button" class="btn btn-primary btn-block w-100">Próximas citas</a>
@@ -43,7 +43,7 @@
 					<td>{{cita.servicio.nombre}}</td>
 					<td>{{cita.cliente.nombre}} {{cita.cliente.apellidos}}</td>
 					<td>
-						{% include './snippets/botones-acciones.html' with element="cita" id=cita.id%}
+						{% include './snippets/botones-acciones.html' with element="cita" url_modificar=url_modificar id=cita.id%}
 					</td>
 				</tr>
 				{% endfor %}

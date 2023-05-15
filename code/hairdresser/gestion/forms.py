@@ -1,4 +1,5 @@
 from django import forms
+from django.db.models import Q
 from .models import *
 from django.core.validators import RegexValidator
 
@@ -89,9 +90,6 @@ class modificarServicioForm(forms.ModelForm):
 		model = Servicio
 		fields = '__all__'
 
-
-
-
 class crearOfertaForm(forms.ModelForm):
 
 	nombre = forms.CharField(label="Oferta", 
@@ -105,7 +103,6 @@ class crearOfertaForm(forms.ModelForm):
 		input_formats='%d-%m-%Y',
 		widget=forms.DateInput(attrs={"placeholder" : "dd/mm/YYYY", "class": "form-control datepicker"}),
 		required=True)
-
 	activo = forms.BooleanField(label="Activo",
         widget=forms.CheckboxInput(attrs={"class":"form-check-input"}),
         required=False)
@@ -114,4 +111,63 @@ class crearOfertaForm(forms.ModelForm):
 
 	class Meta:
 		model = Oferta
+		fields = '__all__'
+
+class crearCitaForm(forms.ModelForm):
+
+	servicio = forms.ModelChoiceField(queryset=Servicio.objects.filter(Q(activo='1')),
+        empty_label="",
+        required=False)
+	cliente = forms.ModelChoiceField(queryset=Usuario.objects.filter(Q(role_id='3') & Q(activo='1')),
+        empty_label="",
+        required=False)	
+	fecha_cita = forms.DateField(
+		label="Fecha cita",
+		input_formats='%d-%m-%Y',
+		widget=forms.DateInput(attrs={"placeholder" : "dd/mm/YYYY", "class": "form-control datepicker"}),
+		required=True)
+ 
+	class Meta:
+		model = Cita
+		fields = '__all__'
+   
+class crearUsuarioForm(forms.ModelForm):
+
+	nombre = forms.CharField(label="Nombre", 
+		widget=forms.TextInput(attrs={"placeholder" : "Nombre", "class": "form-control"}),
+		required=True)
+	apellidos = forms.CharField(label="Apellidos", 
+		widget=forms.TextInput(attrs={"placeholder" : "Apellidos", "class": "form-control"}),
+		required=True)
+	fecha_nacimiento = forms.DateField(
+		label="Fecha nacimiento",
+		input_formats='%d-%m-%Y',
+		widget=forms.DateInput(attrs={"placeholder" : "dd/mm/YYYY", "class": "form-control datepicker"}),
+		required=True)
+	passwd = forms.CharField(label="Contraseña", 
+		widget=forms.PasswordInput(attrs={"placeholder" : "Contraseña","class": "form-control"}), 
+		min_length=8, 
+		required=True)
+	role = forms.ModelChoiceField(label="Rol", queryset=Roles.objects.all(),
+        empty_label="",
+        required=True)
+	phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', 
+		message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.") 
+	movil = PhoneNumberField()
+	email = forms.EmailField(label="Email", 
+		widget=forms.TextInput(attrs={"placeholder" : "Email","class": "form-control"}), 
+		required=True)
+ 
+	fields = ['nombre', 'apellidos', 'passwd', 'email', 'movil', 'role', 'activo']
+ 
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		self.fields['movil'].widget.attrs['class'] = 'form-control'
+		self.fields['movil'].widget.attrs['placeholder'] = 'Movil'
+		self.fields['role'].widget.attrs['class'] = 'form-control'
+		self.fields['role'].widget.attrs['placeholder'] = 'Rol'
+ 
+ 
+	class Meta:
+		model = Usuario
 		fields = '__all__'

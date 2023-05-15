@@ -1,5 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.utils.translation import gettext_lazy as _
+from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
 
@@ -9,27 +11,51 @@ class Roles(models.Model):
 	created=models.DateTimeField(auto_now_add=True)
 	updated=models.DateTimeField(auto_now_add=True)
  
+	def __str__(self):
+		return self.nombre
+
 	class Meta:
 		verbose_name="roles"
 		verbose_name_plural="roles"
 		db_table = "rol"
 
+class UsuarioManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError("El email es obligatorio")
+        
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save()
+        return user
 
-class Usuario(models.Model):
+
+class Usuario(AbstractBaseUser):
 	nombre=models.CharField(max_length=100, blank=False, null=False)
 	apellidos=models.CharField(max_length=255, blank=False, null=False)
-	passwd=models.CharField(max_length=500,)
+	password=models.CharField(max_length=500,)
 	email=models.EmailField( null=False, unique=True)
 	role = models.ForeignKey(
 		Roles,
 		on_delete=models.PROTECT,
 	)
-
+	movil= PhoneNumberField(null=True, blank=False, unique=False)
 	fecha_nacimiento=models.DateField( null=True)
 	created=models.DateTimeField(auto_now_add=True)
 	updated=models.DateTimeField(auto_now_add=True)
 	activo=models.BooleanField(default=True,null=False)
 
+	
+	USERNAME_FIELD = 'email'
+	REQUIRED_FIELDS = []
+
+	objects = UsuarioManager()
+
+	def getNombreApellidos(self):
+		return self.nombre + " " + self.apellidos
+	def __str__(self):
+		return self.email
 
 	class Meta:
 		verbose_name="usuario"
@@ -77,7 +103,10 @@ class Servicio(models.Model):
 	)
 	activo=models.BooleanField(default=True,null=False)
 	updated=models.DateTimeField(auto_now_add=True)
- 
+
+	def __str__(self):
+		return self.nombre
+
 	class Meta:
 		verbose_name="servicio"
 		verbose_name_plural="servicios"

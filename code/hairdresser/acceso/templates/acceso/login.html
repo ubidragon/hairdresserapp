@@ -5,11 +5,10 @@
 	<div class="row justify-content-center mt-5">
 		<div class="col-md-4">
 			<h2 class="text-center">Iniciar sesión</h2>
-			<form>
 			{% comment %} 
 			Carga dinamica de elementos de un form.
 			{% endcomment %}
-			<form action="#" method="POST">
+			<form action="{% url 'Login' %}" method="POST">
 				{% csrf_token %}
 				{% for campo in formularioInicio %}
 					<div class="mb-3">

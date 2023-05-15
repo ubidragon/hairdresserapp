@@ -7,7 +7,7 @@
 	</div>
 	<div class="row justify-content-center">
 		<div class="col-4 center-content">
-			<a href="#" role="button" class="btn btn-primary btn-block w-100">Crear usuario</a>
+			<a href="{% url 'UsuariosCrear' %}" role="button" class="btn btn-primary btn-block w-100">Crear usuario</a>
 		</div>
 		<div class="col-4 center-content">
 			<a href="#" role="button" class="btn btn-primary btn-block w-100">Listado de usuarios</a>
@@ -34,7 +34,7 @@
 						{% include './snippets/estado.html' with status=usuario.activo %}
 					</td>
 					<td>
-						{% include './snippets/botones-acciones.html' with element="usuario"  id=usuario.id%}
+						{% include './snippets/botones-acciones.html' with element="usuario" url_modificar=url_modificar id=usuario.id%}
 					</td>
 				</tr>
 				{% endfor %}

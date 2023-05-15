@@ -30,12 +30,12 @@ class registro(forms.Form):
  
 	nacimiento = forms.DateField(
 		label="Fecha de Nacimiento",
-		input_formats='%d-%m-%Y',
-		widget=forms.DateInput(attrs={"placeholder" : "dd/mm/YYYY", "class": "form-control datepicker"}),
+		input_formats=['%Y-%m-%d'],
+		widget=forms.DateInput(attrs={"placeholder" : "dd-mm-YYYY", "class": "form-control datepicker"}),
 		required=True)
  
-	phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', 
-		message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+	phone_regex = RegexValidator(regex=r'^\d{9,15}$', 
+		message="El telefono deber de ser con el siguiente formato: '666555444'")
 	movil = forms.CharField(validators=[phone_regex], 
 		widget=forms.TextInput(attrs={"placeholder" : "Telefono movil","class": "form-control"}), 
 		max_length=17)
