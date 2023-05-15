@@ -1,6 +1,7 @@
 Django==4.2
 mysqlclient==2.1.1
 django-phonenumber-field==7.1.0
+phonenumbers==8.13.11
 #mariadb==1.1.6
 # requests
 # imageio
