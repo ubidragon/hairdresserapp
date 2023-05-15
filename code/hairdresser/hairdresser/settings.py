@@ -138,5 +138,5 @@ APPEND_SLASH = True
 
 AUTH_USER_MODEL = "gestion.Usuario"
 
-LOGIN_URL = '/accounts/login/'
+LOGIN_URL = '/acceso/login/'
 LOGIN_REDIRECT_URL = '/'
