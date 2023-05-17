@@ -53,6 +53,7 @@ class crearServicioForm(forms.ModelForm):
 
 class modificarServicioForm(forms.ModelForm):
 
+	id= forms.CharField(widget=forms.HiddenInput)
 	nombre = forms.CharField(label="Nombre", 
 		widget=forms.TextInput(attrs={"placeholder" : "Servicio", "class": "form-control"}),
 		required=True)
@@ -75,12 +76,13 @@ class modificarServicioForm(forms.ModelForm):
         widget=forms.CheckboxInput(attrs={"class":"form-check-input"}),
         required=False)
  
-	fields = ['nombre', 'precio', 'duracion', 'ubicacion', 'oferta', 'descripcion', 'activo']
+	fields = ['id', 'nombre', 'precio', 'duracion', 'ubicacion', 'oferta', 'descripcion', 'activo']
 
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		# ubicaciones = Ubicacion.objects.values_list("nombre", flat=True)
 		# choices = [(nombre, nombre) for nombre in ubicaciones]
+		self.fields['id'].label = ''
 		self.fields['ubicacion'].widget.attrs['class'] = 'form-control'
 		self.fields['ubicacion'].widget.attrs['placeholder'] = 'Ubicacion'
 		self.fields['oferta'].widget.attrs['class'] = 'form-control'
@@ -102,16 +104,13 @@ class crearOfertaForm(forms.ModelForm):
 		label="Fecha Fin",
 		input_formats='%d-%m-%Y',
 		widget=forms.DateInput(attrs={"placeholder" : "dd/mm/YYYY", "class": "form-control datepicker"}),
-		required=True)
+		required=False)
 	activo = forms.BooleanField(label="Activo",
         widget=forms.CheckboxInput(attrs={"class":"form-check-input"}),
         required=False)
  
 	fields = ['nombre', 'descuento', 'fecha_fin''activo']
 
-	class Meta:
-		model = Oferta
-		fields = '__all__'
 
 class crearCitaForm(forms.ModelForm):
 
@@ -129,6 +128,20 @@ class crearCitaForm(forms.ModelForm):
  
 	class Meta:
 		model = Cita
+		fields = '__all__'
+
+class modificarOfertaForm(crearOfertaForm):
+    
+	id= forms.CharField(widget=forms.HiddenInput)
+    
+	fields = ['id','nombre', 'descuento', 'fecha_fin''activo']
+
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		self.fields['id'].label = ''
+  
+	class Meta:
+		model = Oferta
 		fields = '__all__'
    
 class crearUsuarioForm(forms.ModelForm):

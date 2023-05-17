@@ -14,17 +14,20 @@ def inicio(request):
             formPasswd=formularioLogin.cleaned_data.get("passwd")
             usuario=Usuario.objects.filter(email=formEmail).first()
             if usuario is not None :
-                usuarioPasswd=usuario.password
-                if usuarioPasswd == formPasswd:                                
-                    login(request, usuario)
-                    if "login" in request.path:
-                        return redirect('Gestion')
+                if usuario.activo == True:
+                    usuarioPasswd=usuario.password
+                    if usuarioPasswd == formPasswd:                                
+                        login(request, usuario)
+                        if "login" in request.path:
+                            return redirect('Gestion')
+                        else:
+                            return redirect(request.GET.get('next', '/'))
                     else:
-                        return redirect(request.GET.get('next', '/'))
+                        messages.error(request, formularioLogin.add_error("passwd","Usuario/Contraseña no correcta"))
                 else:
-                    messages.error(request, formularioLogin.add_error("passwd","Usuario/Contraseña no correcta"))
+                    messages.error(request, formularioLogin.add_error("passwd","Usuario inactivado. Contacte con el administrador del sitio"))
             else:
-                 messages.error(request, formularioLogin.add_error("passwd","Usuario/Contraseña no correcta"))
+                messages.error(request, formularioLogin.add_error("passwd","Usuario/Contraseña no correcta"))
     else:    
         return render(request, "acceso/login.html", {'formularioInicio':formularioLogin})
 

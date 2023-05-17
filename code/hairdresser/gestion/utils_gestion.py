@@ -9,7 +9,13 @@ def obtener_objeto_por_id(Modelo, id):
 				return None
 
 def is_admin(user):
-    return user.is_authenticated and user.role.nombre == "administrador"
+	return user.role.nombre == "administrador"
 
 def is_empleado(user):
-    return user.is_authenticated and user.role.nombre == "empleado"
+    return user.role.nombre == "empleado"
+
+def is_cliente(user):
+    return user.role.nombre == "empleado"
+
+def is_Active(user):
+    return user.is_authenticated and user.activo == True

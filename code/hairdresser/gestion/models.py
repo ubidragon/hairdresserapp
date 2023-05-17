@@ -9,7 +9,7 @@ class Roles(models.Model):
 	nombre=models.CharField(max_length=255, blank=False, null=False)
 	activo=models.BooleanField(default=True,null=False)
 	created=models.DateTimeField(auto_now_add=True)
-	updated=models.DateTimeField(auto_now_add=True)
+	updated=models.DateTimeField(auto_now=True)
  
 	def __str__(self):
 		return self.nombre
@@ -43,7 +43,7 @@ class Usuario(AbstractBaseUser):
 	movil= PhoneNumberField(null=True, blank=False, unique=False)
 	fecha_nacimiento=models.DateField( null=True)
 	created=models.DateTimeField(auto_now_add=True)
-	updated=models.DateTimeField(auto_now_add=True)
+	updated=models.DateTimeField(auto_now=True)
 	activo=models.BooleanField(default=True,null=False)
 
 	
@@ -67,7 +67,7 @@ class Oferta(models.Model):
 	fecha_fin=models.DateField(null=True)
 	descuento=models.FloatField(null=False)
 	activo=models.BooleanField(default=True,null=False)
-	updated=models.DateTimeField(auto_now_add=True)
+	updated=models.DateTimeField(auto_now=True)
  
 	def __str__(self):
 		return self.nombre
@@ -79,7 +79,7 @@ class Oferta(models.Model):
 
 class Ubicacion(models.Model):
 	nombre=models.CharField(max_length=255, blank=False, null=False)
-	updated=models.DateTimeField(auto_now_add=True)
+	updated=models.DateTimeField(auto_now=True)
  
 	def __str__(self):
 		return self.nombre
@@ -102,7 +102,7 @@ class Servicio(models.Model):
 		Oferta
 	)
 	activo=models.BooleanField(default=True,null=False)
-	updated=models.DateTimeField(auto_now_add=True)
+	updated=models.DateTimeField(auto_now=True)
 
 	def __str__(self):
 		return self.nombre

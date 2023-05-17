@@ -2,7 +2,7 @@
   "id": "e0e86f22-2b87-475e-8659-268071024165",
   "version": "2.0",
   "name": "Hairdresserapp",
-  "url": "http://127.0.0.1:8001/",
+  "url": "http://194-62-97-189.es-mad1.upcloud.host",
   "tests": [{
     "id": "4ec13bd8-fc70-467d-b35c-3d36f20cb9a3",
     "name": "registro incorrecto",
@@ -569,15 +569,202 @@
       ],
       "value": ""
     }]
+  }, {
+    "id": "82101ce3-a457-48f6-87b3-fa8faf2c6f77",
+    "name": "Login correcto PROD",
+    "commands": [{
+      "id": "aefc3840-d458-4c3c-abb8-056e9c48364c",
+      "comment": "",
+      "command": "open",
+      "target": "http://194-62-97-189.es-mad1.upcloud.host:8000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1afe0250-ae10-446e-9070-3d88c8e056b0",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Iniciar sesión",
+      "targets": [
+        ["linkText=Iniciar sesión", "linkText"],
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=//a[contains(text(),'Iniciar sesión')]", "xpath:link"],
+        ["xpath=//div[@id='navbarNav']/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/acceso/login')]", "xpath:href"],
+        ["xpath=//div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,' Iniciar sesión')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "891cfffd-fcab-4a80-8779-ff8208c47ac6",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_email",
+      "targets": [
+        ["id=id_email", "id"],
+        ["name=email", "name"],
+        ["css=#id_email", "css:finder"],
+        ["xpath=//input[@id='id_email']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "de00e1e1-0156-415d-8f8e-de7fce56328a",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_email",
+      "targets": [
+        ["id=id_email", "id"],
+        ["name=email", "name"],
+        ["css=#id_email", "css:finder"],
+        ["xpath=//input[@id='id_email']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "ubaldo.hidalgo@hairdresserapp.es"
+    }, {
+      "id": "96823208-35f4-4bfe-884a-4674ab6ac124",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_passwd",
+      "targets": [
+        ["id=id_passwd", "id"],
+        ["name=passwd", "name"],
+        ["css=#id_passwd", "css:finder"],
+        ["xpath=//input[@id='id_passwd']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b622c206-d61d-4d03-8b16-399105467428",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_passwd",
+      "targets": [
+        ["id=id_passwd", "id"],
+        ["name=passwd", "name"],
+        ["css=#id_passwd", "css:finder"],
+        ["xpath=//input[@id='id_passwd']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "123456789"
+    }, {
+      "id": "8b27a4d7-e547-42f6-9316-da8df2ea82e2",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn",
+      "targets": [
+        ["css=.btn", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,' Iniciar sesión')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "fd4c49d1-3131-4da0-b8d4-f113a1481aae",
+    "name": "Login correcto cliente PROD",
+    "commands": [{
+      "id": "81ef0704-44f4-4889-b595-483f0a62db48",
+      "comment": "",
+      "command": "open",
+      "target": "http://194-62-97-189.es-mad1.upcloud.host:8000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "bd869a45-be04-428b-8bbc-3efc39131d01",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Iniciar sesión",
+      "targets": [
+        ["linkText=Iniciar sesión", "linkText"],
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=//a[contains(text(),'Iniciar sesión')]", "xpath:link"],
+        ["xpath=//div[@id='navbarNav']/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/acceso/login')]", "xpath:href"],
+        ["xpath=//div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,' Iniciar sesión')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "132bfb9c-226b-4001-8dda-7879c54221e3",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_email",
+      "targets": [
+        ["id=id_email", "id"],
+        ["name=email", "name"],
+        ["css=#id_email", "css:finder"],
+        ["xpath=//input[@id='id_email']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "fe71d340-dedf-42a6-98c9-62a39cb18514",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_email",
+      "targets": [
+        ["id=id_email", "id"],
+        ["name=email", "name"],
+        ["css=#id_email", "css:finder"],
+        ["xpath=//input[@id='id_email']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "aurora2000@msn.com"
+    }, {
+      "id": "6b5b0fd3-aaae-4054-b1b6-a072ee89280d",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_passwd",
+      "targets": [
+        ["id=id_passwd", "id"],
+        ["name=passwd", "name"],
+        ["css=#id_passwd", "css:finder"],
+        ["xpath=//input[@id='id_passwd']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "577c6576-96e1-4d4d-95a8-a089436f9f77",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_passwd",
+      "targets": [
+        ["id=id_passwd", "id"],
+        ["name=passwd", "name"],
+        ["css=#id_passwd", "css:finder"],
+        ["xpath=//input[@id='id_passwd']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "123456789"
+    }, {
+      "id": "f264c009-1ad5-4a50-a35d-b8030aaa0cc3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn",
+      "targets": [
+        ["css=.btn", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,' Iniciar sesión')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
   }],
   "suites": [{
     "id": "591dcbae-07a2-476c-899a-da3511d474e4",
-    "name": "Default Suite",
+    "name": "Localhost",
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
     "tests": ["c08b3404-0629-41d7-ac27-8a8b8703f3b4", "4ec13bd8-fc70-467d-b35c-3d36f20cb9a3"]
+  }, {
+    "id": "e514d27a-73f6-459a-9059-24e95a9600a6",
+    "name": "PROD",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["fd4c49d1-3131-4da0-b8d4-f113a1481aae", "82101ce3-a457-48f6-87b3-fa8faf2c6f77"]
   }],
-  "urls": ["http://127.0.0.1:8001/"],
+  "urls": ["http://127.0.0.1:8001/", "http://194-62-97-189.es-mad1.upcloud.host/"],
   "plugins": []
 }
