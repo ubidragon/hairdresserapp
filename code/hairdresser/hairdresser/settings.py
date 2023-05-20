@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'hairdresserapp',
     'gestion',
     'acceso',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -140,3 +141,7 @@ AUTH_USER_MODEL = "gestion.Usuario"
 
 LOGIN_URL = '/acceso/login/'
 LOGIN_REDIRECT_URL = '/'
+
+CRONJOBS = [
+    ('*/15 * * * *', 'gestion.tasks.terminarCitasPasadas'),
+]

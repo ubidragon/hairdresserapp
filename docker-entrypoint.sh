@@ -1,5 +1,6 @@
 #!/bin/bash
 
+service cron start
     
 django-admin startproject hairdresser
 django-admin startapp hairdresserapp

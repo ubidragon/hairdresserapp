@@ -1,7 +1,7 @@
 FROM python:3.11-slim-bullseye
 
 RUN apt update && \
-    apt install gcc libmariadb3 libmariadb-dev -y && \
+    apt install gcc cron libmariadb3 libmariadb-dev -y && \
     python3 -m pip install --upgrade pip
 
 COPY docker-entrypoint.sh /tmp/docker-entrypoint.sh
