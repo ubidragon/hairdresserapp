@@ -16,7 +16,7 @@ services:
       - "0.0.0.0:5432:3306"
 
   web:
-    image: hairdresserapp:1.0
+    image: hairdresserapp:1.1
     container_name: hairdresserapp_web
     hostname: hairdresserapp_web
     restart: unless-stopped

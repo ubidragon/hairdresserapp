@@ -123,23 +123,9 @@ class crearCitaAdminForm(forms.ModelForm):
 	servicio = forms.ModelChoiceField(queryset=Servicio.objects.filter(Q(activo='1')),
         empty_label="",
         required=True)
- 
-	#  Generacion del listado de usuarios que son clientes y estan activos.
-	nombresClientes= Usuario.objects.filter(Q(role_id='3') & Q(activo='1'))
-	# Recorro el listado para generar otro listado solo con los datos necesarios a mostrar
-	clientes=[("","")]
-	for cliente in nombresClientes:
-		clientes.append((cliente.id, cliente.getNombreApellidos()))
 
 	cliente = UsuarioCustomModelChoiceField(queryset=Usuario.objects.filter(Q(role_id='3') & Q(activo='1')),
         required=True)
- 
- 	# #  Generacion del listado de usuarios que son clientes y estan activos.
-	# nombresEmpleados= Usuario.objects.filter(Q(role_id='2') & Q(activo='1'))
-	# # Recorro el listado para generar otro listado solo con los datos necesarios a mostrar
-	# empleados=[("","")]
-	# for empleado in nombresEmpleados:
-	# 	empleados.append((empleado.id, empleado.getNombreApellidos()))
 
 	empleado = UsuarioCustomModelChoiceField(queryset=Usuario.objects.filter(Q(role_id='2') & Q(activo='1')),
 		required=True)	
