@@ -52,7 +52,9 @@
 			Script para habilitar el datapicker
 			{% endcomment %}
 			$(document).ready(function() {
-			  $('.datepicker').datepicker();
+			  $('.datepicker').datepicker({
+				dateFormat: "yy-mm-dd"
+			  });
 			});
 		</script>
 		<footer class="footer fixed-bottom bg-light py-3">
