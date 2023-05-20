@@ -2,7 +2,7 @@
   "id": "e0e86f22-2b87-475e-8659-268071024165",
   "version": "2.0",
   "name": "Hairdresserapp",
-  "url": "http://194-62-97-189.es-mad1.upcloud.host",
+  "url": "http://127.0.0.1:8001/gestion",
   "tests": [{
     "id": "4ec13bd8-fc70-467d-b35c-3d36f20cb9a3",
     "name": "registro incorrecto",
@@ -749,6 +749,486 @@
       ],
       "value": ""
     }]
+  }, {
+    "id": "ac2f4487-37a9-496b-a843-4f50555ae9b4",
+    "name": " Oferta crear",
+    "commands": [{
+      "id": "69d7672b-1108-4960-9100-45ca0f422ff8",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d1203821-23a8-4b02-b216-17caf4ae4e70",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Gestión de ofertas",
+      "targets": [
+        ["linkText=Gestión de ofertas", "linkText"],
+        ["css=.row:nth-child(3) .btn", "css:finder"],
+        ["xpath=//a[contains(text(),'Gestión de ofertas')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '/gestion/ofertas')])[2]", "xpath:href"],
+        ["xpath=//div[3]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Gestión de ofertas')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "59b6b572-4a9b-4f84-9969-f86cadfc8954",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Crear oferta",
+      "targets": [
+        ["linkText=Crear oferta", "linkText"],
+        ["css=.btn-block", "css:finder"],
+        ["xpath=//a[contains(text(),'Crear oferta')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/gestion/ofertas/crear')]", "xpath:href"],
+        ["xpath=//div[2]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Crear oferta')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0a95a0ce-24ba-42e3-915a-fb5d475c74f9",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "391492f2-7942-4295-8542-70b24aa8683b",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0581d3a9-f92b-4f48-b210-4a2583e629fa",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "25601642-5a4e-4ca2-a01c-3e3b95ff7e45",
+    "name": " Oferta modificar",
+    "commands": [{
+      "id": "c977b929-7d94-4e01-a501-d45b0fa8139c",
+      "comment": "",
+      "command": "open",
+      "target": "http://194-62-97-189.es-mad1.upcloud.host:8000/gestion/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "02fb2cb9-2a77-4678-b555-fec1e82be7d1",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1920x1007",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "bbba0313-ff84-47b8-a630-b02fadbc8094",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Gestión de ofertas",
+      "targets": [
+        ["linkText=Gestión de ofertas", "linkText"],
+        ["css=.row:nth-child(3) .btn", "css:finder"],
+        ["xpath=//a[contains(text(),'Gestión de ofertas')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '/gestion/ofertas')])[2]", "xpath:href"],
+        ["xpath=//div[3]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Gestión de ofertas')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "11ee0d6a-630c-41b3-bbe8-32dd17a46d82",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Modificar oferta",
+      "targets": [
+        ["linkText=Modificar oferta", "linkText"],
+        ["css=.mt-2:nth-child(1)", "css:finder"],
+        ["xpath=//a[contains(text(),'Modificar oferta')]", "xpath:link"],
+        ["xpath=//table[@id='tabla']/tbody/tr/td[4]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/gestion/ofertas/modificar?id=1')]", "xpath:href"],
+        ["xpath=//td[4]/a", "xpath:position"],
+        ["xpath=//a[contains(.,' Modificar oferta')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5ef11195-bd5d-456b-ad27-1a0802972753",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_descuento",
+      "targets": [
+        ["id=id_descuento", "id"],
+        ["name=descuento", "name"],
+        ["css=#id_descuento", "css:finder"],
+        ["xpath=//input[@id='id_descuento']", "xpath:attributes"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": "8"
+    }, {
+      "id": "2b17c919-f754-4531-96d2-c06324830270",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_descuento",
+      "targets": [
+        ["id=id_descuento", "id"],
+        ["name=descuento", "name"],
+        ["css=#id_descuento", "css:finder"],
+        ["xpath=//input[@id='id_descuento']", "xpath:attributes"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ff1c4157-d257-41d7-b0e6-291718686272",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_descuento",
+      "targets": [
+        ["id=id_descuento", "id"],
+        ["name=descuento", "name"],
+        ["css=#id_descuento", "css:finder"],
+        ["xpath=//input[@id='id_descuento']", "xpath:attributes"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": "9"
+    }, {
+      "id": "a7210521-e755-4d82-9fe5-c58a2dd796b7",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_descuento",
+      "targets": [
+        ["id=id_descuento", "id"],
+        ["name=descuento", "name"],
+        ["css=#id_descuento", "css:finder"],
+        ["xpath=//input[@id='id_descuento']", "xpath:attributes"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "dc363de0-b719-41f3-bed4-d89d3a3073ee",
+      "comment": "",
+      "command": "click",
+      "target": "css=.text-center > .btn",
+      "targets": [
+        ["css=.text-center > .btn", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[6]/button", "xpath:position"],
+        ["xpath=//button[contains(.,' Modificar oferta')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "e5627cfa-df7c-4e5b-bcf0-a9b800c26c45",
+    "name": " Oferta eliminar",
+    "commands": [{
+      "id": "b1b29b84-a5c4-4eee-a665-9570efbbcf94",
+      "comment": "",
+      "command": "open",
+      "target": "http://194-62-97-189.es-mad1.upcloud.host:8000/gestion/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "55583e6e-b9db-46c5-8437-eb1742cd37b9",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Gestión de ofertas",
+      "targets": [
+        ["linkText=Gestión de ofertas", "linkText"],
+        ["css=.row:nth-child(3) .btn", "css:finder"],
+        ["xpath=//a[contains(text(),'Gestión de ofertas')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '/gestion/ofertas')])[2]", "xpath:href"],
+        ["xpath=//div[3]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Gestión de ofertas')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "89e6630d-677d-484b-b595-167e2afe9773",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Eliminar oferta",
+      "targets": [
+        ["linkText=Eliminar oferta", "linkText"],
+        ["css=.mt-2:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Eliminar oferta')]", "xpath:link"],
+        ["xpath=//table[@id='tabla']/tbody/tr/td[4]/a[2]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/gestion/ofertas/eliminar?id=1')]", "xpath:href"],
+        ["xpath=//a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,' Eliminar oferta')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4f03e9c1-92ba-4d11-a5e3-4e0dcb5343ec",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-danger:nth-child(1)",
+      "targets": [
+        ["css=.btn-danger:nth-child(1)", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[6]/button", "xpath:position"],
+        ["xpath=//button[contains(.,' Eliminar oferta')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "ef632afd-aa37-47cf-b0b6-f39902d2b96f",
+    "name": "Usuario crear",
+    "commands": [{
+      "id": "4e189afe-d191-4ef1-ace0-2e9125ccdd1d",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:8001/gestion/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "edfbb650-39aa-4fbe-9a92-ba975e16a047",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1091x591",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b8214747-21de-4194-9aec-6810674b2b82",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Gestión de usuarios",
+      "targets": [
+        ["linkText=Gestión de usuarios", "linkText"],
+        ["css=.row:nth-child(4) .btn", "css:finder"],
+        ["xpath=//a[contains(text(),'Gestión de usuarios')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '/gestion/usuarios')])[2]", "xpath:href"],
+        ["xpath=//div[4]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Gestión de usuarios')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "153478ca-23df-411c-846d-6c880a1bafa1",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Crear usuario",
+      "targets": [
+        ["linkText=Crear usuario", "linkText"],
+        ["css=.col-4:nth-child(1) > .btn", "css:finder"],
+        ["xpath=//a[contains(text(),'Crear usuario')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/gestion/usuarios/crear')]", "xpath:href"],
+        ["xpath=//div[2]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Crear usuario')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9ea6531c-c126-4a38-85eb-37467d96b5e0",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_nombre",
+      "targets": [
+        ["id=id_nombre", "id"],
+        ["name=nombre", "name"],
+        ["css=#id_nombre", "css:finder"],
+        ["xpath=//input[@id='id_nombre']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5c4bbf1c-3759-4b1b-ac88-54fc9c78bfe6",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_nombre",
+      "targets": [
+        ["id=id_nombre", "id"],
+        ["name=nombre", "name"],
+        ["css=#id_nombre", "css:finder"],
+        ["xpath=//input[@id='id_nombre']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "uha12334"
+    }, {
+      "id": "9d2eedc2-b17e-4b97-a967-e4eb7e94975c",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_apellidos",
+      "targets": [
+        ["id=id_apellidos", "id"],
+        ["name=apellidos", "name"],
+        ["css=#id_apellidos", "css:finder"],
+        ["xpath=//input[@id='id_apellidos']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c7dd6042-1729-4762-befd-055d28aa958b",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_apellidos",
+      "targets": [
+        ["id=id_apellidos", "id"],
+        ["name=apellidos", "name"],
+        ["css=#id_apellidos", "css:finder"],
+        ["xpath=//input[@id='id_apellidos']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "123456"
+    }, {
+      "id": "70022df3-9f37-43f1-8891-a57ae8ab0a74",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_fecha_nacimiento",
+      "targets": [
+        ["id=id_fecha_nacimiento", "id"],
+        ["name=fecha_nacimiento", "name"],
+        ["css=#id_fecha_nacimiento", "css:finder"],
+        ["xpath=//input[@id='id_fecha_nacimiento']", "xpath:attributes"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2d11ec16-7b56-4c2f-a41b-739f9e05bcb7",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_fecha_nacimiento",
+      "targets": [
+        ["id=id_fecha_nacimiento", "id"],
+        ["name=fecha_nacimiento", "name"],
+        ["css=#id_fecha_nacimiento", "css:finder"],
+        ["xpath=//input[@id='id_fecha_nacimiento']", "xpath:attributes"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": "2023-10-05"
+    }, {
+      "id": "58aaed22-d75f-4968-b917-4f2803cca105",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_password",
+      "targets": [
+        ["id=id_passwd", "id"],
+        ["name=passwd", "name"],
+        ["css=#id_passwd", "css:finder"],
+        ["xpath=//input[@id='id_passwd']", "xpath:attributes"],
+        ["xpath=//div[4]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3d8ab789-f90a-439b-8217-3d69bc82a19c",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_password",
+      "targets": [
+        ["id=id_passwd", "id"],
+        ["name=passwd", "name"],
+        ["css=#id_passwd", "css:finder"],
+        ["xpath=//input[@id='id_passwd']", "xpath:attributes"],
+        ["xpath=//div[4]/input", "xpath:position"]
+      ],
+      "value": "123456789"
+    }, {
+      "id": "07ba3fdf-4472-428a-9a46-242d89975502",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_email",
+      "targets": [
+        ["id=id_email", "id"],
+        ["name=email", "name"],
+        ["css=#id_email", "css:finder"],
+        ["xpath=//input[@id='id_email']", "xpath:attributes"],
+        ["xpath=//div[5]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "fb513201-8d5e-4170-ab03-643ac0925ff9",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_email",
+      "targets": [
+        ["id=id_email", "id"],
+        ["name=email", "name"],
+        ["css=#id_email", "css:finder"],
+        ["xpath=//input[@id='id_email']", "xpath:attributes"],
+        ["xpath=//div[5]/input", "xpath:position"]
+      ],
+      "value": "hola@hola.es"
+    }, {
+      "id": "7e546329-1906-44e5-907f-a4002109f520",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_movil",
+      "targets": [
+        ["id=id_movil", "id"],
+        ["name=movil", "name"],
+        ["css=#id_movil", "css:finder"],
+        ["xpath=//input[@id='id_movil']", "xpath:attributes"],
+        ["xpath=//div[6]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "fb11acf9-2432-42f8-9b96-d34cc568daa5",
+      "comment": "",
+      "command": "type",
+      "target": "id=id_movil",
+      "targets": [
+        ["id=id_movil", "id"],
+        ["name=movil", "name"],
+        ["css=#id_movil", "css:finder"],
+        ["xpath=//input[@id='id_movil']", "xpath:attributes"],
+        ["xpath=//div[6]/input", "xpath:position"]
+      ],
+      "value": "666666666"
+    }, {
+      "id": "41023a3d-d8ae-4470-a521-c1c87e5f8e4c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.mt-5",
+      "targets": [
+        ["css=.mt-5", "css:finder"],
+        ["xpath=//body/div[2]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b94eb43b-7f60-4d59-ada2-f72ef07a61c6",
+      "comment": "",
+      "command": "click",
+      "target": "id=id_role",
+      "targets": [
+        ["id=id_role", "id"],
+        ["name=role", "name"],
+        ["css=#id_role", "css:finder"],
+        ["xpath=//select[@id='id_role']", "xpath:attributes"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "bf0171ed-8ff6-4152-9dcd-dd7053ca3cea",
+      "comment": "",
+      "command": "select",
+      "target": "id=id_role",
+      "targets": [],
+      "value": "label=empleado"
+    }, {
+      "id": "8e22eb90-157e-444e-883c-9c521ce65f30",
+      "comment": "",
+      "command": "click",
+      "target": "css=option:nth-child(3)",
+      "targets": [
+        ["css=option:nth-child(3)", "css:finder"],
+        ["xpath=//option[@value='2']", "xpath:attributes"],
+        ["xpath=//select[@id='id_role']/option[3]", "xpath:idRelative"],
+        ["xpath=//option[3]", "xpath:position"],
+        ["xpath=//option[contains(.,'empleado')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "98d2f788-a168-4457-9e0a-7f1cb9f61073",
+      "comment": "",
+      "command": "click",
+      "target": "css=.text-center > .btn",
+      "targets": [
+        ["css=.text-center > .btn", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[9]/button", "xpath:position"],
+        ["xpath=//button[contains(.,' Crear usuario')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
   }],
   "suites": [{
     "id": "591dcbae-07a2-476c-899a-da3511d474e4",
@@ -765,6 +1245,6 @@
     "timeout": 300,
     "tests": ["fd4c49d1-3131-4da0-b8d4-f113a1481aae", "82101ce3-a457-48f6-87b3-fa8faf2c6f77"]
   }],
-  "urls": ["http://127.0.0.1:8001/", "http://194-62-97-189.es-mad1.upcloud.host/"],
+  "urls": ["http://127.0.0.1:8001/", "http://194-62-97-189.es-mad1.upcloud.host/", "http://194-62-97-189.es-mad1.upcloud.host:8000/gestion", "http://127.0.0.1:8001/gestion"],
   "plugins": []
 }
