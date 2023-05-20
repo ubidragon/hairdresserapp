@@ -1,1 +1,944 @@
-[{"model": "auth.permission", "pk": 1, "fields": {"name": "Can add log entry", "content_type": 1, "codename": "add_logentry"}}, {"model": "auth.permission", "pk": 2, "fields": {"name": "Can change log entry", "content_type": 1, "codename": "change_logentry"}}, {"model": "auth.permission", "pk": 3, "fields": {"name": "Can delete log entry", "content_type": 1, "codename": "delete_logentry"}}, {"model": "auth.permission", "pk": 4, "fields": {"name": "Can view log entry", "content_type": 1, "codename": "view_logentry"}}, {"model": "auth.permission", "pk": 5, "fields": {"name": "Can add permission", "content_type": 2, "codename": "add_permission"}}, {"model": "auth.permission", "pk": 6, "fields": {"name": "Can change permission", "content_type": 2, "codename": "change_permission"}}, {"model": "auth.permission", "pk": 7, "fields": {"name": "Can delete permission", "content_type": 2, "codename": "delete_permission"}}, {"model": "auth.permission", "pk": 8, "fields": {"name": "Can view permission", "content_type": 2, "codename": "view_permission"}}, {"model": "auth.permission", "pk": 9, "fields": {"name": "Can add group", "content_type": 3, "codename": "add_group"}}, {"model": "auth.permission", "pk": 10, "fields": {"name": "Can change group", "content_type": 3, "codename": "change_group"}}, {"model": "auth.permission", "pk": 11, "fields": {"name": "Can delete group", "content_type": 3, "codename": "delete_group"}}, {"model": "auth.permission", "pk": 12, "fields": {"name": "Can view group", "content_type": 3, "codename": "view_group"}}, {"model": "auth.permission", "pk": 13, "fields": {"name": "Can add user", "content_type": 4, "codename": "add_user"}}, {"model": "auth.permission", "pk": 14, "fields": {"name": "Can change user", "content_type": 4, "codename": "change_user"}}, {"model": "auth.permission", "pk": 15, "fields": {"name": "Can delete user", "content_type": 4, "codename": "delete_user"}}, {"model": "auth.permission", "pk": 16, "fields": {"name": "Can view user", "content_type": 4, "codename": "view_user"}}, {"model": "auth.permission", "pk": 17, "fields": {"name": "Can add content type", "content_type": 5, "codename": "add_contenttype"}}, {"model": "auth.permission", "pk": 18, "fields": {"name": "Can change content type", "content_type": 5, "codename": "change_contenttype"}}, {"model": "auth.permission", "pk": 19, "fields": {"name": "Can delete content type", "content_type": 5, "codename": "delete_contenttype"}}, {"model": "auth.permission", "pk": 20, "fields": {"name": "Can view content type", "content_type": 5, "codename": "view_contenttype"}}, {"model": "auth.permission", "pk": 21, "fields": {"name": "Can add session", "content_type": 6, "codename": "add_session"}}, {"model": "auth.permission", "pk": 22, "fields": {"name": "Can change session", "content_type": 6, "codename": "change_session"}}, {"model": "auth.permission", "pk": 23, "fields": {"name": "Can delete session", "content_type": 6, "codename": "delete_session"}}, {"model": "auth.permission", "pk": 24, "fields": {"name": "Can view session", "content_type": 6, "codename": "view_session"}}, {"model": "auth.permission", "pk": 25, "fields": {"name": "Can add oferta", "content_type": 7, "codename": "add_oferta"}}, {"model": "auth.permission", "pk": 26, "fields": {"name": "Can change oferta", "content_type": 7, "codename": "change_oferta"}}, {"model": "auth.permission", "pk": 27, "fields": {"name": "Can delete oferta", "content_type": 7, "codename": "delete_oferta"}}, {"model": "auth.permission", "pk": 28, "fields": {"name": "Can view oferta", "content_type": 7, "codename": "view_oferta"}}, {"model": "auth.permission", "pk": 29, "fields": {"name": "Can add roles", "content_type": 8, "codename": "add_roles"}}, {"model": "auth.permission", "pk": 30, "fields": {"name": "Can change roles", "content_type": 8, "codename": "change_roles"}}, {"model": "auth.permission", "pk": 31, "fields": {"name": "Can delete roles", "content_type": 8, "codename": "delete_roles"}}, {"model": "auth.permission", "pk": 32, "fields": {"name": "Can view roles", "content_type": 8, "codename": "view_roles"}}, {"model": "auth.permission", "pk": 33, "fields": {"name": "Can add ubicacion", "content_type": 9, "codename": "add_ubicacion"}}, {"model": "auth.permission", "pk": 34, "fields": {"name": "Can change ubicacion", "content_type": 9, "codename": "change_ubicacion"}}, {"model": "auth.permission", "pk": 35, "fields": {"name": "Can delete ubicacion", "content_type": 9, "codename": "delete_ubicacion"}}, {"model": "auth.permission", "pk": 36, "fields": {"name": "Can view ubicacion", "content_type": 9, "codename": "view_ubicacion"}}, {"model": "auth.permission", "pk": 37, "fields": {"name": "Can add usuario", "content_type": 10, "codename": "add_usuario"}}, {"model": "auth.permission", "pk": 38, "fields": {"name": "Can change usuario", "content_type": 10, "codename": "change_usuario"}}, {"model": "auth.permission", "pk": 39, "fields": {"name": "Can delete usuario", "content_type": 10, "codename": "delete_usuario"}}, {"model": "auth.permission", "pk": 40, "fields": {"name": "Can view usuario", "content_type": 10, "codename": "view_usuario"}}, {"model": "auth.permission", "pk": 41, "fields": {"name": "Can add servicio", "content_type": 11, "codename": "add_servicio"}}, {"model": "auth.permission", "pk": 42, "fields": {"name": "Can change servicio", "content_type": 11, "codename": "change_servicio"}}, {"model": "auth.permission", "pk": 43, "fields": {"name": "Can delete servicio", "content_type": 11, "codename": "delete_servicio"}}, {"model": "auth.permission", "pk": 44, "fields": {"name": "Can view servicio", "content_type": 11, "codename": "view_servicio"}}, {"model": "auth.permission", "pk": 45, "fields": {"name": "Can add cita", "content_type": 12, "codename": "add_cita"}}, {"model": "auth.permission", "pk": 46, "fields": {"name": "Can change cita", "content_type": 12, "codename": "change_cita"}}, {"model": "auth.permission", "pk": 47, "fields": {"name": "Can delete cita", "content_type": 12, "codename": "delete_cita"}}, {"model": "auth.permission", "pk": 48, "fields": {"name": "Can view cita", "content_type": 12, "codename": "view_cita"}}, {"model": "auth.permission", "pk": 49, "fields": {"name": "Can add asigna_citas_empleado", "content_type": 13, "codename": "add_asigna_citas_empleado"}}, {"model": "auth.permission", "pk": 50, "fields": {"name": "Can change asigna_citas_empleado", "content_type": 13, "codename": "change_asigna_citas_empleado"}}, {"model": "auth.permission", "pk": 51, "fields": {"name": "Can delete asigna_citas_empleado", "content_type": 13, "codename": "delete_asigna_citas_empleado"}}, {"model": "auth.permission", "pk": 52, "fields": {"name": "Can view asigna_citas_empleado", "content_type": 13, "codename": "view_asigna_citas_empleado"}}, {"model": "auth.user", "pk": 1, "fields": {"password": "pbkdf2_sha256$600000$UGAl0wi2eAVDccLmXVvNDS$IrhFaZpgG9EkoZrHSajb476G2kAPvFWrzDWnm+XJwaQ=", "last_login": "2023-05-12T10:32:33.196Z", "is_superuser": true, "username": "root", "first_name": "", "last_name": "", "email": "", "is_staff": true, "is_active": true, "date_joined": "2023-05-12T10:32:24.583Z", "groups": [], "user_permissions": []}}, {"model": "contenttypes.contenttype", "pk": 1, "fields": {"app_label": "admin", "model": "logentry"}}, {"model": "contenttypes.contenttype", "pk": 2, "fields": {"app_label": "auth", "model": "permission"}}, {"model": "contenttypes.contenttype", "pk": 3, "fields": {"app_label": "auth", "model": "group"}}, {"model": "contenttypes.contenttype", "pk": 4, "fields": {"app_label": "auth", "model": "user"}}, {"model": "contenttypes.contenttype", "pk": 5, "fields": {"app_label": "contenttypes", "model": "contenttype"}}, {"model": "contenttypes.contenttype", "pk": 6, "fields": {"app_label": "sessions", "model": "session"}}, {"model": "contenttypes.contenttype", "pk": 7, "fields": {"app_label": "gestion", "model": "oferta"}}, {"model": "contenttypes.contenttype", "pk": 8, "fields": {"app_label": "gestion", "model": "roles"}}, {"model": "contenttypes.contenttype", "pk": 9, "fields": {"app_label": "gestion", "model": "ubicacion"}}, {"model": "contenttypes.contenttype", "pk": 10, "fields": {"app_label": "gestion", "model": "usuario"}}, {"model": "contenttypes.contenttype", "pk": 11, "fields": {"app_label": "gestion", "model": "servicio"}}, {"model": "contenttypes.contenttype", "pk": 12, "fields": {"app_label": "gestion", "model": "cita"}}, {"model": "contenttypes.contenttype", "pk": 13, "fields": {"app_label": "gestion", "model": "asigna_citas_empleado"}}, {"model": "sessions.session", "pk": "8xbc5x0zthfajg3yqafb5yf9g8l49rkr", "fields": {"session_data": ".eJxVjMsOwiAQRf-FtSEMyKMu3fcbyDBMpWogKe3K-O_apAvd3nPOfYmI21ri1nmJcxYXAeL0uyWkB9cd5DvWW5PU6rrMSe6KPGiXY8v8vB7u30HBXr611oFIARkC6xVZ751PhNZqhmAnFYagPQxAlr2CCbVjNo4cEyQH5izeH8C5Nwo:1pxQ4f:CHmbDTHBJ10Bvo_6qLmSPLiam7KZt7Mypzwocprcguc", "expire_date": "2023-05-26T10:32:33.198Z"}}, {"model": "gestion.roles", "pk": 1, "fields": {"nombre": "administrador", "activo": true, "created": "2023-05-12T11:21:45.530Z", "updated": "2023-05-12T11:21:45.553Z"}}, {"model": "gestion.roles", "pk": 2, "fields": {"nombre": "empleado", "activo": true, "created": "2023-05-12T11:21:45.530Z", "updated": "2023-05-12T11:21:45.553Z"}}, {"model": "gestion.roles", "pk": 3, "fields": {"nombre": "cliente", "activo": true, "created": "2023-05-12T11:21:45.530Z", "updated": "2023-05-12T11:21:45.553Z"}}, {"model": "gestion.usuario", "pk": 1, "fields": {"nombre": "Ubaldo", "apellidos": "Hidalgo Arriaga", "passwd": "123456", "email": "ubaldo.hidalgo@hairdresserapp.es", "role": 1, "fecha_nacimiento": "1994-06-20", "created": "2023-05-12T11:21:45.626Z", "updated": "2023-05-12T11:21:45.652Z", "activo": true}}, {"model": "gestion.usuario", "pk": 2, "fields": {"nombre": "Federico", "apellidos": "Roldan", "passwd": "123456", "email": "federico.roldan@hairdresserapp.es", "role": 2, "fecha_nacimiento": "1990-03-12", "created": "2023-05-12T11:21:45.626Z", "updated": "2023-05-12T11:21:45.652Z", "activo": true}}, {"model": "gestion.usuario", "pk": 3, "fields": {"nombre": "Ainhoa", "apellidos": "Nuñez", "passwd": "123456", "email": "ainhoa.nuñez@hairdresserapp.es", "role": 2, "fecha_nacimiento": "1985-06-01", "created": "2023-05-12T11:21:45.626Z", "updated": "2023-05-12T11:21:45.652Z", "activo": false}}, {"model": "gestion.usuario", "pk": 4, "fields": {"nombre": "Aurora", "apellidos": "Ariza", "passwd": "123456", "email": "aurora2000@msn.com", "role": 3, "fecha_nacimiento": "2000-10-27", "created": "2023-05-12T11:21:45.626Z", "updated": "2023-05-12T11:21:45.652Z", "activo": true}}, {"model": "gestion.usuario", "pk": 5, "fields": {"nombre": "Aurora", "apellidos": "Ariza", "passwd": "123456", "email": "aurora300@msn.com", "role": 3, "fecha_nacimiento": null, "created": "2023-05-12T11:21:45.626Z", "updated": "2023-05-12T11:21:45.652Z", "activo": true}}, {"model": "gestion.usuario", "pk": 6, "fields": {"nombre": "Beatriz", "apellidos": "Pastor", "passwd": "1234567", "email": "beatriz.pastor@yahoo.es", "role": 3, "fecha_nacimiento": "2023-05-12", "created": "2023-05-12T11:21:45.626Z", "updated": "2023-05-12T11:21:45.652Z", "activo": true}}, {"model": "gestion.oferta", "pk": 1, "fields": {"nombre": "Descuento por menor de 25 años", "fecha_fin": "2023-12-31", "descuento": 7.5, "activo": true, "updated": "2023-05-12T11:21:45.505Z"}}, {"model": "gestion.oferta", "pk": 2, "fields": {"nombre": "Descuento por menor de 5 años", "fecha_fin": null, "descuento": 9.5, "activo": true, "updated": "2023-05-12T11:21:45.505Z"}}, {"model": "gestion.ubicacion", "pk": 1, "fields": {"nombre": "Zona de caballero", "updated": "2023-05-12T11:21:45.601Z"}}, {"model": "gestion.ubicacion", "pk": 2, "fields": {"nombre": "Zona de señora", "updated": "2023-05-12T11:21:45.601Z"}}, {"model": "gestion.ubicacion", "pk": 3, "fields": {"nombre": "Zona de manicura", "updated": "2023-05-12T11:21:45.601Z"}}, {"model": "gestion.ubicacion", "pk": 4, "fields": {"nombre": "Zona de pedicura", "updated": "2023-05-12T11:21:45.601Z"}}, {"model": "gestion.ubicacion", "pk": 5, "fields": {"nombre": "Salon de bronceado", "updated": "2023-05-12T11:21:45.601Z"}}, {"model": "gestion.servicio", "pk": 1, "fields": {"nombre": "Peinado señora - Especial Bodas", "descripcion": "Peinados especiales para dias tan importantes como una boda", "duracion": 80, "precio": 45.0, "ubicacion": 2, "activo": true, "updated": "2023-05-12T11:21:45.579Z", "oferta": [1]}}, {"model": "gestion.servicio", "pk": 2, "fields": {"nombre": "Corte caballero", "descripcion": "Corte basico para el dia a dia de los caballeros.", "duracion": 20, "precio": 15.0, "ubicacion": 1, "activo": false, "updated": "2023-05-12T11:21:45.579Z", "oferta": [1]}}, {"model": "gestion.servicio", "pk": 3, "fields": {"nombre": "Corte caballero Premium", "descripcion": "Incluye lo mismo que el básico pero añadiendo un prelavado del cabello.", "duracion": 20, "precio": 15.0, "ubicacion": 1, "activo": true, "updated": "2023-05-12T11:21:45.579Z", "oferta": [1]}}, {"model": "gestion.servicio", "pk": 4, "fields": {"nombre": "Corte señora", "descripcion": null, "duracion": 40, "precio": 25.0, "ubicacion": 2, "activo": true, "updated": "2023-05-12T11:21:45.579Z", "oferta": [1]}}, {"model": "gestion.servicio", "pk": 5, "fields": {"nombre": "Peinado señora", "descripcion": null, "duracion": 30, "precio": 25.0, "ubicacion": 2, "activo": true, "updated": "2023-05-12T11:21:45.579Z", "oferta": [1]}}, {"model": "gestion.servicio", "pk": 6, "fields": {"nombre": "Corte y Peinado señora", "descripcion": null, "duracion": 60, "precio": 35.0, "ubicacion": 2, "activo": true, "updated": "2023-05-12T11:21:45.579Z", "oferta": [1]}}, {"model": "gestion.servicio", "pk": 7, "fields": {"nombre": "Peinado señora - Especial Bodas", "descripcion": "Peinados especiales para dias tan importantes como una boda", "duracion": 80, "precio": 45.0, "ubicacion": 2, "activo": true, "updated": "2023-05-12T11:21:45.579Z", "oferta": [1]}}, {"model": "gestion.servicio", "pk": 8, "fields": {"nombre": "Sesion de bronceado de express", "descripcion": null, "duracion": 20, "precio": 50.0, "ubicacion": 5, "activo": true, "updated": "2023-05-12T11:21:45.579Z", "oferta": []}}, {"model": "gestion.cita", "pk": 1, "fields": {"fecha_cita": "2023-03-01", "estado": "Realizada", "servicio": 3, "cliente": 5}}, {"model": "gestion.cita", "pk": 2, "fields": {"fecha_cita": "2023-05-15", "estado": "Programada", "servicio": 6, "cliente": 5}}, {"model": "gestion.cita", "pk": 3, "fields": {"fecha_cita": "2023-03-20", "estado": "Cancelada", "servicio": 4, "cliente": 6}}, {"model": "gestion.asigna_citas_empleado", "pk": 1, "fields": {"cita": 1, "empleado": 3}}, {"model": "gestion.asigna_citas_empleado", "pk": 2, "fields": {"cita": 2, "empleado": 4}}, {"model": "gestion.asigna_citas_empleado", "pk": 4, "fields": {"cita": 3, "empleado": 3}}]
+[
+	{
+		"model": "auth.permission",
+		"pk": 1,
+		"fields": {
+			"name": "Can add log entry",
+			"content_type": 1,
+			"codename": "add_logentry"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 2,
+		"fields": {
+			"name": "Can change log entry",
+			"content_type": 1,
+			"codename": "change_logentry"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 3,
+		"fields": {
+			"name": "Can delete log entry",
+			"content_type": 1,
+			"codename": "delete_logentry"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 4,
+		"fields": {
+			"name": "Can view log entry",
+			"content_type": 1,
+			"codename": "view_logentry"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 5,
+		"fields": {
+			"name": "Can add permission",
+			"content_type": 2,
+			"codename": "add_permission"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 6,
+		"fields": {
+			"name": "Can change permission",
+			"content_type": 2,
+			"codename": "change_permission"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 7,
+		"fields": {
+			"name": "Can delete permission",
+			"content_type": 2,
+			"codename": "delete_permission"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 8,
+		"fields": {
+			"name": "Can view permission",
+			"content_type": 2,
+			"codename": "view_permission"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 9,
+		"fields": {
+			"name": "Can add group",
+			"content_type": 3,
+			"codename": "add_group"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 10,
+		"fields": {
+			"name": "Can change group",
+			"content_type": 3,
+			"codename": "change_group"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 11,
+		"fields": {
+			"name": "Can delete group",
+			"content_type": 3,
+			"codename": "delete_group"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 12,
+		"fields": {
+			"name": "Can view group",
+			"content_type": 3,
+			"codename": "view_group"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 13,
+		"fields": {
+			"name": "Can add user",
+			"content_type": 4,
+			"codename": "add_user"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 14,
+		"fields": {
+			"name": "Can change user",
+			"content_type": 4,
+			"codename": "change_user"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 15,
+		"fields": {
+			"name": "Can delete user",
+			"content_type": 4,
+			"codename": "delete_user"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 16,
+		"fields": {
+			"name": "Can view user",
+			"content_type": 4,
+			"codename": "view_user"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 17,
+		"fields": {
+			"name": "Can add content type",
+			"content_type": 5,
+			"codename": "add_contenttype"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 18,
+		"fields": {
+			"name": "Can change content type",
+			"content_type": 5,
+			"codename": "change_contenttype"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 19,
+		"fields": {
+			"name": "Can delete content type",
+			"content_type": 5,
+			"codename": "delete_contenttype"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 20,
+		"fields": {
+			"name": "Can view content type",
+			"content_type": 5,
+			"codename": "view_contenttype"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 21,
+		"fields": {
+			"name": "Can add session",
+			"content_type": 6,
+			"codename": "add_session"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 22,
+		"fields": {
+			"name": "Can change session",
+			"content_type": 6,
+			"codename": "change_session"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 23,
+		"fields": {
+			"name": "Can delete session",
+			"content_type": 6,
+			"codename": "delete_session"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 24,
+		"fields": {
+			"name": "Can view session",
+			"content_type": 6,
+			"codename": "view_session"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 25,
+		"fields": {
+			"name": "Can add oferta",
+			"content_type": 7,
+			"codename": "add_oferta"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 26,
+		"fields": {
+			"name": "Can change oferta",
+			"content_type": 7,
+			"codename": "change_oferta"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 27,
+		"fields": {
+			"name": "Can delete oferta",
+			"content_type": 7,
+			"codename": "delete_oferta"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 28,
+		"fields": {
+			"name": "Can view oferta",
+			"content_type": 7,
+			"codename": "view_oferta"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 29,
+		"fields": {
+			"name": "Can add roles",
+			"content_type": 8,
+			"codename": "add_roles"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 30,
+		"fields": {
+			"name": "Can change roles",
+			"content_type": 8,
+			"codename": "change_roles"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 31,
+		"fields": {
+			"name": "Can delete roles",
+			"content_type": 8,
+			"codename": "delete_roles"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 32,
+		"fields": {
+			"name": "Can view roles",
+			"content_type": 8,
+			"codename": "view_roles"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 33,
+		"fields": {
+			"name": "Can add ubicacion",
+			"content_type": 9,
+			"codename": "add_ubicacion"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 34,
+		"fields": {
+			"name": "Can change ubicacion",
+			"content_type": 9,
+			"codename": "change_ubicacion"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 35,
+		"fields": {
+			"name": "Can delete ubicacion",
+			"content_type": 9,
+			"codename": "delete_ubicacion"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 36,
+		"fields": {
+			"name": "Can view ubicacion",
+			"content_type": 9,
+			"codename": "view_ubicacion"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 37,
+		"fields": {
+			"name": "Can add usuario",
+			"content_type": 10,
+			"codename": "add_usuario"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 38,
+		"fields": {
+			"name": "Can change usuario",
+			"content_type": 10,
+			"codename": "change_usuario"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 39,
+		"fields": {
+			"name": "Can delete usuario",
+			"content_type": 10,
+			"codename": "delete_usuario"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 40,
+		"fields": {
+			"name": "Can view usuario",
+			"content_type": 10,
+			"codename": "view_usuario"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 41,
+		"fields": {
+			"name": "Can add servicio",
+			"content_type": 11,
+			"codename": "add_servicio"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 42,
+		"fields": {
+			"name": "Can change servicio",
+			"content_type": 11,
+			"codename": "change_servicio"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 43,
+		"fields": {
+			"name": "Can delete servicio",
+			"content_type": 11,
+			"codename": "delete_servicio"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 44,
+		"fields": {
+			"name": "Can view servicio",
+			"content_type": 11,
+			"codename": "view_servicio"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 45,
+		"fields": {
+			"name": "Can add cita",
+			"content_type": 12,
+			"codename": "add_cita"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 46,
+		"fields": {
+			"name": "Can change cita",
+			"content_type": 12,
+			"codename": "change_cita"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 47,
+		"fields": {
+			"name": "Can delete cita",
+			"content_type": 12,
+			"codename": "delete_cita"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 48,
+		"fields": {
+			"name": "Can view cita",
+			"content_type": 12,
+			"codename": "view_cita"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 49,
+		"fields": {
+			"name": "Can add asigna_citas_empleado",
+			"content_type": 13,
+			"codename": "add_asigna_citas_empleado"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 50,
+		"fields": {
+			"name": "Can change asigna_citas_empleado",
+			"content_type": 13,
+			"codename": "change_asigna_citas_empleado"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 51,
+		"fields": {
+			"name": "Can delete asigna_citas_empleado",
+			"content_type": 13,
+			"codename": "delete_asigna_citas_empleado"
+		}
+	},
+	{
+		"model": "auth.permission",
+		"pk": 52,
+		"fields": {
+			"name": "Can view asigna_citas_empleado",
+			"content_type": 13,
+			"codename": "view_asigna_citas_empleado"
+		}
+	},
+	{
+		"model": "contenttypes.contenttype",
+		"pk": 1,
+		"fields": {
+			"app_label": "admin",
+			"model": "logentry"
+		}
+	},
+	{
+		"model": "contenttypes.contenttype",
+		"pk": 2,
+		"fields": {
+			"app_label": "auth",
+			"model": "permission"
+		}
+	},
+	{
+		"model": "contenttypes.contenttype",
+		"pk": 3,
+		"fields": {
+			"app_label": "auth",
+			"model": "group"
+		}
+	},
+	{
+		"model": "contenttypes.contenttype",
+		"pk": 4,
+		"fields": {
+			"app_label": "auth",
+			"model": "user"
+		}
+	},
+	{
+		"model": "contenttypes.contenttype",
+		"pk": 5,
+		"fields": {
+			"app_label": "contenttypes",
+			"model": "contenttype"
+		}
+	},
+	{
+		"model": "contenttypes.contenttype",
+		"pk": 6,
+		"fields": {
+			"app_label": "sessions",
+			"model": "session"
+		}
+	},
+	{
+		"model": "contenttypes.contenttype",
+		"pk": 7,
+		"fields": {
+			"app_label": "gestion",
+			"model": "oferta"
+		}
+	},
+	{
+		"model": "contenttypes.contenttype",
+		"pk": 8,
+		"fields": {
+			"app_label": "gestion",
+			"model": "roles"
+		}
+	},
+	{
+		"model": "contenttypes.contenttype",
+		"pk": 9,
+		"fields": {
+			"app_label": "gestion",
+			"model": "ubicacion"
+		}
+	},
+	{
+		"model": "contenttypes.contenttype",
+		"pk": 10,
+		"fields": {
+			"app_label": "gestion",
+			"model": "usuario"
+		}
+	},
+	{
+		"model": "contenttypes.contenttype",
+		"pk": 11,
+		"fields": {
+			"app_label": "gestion",
+			"model": "servicio"
+		}
+	},
+	{
+		"model": "contenttypes.contenttype",
+		"pk": 12,
+		"fields": {
+			"app_label": "gestion",
+			"model": "cita"
+		}
+	},
+	{
+		"model": "contenttypes.contenttype",
+		"pk": 13,
+		"fields": {
+			"app_label": "gestion",
+			"model": "asigna_citas_empleado"
+		}
+	},
+	{
+		"model": "sessions.session",
+		"pk": "8xbc5x0zthfajg3yqafb5yf9g8l49rkr",
+		"fields": {
+			"session_data": ".eJxVjMsOwiAQRf-FtSEMyKMu3fcbyDBMpWogKe3K-O_apAvd3nPOfYmI21ri1nmJcxYXAeL0uyWkB9cd5DvWW5PU6rrMSe6KPGiXY8v8vB7u30HBXr611oFIARkC6xVZ751PhNZqhmAnFYagPQxAlr2CCbVjNo4cEyQH5izeH8C5Nwo:1pxQ4f:CHmbDTHBJ10Bvo_6qLmSPLiam7KZt7Mypzwocprcguc",
+			"expire_date": "2023-05-26T10:32:33.198Z"
+		}
+	},
+	{
+		"model": "gestion.roles",
+		"pk": 1,
+		"fields": {
+			"nombre": "administrador",
+			"activo": true,
+			"created": "2023-05-12T11:21:45.530Z",
+			"updated": "2023-05-12T11:21:45.553Z"
+		}
+	},
+	{
+		"model": "gestion.roles",
+		"pk": 2,
+		"fields": {
+			"nombre": "empleado",
+			"activo": true,
+			"created": "2023-05-12T11:21:45.530Z",
+			"updated": "2023-05-12T11:21:45.553Z"
+		}
+	},
+	{
+		"model": "gestion.roles",
+		"pk": 3,
+		"fields": {
+			"nombre": "cliente",
+			"activo": true,
+			"created": "2023-05-12T11:21:45.530Z",
+			"updated": "2023-05-12T11:21:45.553Z"
+		}
+	},
+	{
+		"model": "gestion.usuario",
+		"pk": 1,
+		"fields": {
+			"nombre": "Ubaldo",
+			"apellidos": "Hidalgo Arriaga",
+			"password": "123456",
+			"email": "ubaldo.hidalgo@hairdresserapp.es",
+			"role": 1,
+			"fecha_nacimiento": "1994-06-20",
+			"created": "2023-05-12T11:21:45.626Z",
+			"updated": "2023-05-12T11:21:45.652Z",
+			"activo": true
+		}
+	},
+	{
+		"model": "gestion.usuario",
+		"pk": 2,
+		"fields": {
+			"nombre": "Federico",
+			"apellidos": "Roldan",
+			"password": "123456",
+			"email": "federico.roldan@hairdresserapp.es",
+			"role": 2,
+			"fecha_nacimiento": "1990-03-12",
+			"created": "2023-05-12T11:21:45.626Z",
+			"updated": "2023-05-12T11:21:45.652Z",
+			"activo": true
+		}
+	},
+	{
+		"model": "gestion.usuario",
+		"pk": 3,
+		"fields": {
+			"nombre": "Ainhoa",
+			"apellidos": "Nuñez",
+			"password": "123456",
+			"email": "ainhoa.nuñez@hairdresserapp.es",
+			"role": 2,
+			"fecha_nacimiento": "1985-06-01",
+			"created": "2023-05-12T11:21:45.626Z",
+			"updated": "2023-05-12T11:21:45.652Z",
+			"activo": false
+		}
+	},
+	{
+		"model": "gestion.usuario",
+		"pk": 4,
+		"fields": {
+			"nombre": "Aurora",
+			"apellidos": "Ariza",
+			"password": "123456",
+			"email": "aurora2000@msn.com",
+			"role": 3,
+			"fecha_nacimiento": "2000-10-27",
+			"created": "2023-05-12T11:21:45.626Z",
+			"updated": "2023-05-12T11:21:45.652Z",
+			"activo": true
+		}
+	},
+	{
+		"model": "gestion.usuario",
+		"pk": 5,
+		"fields": {
+			"nombre": "Aurora",
+			"apellidos": "Ariza",
+			"password": "123456",
+			"email": "aurora300@msn.com",
+			"role": 3,
+			"fecha_nacimiento": null,
+			"created": "2023-05-12T11:21:45.626Z",
+			"updated": "2023-05-12T11:21:45.652Z",
+			"activo": true
+		}
+	},
+	{
+		"model": "gestion.usuario",
+		"pk": 6,
+		"fields": {
+			"nombre": "Beatriz",
+			"apellidos": "Pastor",
+			"password": "1234567",
+			"email": "beatriz.pastor@yahoo.es",
+			"role": 3,
+			"fecha_nacimiento": "2023-05-12",
+			"created": "2023-05-12T11:21:45.626Z",
+			"updated": "2023-05-12T11:21:45.652Z",
+			"activo": true
+		}
+	},
+	{
+		"model": "gestion.oferta",
+		"pk": 1,
+		"fields": {
+			"nombre": "Descuento por menor de 25 años",
+			"fecha_fin": "2023-12-31",
+			"descuento": 7.5,
+			"activo": true,
+			"updated": "2023-05-12T11:21:45.505Z"
+		}
+	},
+	{
+		"model": "gestion.oferta",
+		"pk": 2,
+		"fields": {
+			"nombre": "Descuento por menor de 5 años",
+			"fecha_fin": null,
+			"descuento": 9.5,
+			"activo": true,
+			"updated": "2023-05-12T11:21:45.505Z"
+		}
+	},
+	{
+		"model": "gestion.ubicacion",
+		"pk": 1,
+		"fields": {
+			"nombre": "Zona de caballero",
+			"updated": "2023-05-12T11:21:45.601Z"
+		}
+	},
+	{
+		"model": "gestion.ubicacion",
+		"pk": 2,
+		"fields": {
+			"nombre": "Zona de señora",
+			"updated": "2023-05-12T11:21:45.601Z"
+		}
+	},
+	{
+		"model": "gestion.ubicacion",
+		"pk": 3,
+		"fields": {
+			"nombre": "Zona de manicura",
+			"updated": "2023-05-12T11:21:45.601Z"
+		}
+	},
+	{
+		"model": "gestion.ubicacion",
+		"pk": 4,
+		"fields": {
+			"nombre": "Zona de pedicura",
+			"updated": "2023-05-12T11:21:45.601Z"
+		}
+	},
+	{
+		"model": "gestion.ubicacion",
+		"pk": 5,
+		"fields": {
+			"nombre": "Salon de bronceado",
+			"updated": "2023-05-12T11:21:45.601Z"
+		}
+	},
+	{
+		"model": "gestion.servicio",
+		"pk": 1,
+		"fields": {
+			"nombre": "Peinado señora - Especial Bodas",
+			"descripcion": "Peinados especiales para dias tan importantes como una boda",
+			"duracion": 80,
+			"precio": 45.0,
+			"ubicacion": 2,
+			"activo": true,
+			"updated": "2023-05-12T11:21:45.579Z",
+			"oferta": [
+				1
+			]
+		}
+	},
+	{
+		"model": "gestion.servicio",
+		"pk": 2,
+		"fields": {
+			"nombre": "Corte caballero",
+			"descripcion": "Corte basico para el dia a dia de los caballeros.",
+			"duracion": 20,
+			"precio": 15.0,
+			"ubicacion": 1,
+			"activo": false,
+			"updated": "2023-05-12T11:21:45.579Z",
+			"oferta": [
+				1
+			]
+		}
+	},
+	{
+		"model": "gestion.servicio",
+		"pk": 3,
+		"fields": {
+			"nombre": "Corte caballero Premium",
+			"descripcion": "Incluye lo mismo que el básico pero añadiendo un prelavado del cabello.",
+			"duracion": 20,
+			"precio": 15.0,
+			"ubicacion": 1,
+			"activo": true,
+			"updated": "2023-05-12T11:21:45.579Z",
+			"oferta": [
+				1
+			]
+		}
+	},
+	{
+		"model": "gestion.servicio",
+		"pk": 4,
+		"fields": {
+			"nombre": "Corte señora",
+			"descripcion": null,
+			"duracion": 40,
+			"precio": 25.0,
+			"ubicacion": 2,
+			"activo": true,
+			"updated": "2023-05-12T11:21:45.579Z",
+			"oferta": [
+				1
+			]
+		}
+	},
+	{
+		"model": "gestion.servicio",
+		"pk": 5,
+		"fields": {
+			"nombre": "Peinado señora",
+			"descripcion": null,
+			"duracion": 30,
+			"precio": 25.0,
+			"ubicacion": 2,
+			"activo": true,
+			"updated": "2023-05-12T11:21:45.579Z",
+			"oferta": [
+				1
+			]
+		}
+	},
+	{
+		"model": "gestion.servicio",
+		"pk": 6,
+		"fields": {
+			"nombre": "Corte y Peinado señora",
+			"descripcion": null,
+			"duracion": 60,
+			"precio": 35.0,
+			"ubicacion": 2,
+			"activo": true,
+			"updated": "2023-05-12T11:21:45.579Z",
+			"oferta": [
+				1
+			]
+		}
+	},
+	{
+		"model": "gestion.servicio",
+		"pk": 7,
+		"fields": {
+			"nombre": "Peinado señora - Especial Bodas",
+			"descripcion": "Peinados especiales para dias tan importantes como una boda",
+			"duracion": 80,
+			"precio": 45.0,
+			"ubicacion": 2,
+			"activo": true,
+			"updated": "2023-05-12T11:21:45.579Z",
+			"oferta": [
+				1
+			]
+		}
+	},
+	{
+		"model": "gestion.servicio",
+		"pk": 8,
+		"fields": {
+			"nombre": "Sesion de bronceado de express",
+			"descripcion": null,
+			"duracion": 20,
+			"precio": 50.0,
+			"ubicacion": 5,
+			"activo": true,
+			"updated": "2023-05-12T11:21:45.579Z",
+			"oferta": []
+		}
+	},
+	{
+		"model": "gestion.cita",
+		"pk": 1,
+		"fields": {
+			"fecha_cita": "2023-03-01",
+			"estado": "Realizada",
+			"servicio": 3,
+			"cliente": 5
+		}
+	},
+	{
+		"model": "gestion.cita",
+		"pk": 2,
+		"fields": {
+			"fecha_cita": "2023-05-15",
+			"estado": "Programada",
+			"servicio": 6,
+			"cliente": 5
+		}
+	},
+	{
+		"model": "gestion.cita",
+		"pk": 3,
+		"fields": {
+			"fecha_cita": "2023-03-20",
+			"estado": "Cancelada",
+			"servicio": 4,
+			"cliente": 6
+		}
+	},
+	{
+		"model": "gestion.asigna_citas_empleado",
+		"pk": 1,
+		"fields": {
+			"cita": 1,
+			"empleado": 3
+		}
+	},
+	{
+		"model": "gestion.asigna_citas_empleado",
+		"pk": 2,
+		"fields": {
+			"cita": 2,
+			"empleado": 4
+		}
+	},
+	{
+		"model": "gestion.asigna_citas_empleado",
+		"pk": 4,
+		"fields": {
+			"cita": 3,
+			"empleado": 3
+		}
+	}
+]
