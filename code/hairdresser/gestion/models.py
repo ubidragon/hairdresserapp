@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.utils.translation import gettext_lazy as _
-from phonenumber_field.modelfields import PhoneNumberField
+from django.core.validators import RegexValidator
 
 # Create your models here.
 
@@ -32,15 +32,19 @@ class UsuarioManager(BaseUserManager):
 
 
 class Usuario(AbstractBaseUser):
+	phone_regex = RegexValidator(
+			regex=r'^\d{9}$',
+			message='El número de teléfono móvil debe longitud de 9.'
+		)
 	nombre=models.CharField(max_length=100, blank=False, null=False)
 	apellidos=models.CharField(max_length=255, blank=False, null=False)
-	password=models.CharField(max_length=500,)
-	email=models.EmailField( null=False, unique=True)
+	password=models.CharField(max_length=500)
+	email=models.EmailField(null=False, unique=True)
 	role = models.ForeignKey(
 		Roles,
 		on_delete=models.PROTECT,
 	)
-	movil= PhoneNumberField(null=True, blank=False, unique=False)
+	movil= models.CharField(blank=True, null=True, validators=[phone_regex], max_length=9)
 	fecha_nacimiento=models.DateField( null=True)
 	created=models.DateTimeField(auto_now_add=True)
 	updated=models.DateTimeField(auto_now=True)

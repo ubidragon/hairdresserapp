@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.urls import reverse
 from .models import *
 from .forms import *
-from .utils_gestion import *
+from .utils_gestion import obtener_objeto_por_id, is_Active, is_admin, is_cliente
 # 
 # 
 # PANTALLA PRINCIPAL DE ACCESO
@@ -11,6 +11,14 @@ from .utils_gestion import *
 @user_passes_test(is_Active)
 @login_required(login_url='/acceso/login.html')
 def home(request):
+  """Generacion de la landing del Area de usuario.
+
+  Args:
+      request (_type_): Peticion GET para la visualizacion de la Home de usuario
+
+  Returns:
+      _type_: HttpRequest 
+  """  
   # TODO AGREGAR BOTON DE MIS DATOS, PARA QUE CADA USER PUEDA VER SUS PROPIOS DATOS.
   # CON RECUPERAR UN FORMULARIO COMO EL DE MODIFICAR USUARIO DEBERIA DE VALER.
   user = request.user
@@ -36,13 +44,57 @@ def citas(request):
 def accionesCita(request):
   # TODO FALTA TODAS LAS ACCIONES DE CITA
   user = request.user
-  return render(request, "gestion/snippets/accionesObjetos.html", {
-    "accion":"crear",
-    "data":crearCitaForm,
-    "url_destino": reverse('CitasCrear'),
-    "url_listado": reverse('Citas'),
-    "tipo" : "cita",
-    "rol": user.role.nombre})
+  if "citas/crear" in request.path :
+    if request.method == "GET":
+      if is_admin(user):
+        is_admin
+        return render(request, "gestion/snippets/accionesObjetos.html", {
+        "accion":"crear",
+        "data":crearCitaAdminForm,
+        "url_destino": reverse('CitasCrear'),
+        "url_listado": reverse('Citas'),
+        "tipo" : "cita",
+        "rol": user.role.nombre})
+      elif is_cliente(user):
+        return render(request, "gestion/snippets/accionesObjetos.html", {
+          "accion":"crear",
+          "data":crearCitaClienteForm(initial={'cliente': request.user.id}),
+          "url_destino": reverse('CitasCrear'),
+          "url_listado": reverse('Citas'),
+          "tipo" : "cita",
+          "rol": user.role.nombre})
+    elif request.method == "POST":
+      nuevaCita = crearCitaAdminForm(request.POST)
+
+      if nuevaCita.is_valid() :
+          empleadoId=nuevaCita.cleaned_data['empleado'].id
+          # Creamos un nuevo objecto 
+          citaObject = Cita(estado="Programada",fecha_cita=nuevaCita.cleaned_data['fecha_cita'],cliente_id=nuevaCita.cleaned_data['cliente'].id, servicio=nuevaCita.cleaned_data['servicio'])
+          # Guardamos en base de datos
+          citaObject.save()
+          # Asignamos la cita al empleado seleccionado en el formulario tomando el id de la nueva cita ya almacenada.
+          nuevaCitaAsignada= asigna_citas_empleado(cita_id=citaObject.id,empleado_id=empleadoId)
+          # Guardamos en base de datos
+          nuevaCitaAsignada.save()  
+          return redirect('Citas')
+      else:
+        return render(request, "gestion/snippets/accionesObjetos.html", {
+        "accion":"crear",
+        "data":crearCitaAdminForm,
+        "url_destino": reverse('CitasCrear'),
+        "url_listado": reverse('Citas'),
+        "tipo" : "cita",
+        "rol": user.role.nombre})
+  elif "citas/modificar" in request.path :
+    if request.method == "GET":
+      pass
+    elif request.method == "POST":
+      pass
+  elif "citas/eliminar" in request.path :
+    if request.method == "GET":
+      pass
+    elif request.method == "POST":
+      pass
 # 
 # 
 # USUARIOS
@@ -73,12 +125,26 @@ def accionesUsuario(request):
         "tipo" : "usuario",
         "rol": user.role.nombre})
     elif request.method == "POST":
-      # TODO RELLENAR CORRECTAMENTE LOS CAMPOS DE CREACION
       nuevoUsuario = crearUsuarioForm(request.POST)
       if nuevoUsuario.is_valid() :
-        usuarioObject = Usuario(nombre = nuevoUsuario.cleaned_data['nombre'], fecha_fin = nuevoUsuario.cleaned_data['fecha_fin'], descuento = nuevoUsuario.cleaned_data['descuento'], activo = nuevoUsuario.cleaned_data['activo'])
+            
+        role_nombre = nuevoUsuario.cleaned_data['role']
+        roleObject = Roles.objects.get(nombre=role_nombre)
+                
+        usuarioObject = Usuario(nombre = nuevoUsuario.cleaned_data['nombre'], apellidos = nuevoUsuario.cleaned_data['apellidos'], fecha_nacimiento = nuevoUsuario.cleaned_data['fecha_nacimiento'], password = nuevoUsuario.cleaned_data['password'], email = nuevoUsuario.cleaned_data['email'], role = roleObject, movil = nuevoUsuario.cleaned_data['movil'], activo = nuevoUsuario.cleaned_data['activo'])
+        
         usuarioObject.save()
-      return redirect("Usuarios")
+        return redirect("Usuarios")
+      else:
+      # Retornamos a la pantalla de creacion para que se puedan mostrar los errores recogidos al validar el formulario en el backend
+        return render(request, "gestion/snippets/accionesObjetos.html", {
+        "accion":"crear",
+        "data":nuevoUsuario,
+        "url_destino": reverse('UsuariosCrear'),
+        "url_listado": reverse('Usuarios'),
+        "tipo" : "usuario",
+        "rol": user.role.nombre})
+        
   elif "usuarios/modificar" in request.path :
     if request.method == "GET":
       # TODO: HACER TODO EL PROCESO DE RECUPERAR CAMPOS
@@ -153,7 +219,15 @@ def accionesOferta(request):
       if nuevaOferta.is_valid() :
         ofertaObject = Oferta(nombre = nuevaOferta.cleaned_data['nombre'], fecha_fin = nuevaOferta.cleaned_data['fecha_fin'], descuento = nuevaOferta.cleaned_data['descuento'], activo = nuevaOferta.cleaned_data['activo'])
         ofertaObject.save()
-      return redirect("Ofertas")
+        return redirect("Ofertas")
+      else:
+        return render(request, "gestion/snippets/accionesObjetos.html", {
+        "accion":"crear",
+        "data":nuevaOferta,
+        "url_destino": reverse('OfertasCrear'),
+        "url_listado": reverse('Ofertas'),
+        "tipo" : "oferta",
+        "rol": user.role.nombre})
   elif "ofertas/modificar" in request.path :
     if request.method == "GET":
       ofertaDb = obtener_objeto_por_id(Oferta, request.GET.get('id'))

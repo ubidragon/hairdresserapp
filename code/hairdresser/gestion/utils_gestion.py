@@ -15,7 +15,7 @@ def is_empleado(user):
     return user.role.nombre == "empleado"
 
 def is_cliente(user):
-    return user.role.nombre == "empleado"
+    return user.role.nombre == "cliente"
 
 def is_Active(user):
     return user.is_authenticated and user.activo == True

@@ -1,3 +1,4 @@
+import re
 from django import forms
 from django.db.models import Q
 from .models import *
@@ -6,6 +7,8 @@ from django.core.validators import RegexValidator
 def positive_validator(value):
     if value < 0:
         raise forms.ValidationError("El valor debe ser positivo.")
+    if len(value) < 1:
+        raise forms.ValidationError("El debe de tener un valor.")
 
 class PositiveIntegerField(forms.IntegerField):
     def __init__(self, *args, **kwargs):
@@ -14,13 +17,20 @@ class PositiveIntegerField(forms.IntegerField):
         kwargs["validators"] = validators
         super().__init__(*args, **kwargs)
 
+class UsuarioCustomModelChoiceField(forms.ModelChoiceField):
+    def label_from_instance(self, instance):
+        # Personaliza la representación del objeto en el ModelChoiceField
+        return instance.nombre + " " + instance.apellidos
+
 class crearServicioForm(forms.ModelForm):
 
 	nombre = forms.CharField(label="Nombre", 
 		widget=forms.TextInput(attrs={"placeholder" : "Servicio", "class": "form-control"}),
+    	min_length=1,
 		required=True)
 	precio = forms.FloatField(label="Precio", 
-		widget=forms.NumberInput(attrs={"placeholder" : "Precio","class": "form-control", "min" : "1", "suffix": "€"}), 
+		widget=forms.NumberInput(attrs={"placeholder" : "Precio","class": "form-control", "min" : "1", "suffix": "€"}),
+		min_value=1,
 		required=True)
 	duracion = PositiveIntegerField(label="Duración", 
 		widget=forms.NumberInput(attrs={"placeholder" : "Duración","class": "form-control", "step": "1", "min" : "1", "suffix": "minutos"}), 
@@ -38,8 +48,6 @@ class crearServicioForm(forms.ModelForm):
         widget=forms.CheckboxInput(attrs={"class":"form-check-input"}),
         required=False)
  
-	fields = ['nombre', 'precio', 'duracion', 'ubicacion', 'oferta', 'descripcion', 'activo']
-
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		self.fields['ubicacion'].widget.attrs['class'] = 'form-control'
@@ -49,7 +57,7 @@ class crearServicioForm(forms.ModelForm):
 
 	class Meta:
 		model = Servicio
-		fields = '__all__'
+		fields = ['nombre', 'precio', 'duracion', 'ubicacion', 'oferta', 'descripcion', 'activo']
 
 class modificarServicioForm(forms.ModelForm):
 
@@ -75,13 +83,9 @@ class modificarServicioForm(forms.ModelForm):
 	activo = forms.BooleanField(label="Activo",
         widget=forms.CheckboxInput(attrs={"class":"form-check-input"}),
         required=False)
- 
-	fields = ['id', 'nombre', 'precio', 'duracion', 'ubicacion', 'oferta', 'descripcion', 'activo']
 
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
-		# ubicaciones = Ubicacion.objects.values_list("nombre", flat=True)
-		# choices = [(nombre, nombre) for nombre in ubicaciones]
 		self.fields['id'].label = ''
 		self.fields['ubicacion'].widget.attrs['class'] = 'form-control'
 		self.fields['ubicacion'].widget.attrs['placeholder'] = 'Ubicacion'
@@ -90,88 +94,139 @@ class modificarServicioForm(forms.ModelForm):
  
 	class Meta:
 		model = Servicio
-		fields = '__all__'
+		fields = ['id', 'nombre', 'precio', 'duracion', 'ubicacion', 'oferta', 'descripcion', 'activo']
 
 class crearOfertaForm(forms.ModelForm):
 
 	nombre = forms.CharField(label="Oferta", 
 		widget=forms.TextInput(attrs={"placeholder" : "Oferta", "class": "form-control"}),
+  		min_length=1,
 		required=True)
 	descuento = forms.FloatField(label="Descuento", 
-		widget=forms.NumberInput(attrs={"placeholder" : "Descuento","class": "form-control", "min" : "0", "suffix": "€"}), 
+		widget=forms.NumberInput(attrs={"placeholder" : "Descuento","class": "form-control", "min" : "0", "suffix": "€"}),
+		min_value=0,
 		required=True)
 	fecha_fin = forms.DateField(
 		label="Fecha Fin",
-		input_formats='%d-%m-%Y',
-		widget=forms.DateInput(attrs={"placeholder" : "dd/mm/YYYY", "class": "form-control datepicker"}),
+		input_formats=['%Y-%m-%d'],
+		widget=forms.DateInput(attrs={"placeholder" : "YYYY-mm-dd", "class": "form-control datepicker"}),
 		required=False)
 	activo = forms.BooleanField(label="Activo",
         widget=forms.CheckboxInput(attrs={"class":"form-check-input"}),
         required=False)
  
-	fields = ['nombre', 'descuento', 'fecha_fin''activo']
-
-
-class crearCitaForm(forms.ModelForm):
-
+	class Meta:
+		model = Oferta
+		fields = ['nombre', 'descuento', 'fecha_fin','activo']
+        
+class crearCitaAdminForm(forms.ModelForm):
 	servicio = forms.ModelChoiceField(queryset=Servicio.objects.filter(Q(activo='1')),
         empty_label="",
-        required=False)
-	cliente = forms.ModelChoiceField(queryset=Usuario.objects.filter(Q(role_id='3') & Q(activo='1')),
-        empty_label="",
-        required=False)	
+        required=True)
+ 
+	#  Generacion del listado de usuarios que son clientes y estan activos.
+	nombresClientes= Usuario.objects.filter(Q(role_id='3') & Q(activo='1'))
+	# Recorro el listado para generar otro listado solo con los datos necesarios a mostrar
+	clientes=[("","")]
+	for cliente in nombresClientes:
+		clientes.append((cliente.id, cliente.getNombreApellidos()))
+
+	cliente = UsuarioCustomModelChoiceField(queryset=Usuario.objects.filter(Q(role_id='3') & Q(activo='1')),
+        required=True)
+ 
+ 	# #  Generacion del listado de usuarios que son clientes y estan activos.
+	# nombresEmpleados= Usuario.objects.filter(Q(role_id='2') & Q(activo='1'))
+	# # Recorro el listado para generar otro listado solo con los datos necesarios a mostrar
+	# empleados=[("","")]
+	# for empleado in nombresEmpleados:
+	# 	empleados.append((empleado.id, empleado.getNombreApellidos()))
+
+	empleado = UsuarioCustomModelChoiceField(queryset=Usuario.objects.filter(Q(role_id='2') & Q(activo='1')),
+		required=True)	
+
 	fecha_cita = forms.DateField(
 		label="Fecha cita",
-		input_formats='%d-%m-%Y',
-		widget=forms.DateInput(attrs={"placeholder" : "dd/mm/YYYY", "class": "form-control datepicker"}),
+		input_formats=['%Y-%m-%d'],
+		widget=forms.DateInput(attrs={"placeholder" : "YYYY-mm-dd", "class": "form-control datepicker"}),
 		required=True)
+ 
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		self.fields['cliente'].widget.attrs['class'] = 'form-control'
+		self.fields['cliente'].widget.attrs['placeholder'] = 'Cliente'
+		self.fields['empleado'].widget.attrs['class'] = 'form-control'
+		self.fields['empleado'].widget.attrs['placeholder'] = 'Empleado'
+		self.fields['servicio'].widget.attrs['class'] = 'form-control'
+		self.fields['servicio'].widget.attrs['placeholder'] = 'Servicio'
+
+	class Meta:
+		model = Cita
+		fields = ['servicio', 'cliente',
+            'empleado',
+            'fecha_cita', ]
+
+class crearCitaClienteForm(crearCitaAdminForm):
+
+	cliente = forms.CharField(widget=forms.HiddenInput)
+ 
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		self.fields['cliente'].label = ''
  
 	class Meta:
 		model = Cita
-		fields = '__all__'
+		fields = ['servicio', 'fecha_cita']
 
 class modificarOfertaForm(crearOfertaForm):
     
 	id= forms.CharField(widget=forms.HiddenInput)
-    
-	fields = ['id','nombre', 'descuento', 'fecha_fin''activo']
-
+ 
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		self.fields['id'].label = ''
   
 	class Meta:
 		model = Oferta
-		fields = '__all__'
-   
+		fields = fields = ['id','nombre', 'descuento', 'fecha_fin','activo']
+
 class crearUsuarioForm(forms.ModelForm):
 
 	nombre = forms.CharField(label="Nombre", 
 		widget=forms.TextInput(attrs={"placeholder" : "Nombre", "class": "form-control"}),
+  		max_length=100,
 		required=True)
 	apellidos = forms.CharField(label="Apellidos", 
 		widget=forms.TextInput(attrs={"placeholder" : "Apellidos", "class": "form-control"}),
+		min_length=1,
+		max_length=255,
 		required=True)
 	fecha_nacimiento = forms.DateField(
 		label="Fecha nacimiento",
-		input_formats='%d-%m-%Y',
-		widget=forms.DateInput(attrs={"placeholder" : "dd/mm/YYYY", "class": "form-control datepicker"}),
-		required=True)
-	passwd = forms.CharField(label="Contraseña", 
+		input_formats=['%Y-%m-%d'],
+		widget=forms.DateInput(attrs={"placeholder" : "YYYY-mm-dd", "class": "form-control datepicker"}),
+		required=False)
+	password = forms.CharField(label="Contraseña", 
 		widget=forms.PasswordInput(attrs={"placeholder" : "Contraseña","class": "form-control"}), 
-		min_length=8, 
+		min_length=8,
+		max_length=500,
 		required=True)
 	role = forms.ModelChoiceField(label="Rol", queryset=Roles.objects.all(),
         empty_label="",
         required=True)
-	phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', 
-		message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.") 
-	movil = PhoneNumberField()
+	phone_regex = RegexValidator(
+                regex=r'^\d{9}$',
+                message='El número de teléfono móvil debe longitud de 9.'
+            )
+	movil = forms.CharField(validators=[phone_regex], required=False)
+
 	email = forms.EmailField(label="Email", 
-		widget=forms.TextInput(attrs={"placeholder" : "Email","class": "form-control"}), 
+		widget=forms.TextInput(attrs={"placeholder" : "Email","class": "form-control"}),
 		required=True)
  
-	fields = ['nombre', 'apellidos', 'passwd', 'email', 'movil', 'role', 'activo']
+	activo = forms.BooleanField(label="Activo",
+        widget=forms.CheckboxInput(attrs={"class":"form-check-input"}),
+        required=False)
+	
  
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
@@ -179,8 +234,7 @@ class crearUsuarioForm(forms.ModelForm):
 		self.fields['movil'].widget.attrs['placeholder'] = 'Movil'
 		self.fields['role'].widget.attrs['class'] = 'form-control'
 		self.fields['role'].widget.attrs['placeholder'] = 'Rol'
- 
- 
+  
 	class Meta:
 		model = Usuario
-		fields = '__all__'
+		fields = ['nombre', 'apellidos', 'fecha_nacimiento', 'password', 'email', 'movil', 'role', 'activo']
