@@ -1,9 +1,17 @@
+from datetime import date, datetime
+
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required, user_passes_test
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib import messages
+
 from .models import *
-from .forms import *
+from .cita import proximasCitas, historicoCitas, crearCita, modificarCita, eliminarCita
+from .usuario import crearUsuario, modificarUsuario, eliminarUsuario
+from .servicio import crearServicio, modificarServicio, eliminarServicio
+from .oferta import crearOferta, modificarOferta, eliminarOferta
 from .utils_gestion import obtener_objeto_por_id, is_Active, is_admin, is_cliente
+
 # 
 # 
 # PANTALLA PRINCIPAL DE ACCESO
@@ -31,70 +39,27 @@ def home(request):
 @login_required(login_url='/acceso/login.html')
 def citas(request):
   user = request.user
-  citas=Cita.objects.all()
   if request.GET.get("action") == "crearCita":
-    return redirect("Gestion")
-  return render(request, "gestion/citas.html", {
-    "citas":citas,
-    "url_modificar": reverse('CitasModificar'),
-    "url_eliminar": reverse('CitasEliminar'),
-    "rol": user.role.nombre})
+    return redirect("Citas")
+  elif request.GET.get("action") == "historico":
+    return historicoCitas(request, user)
+  elif request.GET.get("action") == "proximas":
+    return proximasCitas(request, user)
+  return render(request, "gestion/citas.html", {"rol": user.role.nombre})
+  
 @user_passes_test(is_Active)
 @login_required(login_url='/acceso/login.html')
 def accionesCita(request):
-  # TODO FALTA TODAS LAS ACCIONES DE CITA
   user = request.user
-  if "citas/crear" in request.path :
-    if request.method == "GET":
-      if is_admin(user):
-        is_admin
-        return render(request, "gestion/snippets/accionesObjetos.html", {
-        "accion":"crear",
-        "data":crearCitaAdminForm,
-        "url_destino": reverse('CitasCrear'),
-        "url_listado": reverse('Citas'),
-        "tipo" : "cita",
-        "rol": user.role.nombre})
-      elif is_cliente(user):
-        return render(request, "gestion/snippets/accionesObjetos.html", {
-          "accion":"crear",
-          "data":crearCitaClienteForm(initial={'cliente': request.user.id}),
-          "url_destino": reverse('CitasCrear'),
-          "url_listado": reverse('Citas'),
-          "tipo" : "cita",
-          "rol": user.role.nombre})
-    elif request.method == "POST":
-      nuevaCita = crearCitaAdminForm(request.POST)
-
-      if nuevaCita.is_valid() :
-          empleadoId=nuevaCita.cleaned_data['empleado'].id
-          # Creamos un nuevo objecto 
-          citaObject = Cita(estado="Programada",fecha_cita=nuevaCita.cleaned_data['fecha_cita'],cliente_id=nuevaCita.cleaned_data['cliente'].id, servicio=nuevaCita.cleaned_data['servicio'])
-          # Guardamos en base de datos
-          citaObject.save()
-          # Asignamos la cita al empleado seleccionado en el formulario tomando el id de la nueva cita ya almacenada.
-          nuevaCitaAsignada= asigna_citas_empleado(cita_id=citaObject.id,empleado_id=empleadoId)
-          # Guardamos en base de datos
-          nuevaCitaAsignada.save()  
-          return redirect('Citas')
-      else:
-        return render(request, "gestion/snippets/accionesObjetos.html", {
-        "accion":"crear",
-        "data":crearCitaAdminForm,
-        "url_destino": reverse('CitasCrear'),
-        "url_listado": reverse('Citas'),
-        "tipo" : "cita",
-        "rol": user.role.nombre})
+  if "citas/crear" in request.path :   
+    return crearCita(request, user)
+       
   elif "citas/modificar" in request.path :
-    if request.method == "GET":
-      pass
-    elif request.method == "POST":
-      pass
+    return modificarCita(request, user)
+        
   elif "citas/eliminar" in request.path :
-    if request.method == "GET":
-      pass
-    elif request.method == "POST":
-      pass
+    return eliminarCita(request, user)
+  
 # 
 # 
 # USUARIOS
@@ -116,74 +81,14 @@ def usuarios(request):
 def accionesUsuario(request):
   user = request.user
   if "usuarios/crear" in request.path :
-    if request.method == "GET":
-      return render(request, "gestion/snippets/accionesObjetos.html", {
-        "accion":"crear",
-        "data":crearUsuarioForm,
-        "url_destino": reverse('UsuariosCrear'),
-        "url_listado": reverse('Usuarios'),
-        "tipo" : "usuario",
-        "rol": user.role.nombre})
-    elif request.method == "POST":
-      nuevoUsuario = crearUsuarioForm(request.POST)
-      if nuevoUsuario.is_valid() :
-            
-        role_nombre = nuevoUsuario.cleaned_data['role']
-        roleObject = Roles.objects.get(nombre=role_nombre)
-                
-        usuarioObject = Usuario(nombre = nuevoUsuario.cleaned_data['nombre'], apellidos = nuevoUsuario.cleaned_data['apellidos'], fecha_nacimiento = nuevoUsuario.cleaned_data['fecha_nacimiento'], password = nuevoUsuario.cleaned_data['password'], email = nuevoUsuario.cleaned_data['email'], role = roleObject, movil = nuevoUsuario.cleaned_data['movil'], activo = nuevoUsuario.cleaned_data['activo'])
-        
-        usuarioObject.save()
-        return redirect("Usuarios")
-      else:
-      # Retornamos a la pantalla de creacion para que se puedan mostrar los errores recogidos al validar el formulario en el backend
-        return render(request, "gestion/snippets/accionesObjetos.html", {
-        "accion":"crear",
-        "data":nuevoUsuario,
-        "url_destino": reverse('UsuariosCrear'),
-        "url_listado": reverse('Usuarios'),
-        "tipo" : "usuario",
-        "rol": user.role.nombre})
-        
+    return crearUsuario(request, user)
+  
   elif "usuarios/modificar" in request.path :
-    if request.method == "GET":
-      # TODO: HACER TODO EL PROCESO DE RECUPERAR CAMPOS
-      return render(request, "gestion/snippets/accionesObjetos.html", {
-        "accion":"modificar",
-        # "data":modificarUsuarioForm,
-        "url_destino": reverse('UsuariosCrear'),
-        "url_listado": reverse('Usuarios'),
-        "tipo" : "oferta",
-        "rol": user.role.nombre})
-    if request.method == "POST":
-      # TODO: HACER TODO EL PROCESO DE MDOIFICAR CAMPOS
-      pass
+    return modificarUsuario(request, user)
+  
   elif "usuarios/eliminar" in request.path :
-    if request.method == "GET":
-      usuarioDb = obtener_objeto_por_id(Usuario, request.GET.get('id'))
-      campos_modelo = usuarioDb._meta.fields     
-      atributos = {}
-      for campo in campos_modelo:
-        # if campo.name not in campos_excluidos:
-          atributos[campo.name] = getattr(usuarioDb, campo.name)
-
-      return render(request, "gestion/snippets/accionesObjetos.html", {
-        "accion":"eliminar",
-        "objeto":usuarioDb,
-        "atributos":atributos, 
-        "tipo" : "usuario",
-        "url_destino": reverse('UsuariosEliminar'),
-        "url_listado": reverse('Usuarios'),
-        "rol": user.role.nombre})
-    elif request.method == "POST":
-      usuarioDb = obtener_objeto_por_id(Usuario, request.POST.get('id'))
-      # BORRADO LOGICO
-      if request.POST.get('activo') == "checked":
-        usuarioDb.activo = 1
-      else:
-        usuarioDb.activo = 0	
-      usuarioDb.save()
-      return redirect("Usuarios")
+    return eliminarUsuario(request, user)
+  
 # 
 # 
 # OFERTAS
@@ -206,65 +111,14 @@ def ofertas(request):
 def accionesOferta(request):
   user = request.user
   if "ofertas/crear" in request.path :
-    if request.method == "GET":
-      return render(request, "gestion/snippets/accionesObjetos.html", {
-        "accion":"crear",
-        "data":crearOfertaForm,
-        "url_destino": reverse('OfertasCrear'),
-        "url_listado": reverse('Ofertas'),
-        "tipo" : "oferta",
-        "rol": user.role.nombre})
-    elif request.method == "POST":
-      nuevaOferta = crearOfertaForm(request.POST)
-      if nuevaOferta.is_valid() :
-        ofertaObject = Oferta(nombre = nuevaOferta.cleaned_data['nombre'], fecha_fin = nuevaOferta.cleaned_data['fecha_fin'], descuento = nuevaOferta.cleaned_data['descuento'], activo = nuevaOferta.cleaned_data['activo'])
-        ofertaObject.save()
-        return redirect("Ofertas")
-      else:
-        return render(request, "gestion/snippets/accionesObjetos.html", {
-        "accion":"crear",
-        "data":nuevaOferta,
-        "url_destino": reverse('OfertasCrear'),
-        "url_listado": reverse('Ofertas'),
-        "tipo" : "oferta",
-        "rol": user.role.nombre})
+    return crearOferta(request,user)
+  
   elif "ofertas/modificar" in request.path :
-    if request.method == "GET":
-      ofertaDb = obtener_objeto_por_id(Oferta, request.GET.get('id'))
-      initial_data = {'activo': ofertaDb.activo}
-      elemento = modificarOfertaForm(instance=ofertaDb,initial=initial_data)
-      return render(request, "gestion/snippets/accionesObjetos.html", {
-        "accion":"modificar",
-        "data":[elemento],
-        "url_destino": reverse('OfertasModificar'),
-        "url_listado": reverse('Ofertas'),
-        "tipo" : "oferta",
-        "rol": user.role.nombre})
-    elif request.method == "POST":
-      # TODO: HACER TODO EL PROCESO DE MDOIFICAR CAMPOS
-      
-      pass
+    return modificarOferta(request,user)
+  
   elif "ofertas/eliminar" in request.path :
-    if request.method == "GET":
-      ofertaDb = obtener_objeto_por_id(Oferta, request.GET.get('id'))
-      campos_modelo = ofertaDb._meta.fields     
-      atributos = {}
-      for campo in campos_modelo:
-        # if campo.name not in campos_excluidos:
-          atributos[campo.name] = getattr(ofertaDb, campo.name)
-
-      return render(request, "gestion/snippets/accionesObjetos.html", {
-        "accion":"eliminar",
-        "objeto":ofertaDb,
-        "atributos":atributos, 
-        "tipo" : "oferta",
-        "url_destino": reverse('OfertasEliminar'),
-        "url_listado": reverse('Ofertas'),
-        "rol": user.role.nombre})
-    elif request.method == "POST":
-      ofertaDb = obtener_objeto_por_id(Oferta, request.POST.get('id'))
-      ofertaDb.delete()
-      return redirect("Ofertas")
+    return eliminarOferta(request,user)
+  
 # 
 # 
 # SERVICIOS
@@ -289,110 +143,11 @@ def accionesServicio(request):
   referer = request.POST.get('referer')
   # if referer is not None:
   if "servicios/crear" in request.path :
-    
-    if request.method == "GET":
-      return render(request, "gestion/snippets/accionesObjetos.html", {
-      "accion":"crear",
-      "data":crearServicioForm,
-      "url_destino": reverse('ServiciosCrear'),
-      "url_listado": reverse('Servicios'),
-      "tipo" : "servicio",
-      "rol": user.role.nombre})
-
-    elif request.method == "POST":
-      nuevoServicio = crearServicioForm(request.POST)
-      if nuevoServicio.is_valid() :
-        ubicacion_nombre = nuevoServicio.cleaned_data['ubicacion']
-        ubicacionObject = Ubicacion.objects.get(nombre=ubicacion_nombre)
-    
-        servicioObject = Servicio(nombre = nuevoServicio.cleaned_data['nombre'], precio = nuevoServicio.cleaned_data['precio'], duracion = nuevoServicio.cleaned_data['duracion'], ubicacion = ubicacionObject, descripcion = nuevoServicio.cleaned_data['descripcion'], activo = nuevoServicio.cleaned_data['activo'])
-    
-        if nuevoServicio.cleaned_data['oferta'] is not None:
-          oferta_id = nuevoServicio.cleaned_data['oferta'].id
-          servicioObject.oferta = Oferta.objects.get(id=oferta_id)
-
-        servicioObject.save()
-      return redirect("Servicios")
-  elif "servicios/modificar" in request.path:
+    return crearServicio(request, user)
   
-    ofertaDbData=""
-    ubicacionDbData=""
-
-    if request.method == "GET":
-      servicioDb = obtener_objeto_por_id(Servicio, request.GET.get('id'))
-
-      if servicioDb.oferta.first() is not None:
-        ofertaDb= obtener_objeto_por_id(Oferta, servicioDb.oferta.first().id)
-        ofertaDbData=ofertaDb.nombre
-    
-      if  servicioDb.ubicacion.nombre is not None:
-        ubicacionDbData= servicioDb.ubicacion.nombre
-      
-      initial_data = {'ubicacion': ubicacionDbData,
-          'oferta': ofertaDbData,
-          'activo': servicioDb.activo
-          }
-
-      elemento = modificarServicioForm(instance=servicioDb,initial=initial_data)
-      
-      return render(request, "gestion/snippets/accionesObjetos.html", {
-        "accion":"modificar",
-        "data":[elemento],
-        "url_destino": reverse('ServiciosModificar'),
-        "url_listado": reverse('Servicios'),
-        "tipo" : "servicio",
-      "rol": user.role.nombre})
-   
-    elif request.method == "POST":
-
-      servicioDb = obtener_objeto_por_id(Servicio, request.POST.get('id'))
-
-      if servicioDb.oferta.first() is not None:
-        ofertaDb= obtener_objeto_por_id(Oferta, servicioDb.oferta.first().id)
-        ofertaDbData=ofertaDb.nombre
-    
-      if  servicioDb.ubicacion.nombre is not None:
-        ubicacionDbData= servicioDb.ubicacion.nombre
-          
-      # Reasignacion de valores en caso de que haya sido cambiado algun atributo
-      if servicioDb.nombre != request.POST.get('nombre'):
-        servicioDb.nombre = request.POST.get('nombre')
-      if servicioDb.precio != request.POST.get('precio'):
-        servicioDb.precio = request.POST.get('precio')
-      if servicioDb.duracion != request.POST.get('duracion'):
-        servicioDb.duracion = request.POST.get('duracion')
-      if servicioDb.descripcion != request.POST.get('descripcion'):
-        servicioDb.descripcion = request.POST.get('descripcion')
-      if request.POST.get('activo') == "checked":
-        servicioDb.activo = 1
-      else:
-        servicioDb.activo = 0	
-      if ubicacionDbData != request.POST.get('ubicacion'):
-        servicioDb.ubicacion = Ubicacion.objects.get(nombre=request.POST.get('ubicacion'))
-      if ofertaDbData != request.POST.get('oferta'):
-        servicioDb.oferta.set(request.POST.get('oferta')) 
-
-      # servicioDb.full_clean()
-      servicioDb.save()
-      return redirect("Servicios")
+  elif "servicios/modificar" in request.path:
+    return modificarServicio(request, user)
+  
   elif "servicios/eliminar" in request.path:
-    if request.method == "GET":
-      servicioDb = obtener_objeto_por_id(Servicio, request.GET.get('id'))
-      campos_modelo = servicioDb._meta.fields     
-      atributos = {}
-      for campo in campos_modelo:
-        # if campo.name not in campos_excluidos:
-          atributos[campo.name] = getattr(servicioDb, campo.name)
-
-      return render(request, "gestion/snippets/accionesObjetos.html", {
-        "accion":"eliminar",
-        "objeto":servicioDb,
-        "atributos":atributos, 
-        "tipo" : "servicio",
-        "url_destino": reverse('ServiciosEliminar'),
-        "url_listado": reverse('Servicios'),
-        "rol": user.role.nombre})
-    if request.method == "POST":
-      servicioDb = obtener_objeto_por_id(Servicio, request.POST.get('id'))
-      servicioDb.delete()
-      return redirect("Servicios")
+    return eliminarServicio(request, user)
+  

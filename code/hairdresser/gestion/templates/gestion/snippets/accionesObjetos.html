@@ -85,13 +85,18 @@
 					{% endfor %}
 				{% endif %}
 				<div class="text-center mb-4">
-					{% if  accion == "eliminar" %}
-						<button type="submit" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i> {{accion|capfirst}} {{tipo}}</button>
-					{% elif  accion == "desactivar" %}
-						<button type="submit" class="btn btn-warning"><i class="fa-regular fa-trash-can"></i> {{accion|capfirst}} {{tipo}}</button>
+					{% if volver != "volver" %}
+						{% if  accion == "eliminar" %}
+							<button type="submit" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i> {{accion|capfirst}} {{tipo}}</button>
+						{% elif  accion == "desactivar" %}
+							<button type="submit" class="btn btn-warning"><i class="fa-regular fa-trash-can"></i> {{accion|capfirst}} {{tipo}}</button>
+						{% else %}
+							<button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> {{accion|capfirst}} {{tipo}}</button>
+						{% endif %}
 					{% else %}
-						<button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> {{accion|capfirst}} {{tipo}}</button>
+					<button type="submit" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i> {{volver|capfirst}}</button>
 					{% endif %}
+					
 				</div>
 			</form>
 		</div>

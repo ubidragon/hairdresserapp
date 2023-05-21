@@ -54,6 +54,9 @@
 			$(document).ready(function() {
 			  $('.datepicker').datepicker({
 				dateFormat: "yy-mm-dd"
+				{% if tipo == "cita"%}
+					,minDate: new Date()
+				{% endif %}
 			  });
 			});
 		</script>

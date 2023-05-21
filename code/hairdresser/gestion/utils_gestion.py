@@ -2,11 +2,11 @@
 
 
 def obtener_objeto_por_id(Modelo, id):
-		try:
-				objeto = Modelo.objects.get(id=id)
-				return objeto
-		except Modelo.DoesNotExist:
-				return None
+	try:
+		objeto = Modelo.objects.get(id=id)
+		return objeto
+	except Modelo.DoesNotExist:
+		return None
 
 def is_admin(user):
 	return user.role.nombre == "administrador"

@@ -1,54 +1,28 @@
 {% extends 'gestion/base.html' %}	
 {% load static %}
 {% block content %}
-<div class="container mb-5">
+<div class="container">
     <div class="header-container">
 		<h1 class="m-0">Gestión de citas</h1>
 	</div>
-	<div class="row justify-content-center">
-		<div class="col-4">
-			<a href="{% url 'CitasCrear' %}?action=crearCita" role="button" class="btn btn-primary btn-block w-100">Pedir cita</a>
-		</div>
-		<div class="col-4">
-			<a href="#" role="button" class="btn btn-primary btn-block w-100">Próximas citas</a>
-		</div>
-		<div class="col-4">
-			<a href="#" role="button" class="btn btn-primary btn-block w-100">Historico de citas</a>
-		</div>
-	</div>
 </div>
-<div class="container">
-	<div class="table-responsive">
-		<table id="tabla" class="table">
-			<thead>
-			<tr>
-				<th>Fecha</th>
-				<th>Estado</th>
-				<th>Servicio</th>
-				<th>Cliente</th>
-				<th>Acciones</th>
-			</tr>
-			</thead>
-			<tbody>
-				{% for cita in citas %}
-				<tr class="align-middle">
-					<td>{{cita.fecha_cita}}</td>
-					{% if cita.estado == "Realizada" %}
-						<td><button class="btn btn-success disabled w-100">{{cita.estado}}</button></td>
-					{% elif cita.estado == "Programada" %}
-						<td><button class="btn btn-primary disabled w-100">{{cita.estado}}</button></td>
-					{% elif cita.estado == "Cancelada" %}
-						<td><button class="btn btn-warning disabled w-100">{{cita.estado}}</button></td>
-					{% endif %}
-					<td>{{cita.servicio.nombre}}</td>
-					<td>{{cita.cliente.nombre}} {{cita.cliente.apellidos}}</td>
-					<td>
-						{% include './snippets/botones-acciones.html' with element="cita" url_modificar=url_modificar id=cita.id%}
-					</td>
-				</tr>
-				{% endfor %}
-			</tbody>
-		</table>
+<div class="center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-6 center-content">
+			<a href="{% url 'CitasCrear' %}?action=crearCita" role="button" class="btn btn-primary btn-block w-100">Pedir cita</a>
+        </div>
+      </div>
+	  <div class="row mt-4 justify-content-center">
+        <div class="col-6 center-content">
+			<a href="{% url 'Citas' %}?action=proximas" role="button" class="btn btn-primary btn-block w-100">Próximas citas</a>
+        </div>
+      </div>
+	  <div class="row mt-4 justify-content-center">
+        <div class="col-6 center-content">
+			<a href="{% url 'Citas' %}?action=historico" role="button" class="btn btn-primary btn-block w-100">Historico de citas</a>
+        </div>
+      </div>
 	</div>
 </div>
 {% endblock content %} 

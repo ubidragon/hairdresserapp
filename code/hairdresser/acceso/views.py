@@ -6,8 +6,10 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
 
 def inicio(request):
-    formularioLogin=inicioSesion()
-    if request.method == 'POST':
+    if request.method == 'GET':
+        formularioLogin=inicioSesion()
+        return render(request, "acceso/login.html", {'formularioInicio':formularioLogin})
+    elif request.method == 'POST':
         formularioLogin=inicioSesion(request.POST)
         if formularioLogin.is_valid():
             formEmail=formularioLogin.cleaned_data.get("email")
@@ -28,7 +30,6 @@ def inicio(request):
                     messages.error(request, formularioLogin.add_error("passwd","Usuario inactivado. Contacte con el administrador del sitio"))
             else:
                 messages.error(request, formularioLogin.add_error("passwd","Usuario/Contraseña no correcta"))
-    else:    
         return render(request, "acceso/login.html", {'formularioInicio':formularioLogin})
 
 def cerrarSesion(request):
@@ -38,7 +39,7 @@ def cerrarSesion(request):
 def signUp(request):
     # form=UserCreationForm()
     signup=registro(request.POST)
-    
+    # TODO: Construir el formulario de registro con sus validaciones.
     if len(request.GET) > 0:
         return render(request, "acceso/signup.html", {'formularioRegistro':signup})
     elif signup.is_valid():

@@ -4,11 +4,10 @@ from django.db.models import Q
 from .models import *
 from django.core.validators import RegexValidator
 
+# Metodos y funcionalidades para los formularios
 def positive_validator(value):
     if value < 0:
         raise forms.ValidationError("El valor debe ser positivo.")
-    if len(value) < 1:
-        raise forms.ValidationError("El debe de tener un valor.")
 
 class PositiveIntegerField(forms.IntegerField):
     def __init__(self, *args, **kwargs):
@@ -21,7 +20,13 @@ class UsuarioCustomModelChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, instance):
         # Personaliza la representación del objeto en el ModelChoiceField
         return instance.nombre + " " + instance.apellidos
+# 
+# 
+# 
+# Formularios de la aplicacion
+# 
 
+# SERVICIO
 class crearServicioForm(forms.ModelForm):
 
 	nombre = forms.CharField(label="Nombre", 
@@ -96,6 +101,7 @@ class modificarServicioForm(forms.ModelForm):
 		model = Servicio
 		fields = ['id', 'nombre', 'precio', 'duracion', 'ubicacion', 'oferta', 'descripcion', 'activo']
 
+# OFERTA
 class crearOfertaForm(forms.ModelForm):
 
 	nombre = forms.CharField(label="Oferta", 
@@ -118,7 +124,20 @@ class crearOfertaForm(forms.ModelForm):
 	class Meta:
 		model = Oferta
 		fields = ['nombre', 'descuento', 'fecha_fin','activo']
-        
+   
+class modificarOfertaForm(crearOfertaForm):
+
+	id= forms.CharField(widget=forms.HiddenInput)
+ 
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		self.fields['id'].label = ''
+  
+	class Meta:
+		model = Oferta
+		fields = ['id','nombre', 'descuento', 'fecha_fin','activo']
+
+# CITA
 class crearCitaAdminForm(forms.ModelForm):
 	servicio = forms.ModelChoiceField(queryset=Servicio.objects.filter(Q(activo='1')),
         empty_label="",
@@ -147,10 +166,8 @@ class crearCitaAdminForm(forms.ModelForm):
 
 	class Meta:
 		model = Cita
-		fields = ['servicio', 'cliente',
-            'empleado',
-            'fecha_cita', ]
-
+		fields = ['servicio', 'cliente', 'empleado', 'fecha_cita', ]
+  
 class crearCitaClienteForm(crearCitaAdminForm):
 
 	cliente = forms.CharField(widget=forms.HiddenInput)
@@ -163,8 +180,8 @@ class crearCitaClienteForm(crearCitaAdminForm):
 		model = Cita
 		fields = ['servicio', 'fecha_cita']
 
-class modificarOfertaForm(crearOfertaForm):
-    
+class modificarCitaForm(crearCitaAdminForm):
+
 	id= forms.CharField(widget=forms.HiddenInput)
  
 	def __init__(self, *args, **kwargs):
@@ -172,9 +189,26 @@ class modificarOfertaForm(crearOfertaForm):
 		self.fields['id'].label = ''
   
 	class Meta:
-		model = Oferta
-		fields = fields = ['id','nombre', 'descuento', 'fecha_fin','activo']
+		model = Cita
+		fields = ['servicio', 'cliente', 'empleado', 'fecha_cita', ]
+  
+class modificarCitaPasada(modificarCitaForm):
 
+	fecha_cita = forms.CharField()
+
+	def __init__(self, *args, **kwargs):
+		super(crearCitaAdminForm, self).__init__(*args, **kwargs)
+		self.fields['id'].label = ''
+		self.fields['servicio'].widget.attrs['disabled'] = True
+		self.fields['cliente'].widget.attrs['disabled'] = True
+		self.fields['empleado'].widget.attrs['disabled'] = True
+		self.fields['fecha_cita'].widget.attrs['readonly'] = True
+  
+	class Meta:
+		model = Cita
+		fields = ['servicio', 'cliente', 'empleado', 'fecha_cita', ]
+
+# USUARIO
 class crearUsuarioForm(forms.ModelForm):
 
 	nombre = forms.CharField(label="Nombre", 
@@ -221,6 +255,17 @@ class crearUsuarioForm(forms.ModelForm):
 		self.fields['role'].widget.attrs['class'] = 'form-control'
 		self.fields['role'].widget.attrs['placeholder'] = 'Rol'
   
+	class Meta:
+		model = Usuario
+		fields = ['nombre', 'apellidos', 'fecha_nacimiento', 'password', 'email', 'movil', 'role', 'activo']
+
+class modificarUsuarioForm(crearUsuarioForm):
+	id= forms.CharField(widget=forms.HiddenInput)
+ 
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		self.fields['id'].label = ''
+
 	class Meta:
 		model = Usuario
 		fields = ['nombre', 'apellidos', 'fecha_nacimiento', 'password', 'email', 'movil', 'role', 'activo']
