@@ -615,7 +615,7 @@
 		"fields": {
 			"nombre": "Ubaldo",
 			"apellidos": "Hidalgo Arriaga",
-			"password": "123456",
+			"password": "123456789",
 			"email": "ubaldo.hidalgo@hairdresserapp.es",
 			"role": 1,
 			"fecha_nacimiento": "1994-06-20",
@@ -630,7 +630,7 @@
 		"fields": {
 			"nombre": "Federico",
 			"apellidos": "Roldan",
-			"password": "123456",
+			"password": "123456789",
 			"email": "federico.roldan@hairdresserapp.es",
 			"role": 2,
 			"fecha_nacimiento": "1990-03-12",
@@ -645,7 +645,7 @@
 		"fields": {
 			"nombre": "Ainhoa",
 			"apellidos": "Nuñez",
-			"password": "123456",
+			"password": "123456789",
 			"email": "ainhoa.nuñez@hairdresserapp.es",
 			"role": 2,
 			"fecha_nacimiento": "1985-06-01",
@@ -660,7 +660,7 @@
 		"fields": {
 			"nombre": "Aurora",
 			"apellidos": "Ariza",
-			"password": "123456",
+			"password": "123456789",
 			"email": "aurora2000@msn.com",
 			"role": 3,
 			"fecha_nacimiento": "2000-10-27",
@@ -675,7 +675,7 @@
 		"fields": {
 			"nombre": "Aurora",
 			"apellidos": "Ariza",
-			"password": "123456",
+			"password": "123456789",
 			"email": "aurora300@msn.com",
 			"role": 3,
 			"fecha_nacimiento": null,
@@ -690,7 +690,7 @@
 		"fields": {
 			"nombre": "Beatriz",
 			"apellidos": "Pastor",
-			"password": "1234567",
+			"password": "1234567897",
 			"email": "beatriz.pastor@yahoo.es",
 			"role": 3,
 			"fecha_nacimiento": "2023-05-12",
