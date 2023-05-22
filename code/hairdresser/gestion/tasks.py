@@ -7,7 +7,6 @@ def terminarCitasPasadas():
  	   pasen de forma automatica al estado "Realizada"
 	"""    
 	fecha_actual = date.today()
-	hora_actual = datetime.now().strftime("%H:%M")
 	citasProgramadas= Cita.objects.filter(Q(estado="Programada"))
 	for cita in citasProgramadas:
 

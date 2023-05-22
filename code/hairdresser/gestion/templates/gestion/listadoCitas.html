@@ -20,7 +20,9 @@
 				<th>Estado</th>
 				<th>Servicio</th>
 				<th>Cliente</th>
+				{% if rol != "empleado" %} 
 				<th>Acciones</th>
+				{% endif %}
 			</tr>
 			</thead>
 			<tbody>
@@ -36,9 +38,11 @@
 					{% endif %}
 					<td>{{cita.servicio.nombre}}</td>
 					<td>{{cita.cliente.nombre}} {{cita.cliente.apellidos}}</td>
+					{% if rol != "empleado" %} 
 					<td>
 						{% include './snippets/botones-acciones.html' with element="cita" url_modificar=url_modificar id=cita.id%}
 					</td>
+					{% endif %}
 				</tr>
 				{% endfor %}
 			</tbody>
