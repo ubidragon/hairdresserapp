@@ -76,12 +76,14 @@ class modificarServicioForm(forms.ModelForm):
     widget=forms.TextInput(attrs={"placeholder" : "Servicio", "class": "form-control"}),
     required=True)
   precio = forms.FloatField(label="Precio", 
-    widget=forms.NumberInput(attrs={"placeholder" : "Precio","class": "form-control", "min" : "1", "suffix": "€"}), 
+    widget=forms.NumberInput(attrs={"placeholder" : "Precio","class": "form-control", "min" : "1", "suffix": "€"}),
+    min_value=0, 
     required=True)
   duracion = PositiveIntegerField(label="Duración", 
     widget=forms.NumberInput(attrs={"placeholder" : "Duración","class": "form-control", "step": "1", "min" : "1", "suffix": "minutos"}), 
+    min_value=0, 
     required=True)
-  ubicacion = forms.ModelChoiceField(queryset=Ubicacion.objects.values_list('nombre', flat=True),
+  ubicacion = forms.ModelChoiceField(queryset=Ubicacion.objects.all(),
         empty_label="",
         required=False)
   oferta = OfertaCustomModelChoiceField(queryset=Oferta.objects.all(),

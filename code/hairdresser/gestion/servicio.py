@@ -73,44 +73,53 @@ def modificarServicio(request, user):
    
     elif request.method == "POST":
 
-      servicioDb = obtener_objeto_por_id(Servicio, request.POST.get('id'))
+      servicioModificado = modificarServicioForm(request.POST)
 
-      # if servicioDb.oferta is not None:
-      #   ofertaDb= obtener_objeto_por_id(Oferta, request.POST.get('oferta'))
-      #   ofertaDbData=ofertaDb.nombre
-    
-      if  servicioDb.ubicacion.nombre is not None:
-        ubicacionDbData= servicioDb.ubicacion.nombre
-          
-      # Reasignacion de valores en caso de que haya sido cambiado algun atributo
-      if servicioDb.nombre != request.POST.get('nombre'):
-        servicioDb.nombre = request.POST.get('nombre')
-      if servicioDb.precio != request.POST.get('precio'):
-        servicioDb.precio = request.POST.get('precio')
-      if servicioDb.duracion != request.POST.get('duracion'):
-        servicioDb.duracion = request.POST.get('duracion')
-      if servicioDb.descripcion != request.POST.get('descripcion'):
-        servicioDb.descripcion = request.POST.get('descripcion')
-      if request.POST.get('activo') == "checked":
-        servicioDb.activo = 1
-      else:
-        servicioDb.activo = 0	
-      if ubicacionDbData != request.POST.get('ubicacion'):
-        servicioDb.ubicacion = Ubicacion.objects.get(nombre=request.POST.get('ubicacion'))
-      if servicioDb.oferta != request.POST.get('oferta'):
-        if request.POST.get('oferta') is not None and request.POST.get('oferta') != "":
-          ofertaDbData= obtener_objeto_por_id(Oferta, request.POST.get('oferta'))
-          servicioDb.oferta.set([ofertaDbData])
+      if servicioModificado.is_valid():
+
+        servicioDb = obtener_objeto_por_id(Servicio, request.POST.get('id'))
+
+        # if servicioDb.oferta is not None:
+        #   ofertaDb= obtener_objeto_por_id(Oferta, request.POST.get('oferta'))
+        #   ofertaDbData=ofertaDb.nombre
+      
+        if  servicioDb.ubicacion.nombre is not None:
+          ubicacionDbData= servicioDb.ubicacion.nombre
+            
+        # Reasignacion de valores en caso de que haya sido cambiado algun atributo
+        if servicioDb.nombre != request.POST.get('nombre'):
+          servicioDb.nombre = request.POST.get('nombre')
+        if servicioDb.precio != request.POST.get('precio'):
+          servicioDb.precio = request.POST.get('precio')
+        if servicioDb.duracion != request.POST.get('duracion'):
+          servicioDb.duracion = request.POST.get('duracion')
+        if servicioDb.descripcion != request.POST.get('descripcion'):
+          servicioDb.descripcion = request.POST.get('descripcion')
+        if request.POST.get('activo') == "checked":
+          servicioDb.activo = 1
         else:
-          servicio_oferta = servicioDb.oferta.values_list('id', flat=True).first()
-          # ofertaDelete=Oferta.objects.filter(Q(id = servicioDb.oferta.id))
-          servicioDb.oferta.remove(servicio_oferta)
-        
-      
-      
-      servicioDb.full_clean()
-      servicioDb.save()
-      return redirect("Servicios")
+          servicioDb.activo = 0	
+        if ubicacionDbData != request.POST.get('ubicacion'):
+          servicioDb.ubicacion = Ubicacion.objects.get(id=request.POST.get('ubicacion'))
+        if servicioDb.oferta != request.POST.get('oferta'):
+          if request.POST.get('oferta') is not None and request.POST.get('oferta') != "":
+            ofertaDbData= obtener_objeto_por_id(Oferta, request.POST.get('oferta'))
+            servicioDb.oferta.set([ofertaDbData])
+          else:
+            servicio_oferta = servicioDb.oferta.values_list('id', flat=True).first()
+            # ofertaDelete=Oferta.objects.filter(Q(id = servicioDb.oferta.id))
+            servicioDb.oferta.remove(servicio_oferta)
+
+        servicioDb.save()
+        return redirect("Servicios")
+      else:
+        return render(request, "gestion/snippets/accionesObjetos.html", {
+          "accion":"modificar",
+          "data":[servicioModificado],
+          "url_destino": reverse('ServiciosModificar'),
+          "url_listado": reverse('Servicios'),
+          "tipo" : "servicio",
+        "rol": user.role.nombre}) 
 
 def eliminarServicio(request, user):
     if request.method == "GET":
