@@ -39,6 +39,16 @@ def historicoCitas(request, user):
     citas=Cita.objects.all()  
   elif is_cliente(user):
     citas=Cita.objects.filter(cliente=user)
+  elif is_empleado(user):
+    citas=[]
+    
+    citasEmpleado = asigna_citas_empleado.objects.filter(empleado_id=user.id)
+    
+    for cita in citasEmpleado:
+      citaDb=Cita.objects.filter(Q(id=cita.cita_id)).first()
+      if citaDb is not None:
+        citas.append(citaDb)
+        
   return render(request, "gestion/listadoCitas.html", {
     "citas":citas,
     "tipo":"cita",
