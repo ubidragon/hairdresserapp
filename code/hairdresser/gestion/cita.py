@@ -76,28 +76,52 @@ def crearCita(request, user):
           "tipo" : "cita",
           "rol": user.role.nombre})
     elif request.method == "POST":
-      nuevaCita = crearCitaAdminForm(request.POST)
+      if is_admin(user):
+        nuevaCita = crearCitaAdminForm(request.POST)
 
-      if nuevaCita.is_valid() :
-          empleadoId=nuevaCita.cleaned_data['empleado'].id
-          # Creamos un nuevo objecto 
-          citaObject = Cita(estado="Programada",fecha_cita=nuevaCita.cleaned_data['fecha_cita'],cliente_id=nuevaCita.cleaned_data['cliente'].id, servicio=nuevaCita.cleaned_data['servicio'])
-          # Guardamos en base de datos
-          citaObject.save()
-          # Asignamos la cita al empleado seleccionado en el formulario tomando el id de la nueva cita ya almacenada.
-          nuevaCitaAsignada= asigna_citas_empleado(cita_id=citaObject.id,empleado_id=empleadoId)
-          # Guardamos en base de datos
-          nuevaCitaAsignada.save()  
-          return redirect('Citas')
-      else:
-        # En caso de que no sea valido se volvera a cargar el formulario para que muestre los errores
-        return render(request, "gestion/snippets/accionesObjetos.html", {
-        "accion":"crear",
-        "data":crearCitaAdminForm,
-        "url_destino": reverse('CitasCrear'),
-        "url_listado": reverse('Citas'),
-        "tipo" : "cita",
-        "rol": user.role.nombre})
+        if nuevaCita.is_valid() :
+            empleadoId=nuevaCita.cleaned_data['empleado'].id
+            # Creamos un nuevo objecto 
+            citaObject = Cita(estado="Programada",fecha_cita=nuevaCita.cleaned_data['fecha_cita'],cliente_id=nuevaCita.cleaned_data['cliente'].id, servicio=nuevaCita.cleaned_data['servicio'])
+            # Guardamos en base de datos
+            citaObject.save()
+            # Asignamos la cita al empleado seleccionado en el formulario tomando el id de la nueva cita ya almacenada.
+            nuevaCitaAsignada= asigna_citas_empleado(cita_id=citaObject.id,empleado_id=empleadoId)
+            # Guardamos en base de datos
+            nuevaCitaAsignada.save()  
+            return redirect('Citas')
+        else:
+          # En caso de que no sea valido se volvera a cargar el formulario para que muestre los errores
+          return render(request, "gestion/snippets/accionesObjetos.html", {
+          "accion":"crear",
+          "data":crearCitaAdminForm(request.POST),
+          "url_destino": reverse('CitasCrear'),
+          "url_listado": reverse('Citas'),
+          "tipo" : "cita",
+          "rol": user.role.nombre})
+      elif is_cliente(user):
+        nuevaCita = crearCitaClienteForm(request.POST)
+
+        if nuevaCita.is_valid() :
+            empleadoId=nuevaCita.cleaned_data['empleado'].id
+            # Creamos un nuevo objecto 
+            citaObject = Cita(estado="Programada",fecha_cita=nuevaCita.cleaned_data['fecha_cita'],cliente_id=request.user.id, servicio=nuevaCita.cleaned_data['servicio'])
+            # Guardamos en base de datos
+            citaObject.save()
+            # Asignamos la cita al empleado seleccionado en el formulario tomando el id de la nueva cita ya almacenada.
+            nuevaCitaAsignada= asigna_citas_empleado(cita_id=citaObject.id,empleado_id=empleadoId)
+            # Guardamos en base de datos
+            nuevaCitaAsignada.save()  
+            return redirect('Citas')
+        else:
+          # En caso de que no sea valido se volvera a cargar el formulario para que muestre los errores
+          return render(request, "gestion/snippets/accionesObjetos.html", {
+          "accion":"crear",
+          "data":crearCitaClienteForm(request.POST),
+          "url_destino": reverse('CitasCrear'),
+          "url_listado": reverse('Citas'),
+          "tipo" : "cita",
+          "rol": user.role.nombre})
               
 def modificarCita(request, user):
     if request.method == "GET":
