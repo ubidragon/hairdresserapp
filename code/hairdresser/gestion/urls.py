@@ -20,4 +20,5 @@ urlpatterns = [
     path('usuarios/crear', views.accionesUsuario, name="UsuariosCrear"),
     path('usuarios/modificar', views.accionesUsuario, name="UsuariosModificar"),
     path('usuarios/eliminar', views.accionesUsuario, name="UsuariosEliminar"),
+    path('profile', views.profile, name="MisDatos"),
 ]

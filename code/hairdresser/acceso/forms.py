@@ -38,7 +38,7 @@ class registro(forms.Form):
 		message="El telefono deber de ser con el siguiente formato: '666555444'")
 	movil = forms.CharField(validators=[phone_regex], 
 		widget=forms.TextInput(attrs={"placeholder" : "Telefono movil","class": "form-control"}), 
-		max_length=17)
+		max_length=9)
 
 	email = forms.EmailField(label="Email", 
 		widget=forms.TextInput(attrs={"placeholder" : "Email","class": "form-control"}), 

@@ -7,7 +7,7 @@ from django.contrib import messages
 
 from .models import *
 from .cita import proximasCitas, historicoCitas, crearCita, modificarCita, eliminarCita
-from .usuario import crearUsuario, modificarUsuario, eliminarUsuario
+from .usuario import crearUsuario, modificarUsuario, eliminarUsuario, misDatos
 from .servicio import crearServicio, modificarServicio, eliminarServicio
 from .oferta import crearOferta, modificarOferta, eliminarOferta
 from .utils_gestion import obtener_objeto_por_id, is_Active, is_admin, is_cliente
@@ -151,3 +151,8 @@ def accionesServicio(request):
   elif "servicios/eliminar" in request.path:
     return eliminarServicio(request, user)
   
+@user_passes_test(is_Active)
+@login_required(login_url='/acceso/login.html')
+def profile(request):
+  user = request.user
+  return misDatos(request, user)

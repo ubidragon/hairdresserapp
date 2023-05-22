@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
-
+from django.db.models import Q
 from .forms import crearServicioForm, modificarServicioForm
 from .models import Servicio, Ubicacion, Oferta
 from .utils_gestion import obtener_objeto_por_id
@@ -15,7 +15,6 @@ def crearServicio(request, user):
       "url_listado": reverse('Servicios'),
       "tipo" : "servicio",
       "rol": user.role.nombre})
-
     elif request.method == "POST":
       nuevoServicio = crearServicioForm(request.POST)
       if nuevoServicio.is_valid() :
@@ -29,7 +28,16 @@ def crearServicio(request, user):
           servicioObject.oferta = Oferta.objects.get(id=oferta_id)
 
         servicioObject.save()
-      return redirect("Servicios")
+        return redirect("Servicios")
+    else:
+        return render(request, "gestion/snippets/accionesObjetos.html", {
+        "accion":"crear",
+        "data":crearServicioForm(request.GET),
+        "url_destino": reverse('ServiciosCrear'),
+        "url_listado": reverse('Servicios'),
+        "tipo" : "servicio",
+        "rol": user.role.nombre})
+
   
 def modificarServicio(request, user):
   
@@ -40,8 +48,10 @@ def modificarServicio(request, user):
       servicioDb = obtener_objeto_por_id(Servicio, request.GET.get('id'))
 
       if servicioDb.oferta.first() is not None:
-        ofertaDb= obtener_objeto_por_id(Oferta, servicioDb.oferta.first().id)
-        ofertaDbData=ofertaDb.nombre
+        ofertaDbData= obtener_objeto_por_id(Oferta, servicioDb.oferta.first().id)
+        
+        # ofertaDb=Servicio.objects.filter(servicio_oferta__oferta_id=request.GET.get('oferta'))
+
     
       if  servicioDb.ubicacion.nombre is not None:
         ubicacionDbData= servicioDb.ubicacion.nombre
@@ -65,9 +75,9 @@ def modificarServicio(request, user):
 
       servicioDb = obtener_objeto_por_id(Servicio, request.POST.get('id'))
 
-      if servicioDb.oferta.first() is not None:
-        ofertaDb= obtener_objeto_por_id(Oferta, servicioDb.oferta.first().id)
-        ofertaDbData=ofertaDb.nombre
+      # if servicioDb.oferta is not None:
+      #   ofertaDb= obtener_objeto_por_id(Oferta, request.POST.get('oferta'))
+      #   ofertaDbData=ofertaDb.nombre
     
       if  servicioDb.ubicacion.nombre is not None:
         ubicacionDbData= servicioDb.ubicacion.nombre
@@ -87,10 +97,18 @@ def modificarServicio(request, user):
         servicioDb.activo = 0	
       if ubicacionDbData != request.POST.get('ubicacion'):
         servicioDb.ubicacion = Ubicacion.objects.get(nombre=request.POST.get('ubicacion'))
-      if ofertaDbData != request.POST.get('oferta'):
-        servicioDb.oferta.set(request.POST.get('oferta')) 
-
-      # servicioDb.full_clean()
+      if servicioDb.oferta != request.POST.get('oferta'):
+        if request.POST.get('oferta') is not None and request.POST.get('oferta') != "":
+          ofertaDbData= obtener_objeto_por_id(Oferta, request.POST.get('oferta'))
+          servicioDb.oferta.set([ofertaDbData])
+        else:
+          servicio_oferta = servicioDb.oferta.values_list('id', flat=True).first()
+          # ofertaDelete=Oferta.objects.filter(Q(id = servicioDb.oferta.id))
+          servicioDb.oferta.remove(servicio_oferta)
+        
+      
+      
+      servicioDb.full_clean()
       servicioDb.save()
       return redirect("Servicios")
 

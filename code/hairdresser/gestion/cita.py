@@ -5,13 +5,26 @@ from django.db.models import Q
 from datetime import date, datetime, timedelta
 from .models import Cita, asigna_citas_empleado
 from .forms import crearCitaAdminForm, crearCitaClienteForm, modificarCitaForm, modificarCitaPasada
-from .utils_gestion import obtener_objeto_por_id, is_Active, is_admin, is_cliente
+from .utils_gestion import obtener_objeto_por_id, is_Active, is_admin, is_cliente, is_empleado
 
 def proximasCitas(request, user):
   user = request.user
   fechaProximos7Dias=datetime.now() + timedelta(days=7)
-  citas=Cita.objects.filter(Q(fecha_cita__gt=datetime.now().strftime("%Y-%m-%d")) & Q(fecha_cita__lt=fechaProximos7Dias.strftime("%Y-%m-%d")))
   
+  if is_admin(user):
+    citas=Cita.objects.filter(Q(fecha_cita__gt=datetime.now().strftime("%Y-%m-%d")) & Q(fecha_cita__lt=fechaProximos7Dias.strftime("%Y-%m-%d")))
+  elif is_cliente(user):
+    citas=Cita.objects.filter(Q(cliente=user) & Q(fecha_cita__gt=datetime.now().strftime("%Y-%m-%d")) & Q(fecha_cita__lt=fechaProximos7Dias.strftime("%Y-%m-%d")))
+  elif is_empleado(user):
+    citas=[]
+    
+    citasEmpleado = asigna_citas_empleado.objects.filter(empleado_id=user.id)
+    
+    for cita in citasEmpleado:
+      citaDb=Cita.objects.filter(Q(id=cita.cita_id) & Q(fecha_cita__gt=datetime.now().strftime("%Y-%m-%d")) & Q(fecha_cita__lt=fechaProximos7Dias.strftime("%Y-%m-%d"))).first()
+      if citaDb is not None:
+        citas.append(citaDb)
+
   return render(request, "gestion/listadoCitas.html", {
     "citas":citas,
     "tipo":"cita",
@@ -22,7 +35,10 @@ def proximasCitas(request, user):
 
 def historicoCitas(request, user):
   user = request.user
-  citas=Cita.objects.all()
+  if is_admin(user):
+    citas=Cita.objects.all()  
+  elif is_cliente(user):
+    citas=Cita.objects.filter(cliente=user)
   return render(request, "gestion/listadoCitas.html", {
     "citas":citas,
     "tipo":"cita",
@@ -155,7 +171,6 @@ def modificarCita(request, user):
           "tipo" : "cita",
           "rol": user.role.nombre})
   
-#  TODO: Implementar funcionalidad de eliminacion de cita, que realmente lo que hace es cancelarla, para asi mantener un historico.
 def eliminarCita(request, user):
     if request.method == "GET":
       citaDb = obtener_objeto_por_id(Cita, request.GET.get('id'))

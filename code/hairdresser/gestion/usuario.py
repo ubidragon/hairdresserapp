@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
-from .forms import crearUsuarioForm, modificarUsuarioForm
+from .forms import crearUsuarioForm, modificarUsuarioForm, misDatosForm
 from .models import Usuario, Roles
 from .utils_gestion import obtener_objeto_por_id
 
@@ -36,67 +36,61 @@ def crearUsuario(request, user):
         "rol": user.role.nombre})
         
 def modificarUsuario(request, user):
-	if request.method == "GET":
-		usuarioDb = obtener_objeto_por_id(Usuario, request.GET.get('id'))
-		fechaFormateada=usuarioDb.fecha_nacimiento.strftime("%Y-%m-%d")
-		initial_data = {'id': usuarioDb.id, 'fecha_nacimiento' : fechaFormateada, 'movil':usuarioDb.movil,'activo': usuarioDb.activo}
-		elemento = modificarUsuarioForm(instance=usuarioDb,initial=initial_data)
-		elemento.fields['password'].widget.attrs['value'] = usuarioDb.password
+    if request.method == "GET":
+        usuarioDb = obtener_objeto_por_id(Usuario, request.GET.get('id'))
+        fechaFormateada=usuarioDb.fecha_nacimiento.strftime("%Y-%m-%d")
+        initial_data = {'id': usuarioDb.id, 'fecha_nacimiento' : fechaFormateada, 'movil':usuarioDb.movil,'activo': usuarioDb.activo}
+        elemento = modificarUsuarioForm(instance=usuarioDb,initial=initial_data)
+        elemento.fields['password'].widget.attrs['value'] = usuarioDb.password
   
-		return render(request, "gestion/snippets/accionesObjetos.html", {
-		"accion":"modificar",
-		"data":[elemento],
-		"url_destino": reverse('UsuariosModificar'),
-		"url_listado": reverse('Usuarios'),
-		"tipo" : "usuario",
-		"rol": user.role.nombre})
+        return render(request, "gestion/snippets/accionesObjetos.html", {
+        "accion":"modificar",
+        "data":[elemento],
+        "url_destino": reverse('UsuariosModificar'),
+        "url_listado": reverse('Usuarios'),
+        "tipo" : "usuario",
+        "rol": user.role.nombre})
     
-	elif request.method == "POST":
-		usuarioDb = obtener_objeto_por_id(Usuario, request.POST.get('id'))
-		usuarioModificado = modificarUsuarioForm(request.POST)
-		eroare = usuarioModificado.errors.values()
-  
-		if usuarioModificado.is_valid():
-			if usuarioDb.nombre != request.POST.get('nombre'):
-				usuarioDb.nombre = request.POST.get('nombre')
+    elif request.method == "POST":
+        usuarioDb = obtener_objeto_por_id(Usuario, request.POST.get('id'))
+        usuarioModificado = modificarUsuarioForm(request.POST)
+ 
+        if usuarioModificado.is_valid():
+            if usuarioDb.nombre != request.POST.get('nombre'):
+                usuarioDb.nombre = request.POST.get('nombre')
 
-			if usuarioDb.apellidos != request.POST.get('apellidos'):
-				usuarioDb.apellidos = request.POST.get('apellidos')
+            if usuarioDb.apellidos != request.POST.get('apellidos'):
+                usuarioDb.apellidos = request.POST.get('apellidos')
 
-			if usuarioDb.fecha_nacimiento != request.POST.get('fecha_nacimiento'):
-				usuarioDb.fecha_nacimiento = request.POST.get('fecha_nacimiento')
+            if usuarioDb.fecha_nacimiento != request.POST.get('fecha_nacimiento'):
+                usuarioDb.fecha_nacimiento = request.POST.get('fecha_nacimiento')
 
-			if usuarioDb.password != request.POST.get('password'):
-				usuarioDb.password = request.POST.get('password')
+            if usuarioDb.password != request.POST.get('password'):
+                usuarioDb.password = request.POST.get('password')
 
-			if usuarioDb.email != request.POST.get('email'):
-				usuarioDb.email = request.POST.get('email')
+            if usuarioDb.movil != request.POST.get('movil'):
+                usuarioDb.movil = request.POST.get('movil')
 
-			if usuarioDb.movil != request.POST.get('movil'):
-				usuarioDb.movil = request.POST.get('movil')
+            if usuarioDb.role_id != request.POST.get('role'):
+                usuarioDb.role_id = request.POST.get('role')
 
-			if usuarioDb.role.id != request.POST.get('role'):
-				usuarioDb.role.id = request.POST.get('role')
+            if request.POST.get('activo') == "checked":
+                usuarioDb.activo = 1
+            else:
+                usuarioDb.activo = 0	
 
-			if request.POST.get('activo') == "checked":
-				usuarioDb.activo = 1
-			else:
-				usuarioDb.activo = 0	
-
-			usuarioDb.save()
-			return redirect("Usuarios")
-		else:
-			elemento = modificarUsuarioForm(request.POST)
-			elemento.fields['password'].widget.attrs['value'] = request.POST.get('password')
-			return render(request, "gestion/snippets/accionesObjetos.html", {
-			"accion":"modificar",
-			"data":[elemento],
-			"url_destino": reverse('UsuariosModificar'),
-			"url_listado": reverse('Usuarios'),
-			"tipo" : "usuario",
-			"rol": user.role.nombre})
-		
-
+            usuarioDb.save()
+            return redirect("Usuarios")
+        else:
+            elemento = modificarUsuarioForm(request.POST)
+            elemento.fields['password'].widget.attrs['value'] = request.POST.get('password')
+            return render(request, "gestion/snippets/accionesObjetos.html", {
+            "accion":"modificar",
+            "data":[elemento],
+            "url_destino": reverse('UsuariosModificar'),
+            "url_listado": reverse('Usuarios'),
+            "tipo" : "usuario",
+            "rol": user.role.nombre})
 
 def eliminarUsuario(request, user):
     if request.method == "GET":
@@ -124,3 +118,51 @@ def eliminarUsuario(request, user):
         usuarioDb.activo = 0	
       usuarioDb.save()
       return redirect("Usuarios")
+
+def misDatos(request, user):
+    if request.method == "GET":
+        usuarioDb = obtener_objeto_por_id(Usuario, user.id)
+        fechaFormateada=usuarioDb.fecha_nacimiento.strftime("%Y-%m-%d")
+        initial_data = {'id': usuarioDb.id, 'fecha_nacimiento' : fechaFormateada, 'movil':usuarioDb.movil,'activo': usuarioDb.activo}
+        elemento = misDatosForm(instance=usuarioDb,initial=initial_data)
+        elemento.fields['password'].widget.attrs['value'] = usuarioDb.password
+  
+        return render(request, "gestion/snippets/accionesObjetos.html", {
+        "accion":"modificar",
+        "data":[elemento],
+        "url_destino": reverse('MisDatos'),
+        "tipo" : "usuario",
+        "rol": user.role.nombre})
+    
+    elif request.method == "POST":
+        usuarioDb = obtener_objeto_por_id(Usuario, user.id)
+        usuarioModificado = misDatosForm(request.POST)
+ 
+        if usuarioModificado.is_valid():
+            if usuarioDb.nombre != request.POST.get('nombre'):
+                usuarioDb.nombre = request.POST.get('nombre')
+
+            if usuarioDb.apellidos != request.POST.get('apellidos'):
+                usuarioDb.apellidos = request.POST.get('apellidos')
+
+            if usuarioDb.fecha_nacimiento != request.POST.get('fecha_nacimiento'):
+                usuarioDb.fecha_nacimiento = request.POST.get('fecha_nacimiento')
+
+            if usuarioDb.password != request.POST.get('password'):
+                usuarioDb.password = request.POST.get('password')
+
+            if usuarioDb.movil != request.POST.get('movil'):
+                usuarioDb.movil = request.POST.get('movil')
+
+            usuarioDb.save()
+            return redirect("Gestion")
+        else:
+            elemento = misDatosForm(request.POST)
+            elemento.fields['password'].widget.attrs['value'] = request.POST.get('password')
+            return render(request, "gestion/snippets/accionesObjetos.html", {
+            "accion":"modificar",
+            "data":[elemento],
+            "url_destino": reverse('UsuariosModificar'),
+            "url_listado": reverse('Usuarios'),
+            "tipo" : "usuario",
+            "rol": user.role.nombre}) 
