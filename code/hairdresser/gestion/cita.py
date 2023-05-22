@@ -231,12 +231,17 @@ def eliminarCita(request, user):
       empleadoDB = asigna_citas_empleado.objects.get(cita_id=citaDb.id)
       fecha_formateada = citaDb.fecha_cita.strftime("%Y-%m-%d")
       initial_data = {'id': citaDb.id,'servicio': citaDb.servicio.id,'cliente':citaDb.cliente.id, 'empleado':empleadoDB.empleado_id, 'fecha_cita': fecha_formateada}
+      campos_modelo = citaDb._meta.fields     
+      atributos = {}
+      for campo in campos_modelo:
+        # if campo.name not in campos_excluidos:
+          atributos[campo.name] = getattr(citaDb, campo.name)
 
       return render(request, "gestion/snippets/accionesObjetos.html", {
-            "accion":"modificar",
-            "volver": "volver",
-            "data":[modificarCitaPasada(instance=citaDb,initial=initial_data)],
-            "url_destino": reverse('Citas'),
+            "accion":"eliminar",
+            "objeto":citaDb,
+            "atributos":atributos, 
+            "url_destino": reverse('CitasEliminar'),
             "url_listado": reverse('Citas'),
             "tipo" : "cita",
             "rol": user.role.nombre})
