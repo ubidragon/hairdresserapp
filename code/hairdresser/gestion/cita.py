@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.db.models import Q
 from datetime import date, datetime, timedelta
 from .models import Cita, asigna_citas_empleado
-from .forms import crearCitaAdminForm, crearCitaClienteForm, modificarCitaForm, modificarCitaPasada
+from .forms import crearCitaAdminForm, crearCitaClienteForm, modificarCitaForm, modificarCitaPasada, modificarCitaClienteForm
 from .utils_gestion import obtener_objeto_por_id, is_Active, is_admin, is_cliente, is_empleado
 
 def proximasCitas(request, user):
@@ -129,9 +129,11 @@ def modificarCita(request, user):
         "tipo" : "cita",
         "rol": user.role.nombre})
       elif is_cliente(user):
+        initial_data = {'id': citaDb.id,'servicio': citaDb.servicio.id,'cliente':request.user.id, 'empleado':empleadoDB.empleado_id, 'fecha_cita': fecha_formateada}
+
         return render(request, "gestion/snippets/accionesObjetos.html", {
           "accion":"modificar",
-          "data":crearCitaClienteForm(initial={'cliente': request.user.id}),
+          "data":[modificarCitaClienteForm(instance=citaDb,initial=initial_data)],
           "url_destino": reverse('CitasModificar'),
           "url_listado": reverse('Citas'),
           "tipo" : "cita",
@@ -140,7 +142,7 @@ def modificarCita(request, user):
       
       citaDb= obtener_objeto_por_id(Cita, request.POST.get('id'))
       citaModificada = modificarCitaForm(request.POST)
-          
+      citaClienteModificada = modificarCitaClienteForm(request.POST)   
       
       # Comprobacion que la nueva fecha es una fecha futura
       if request.POST.get('fecha_cita') < datetime.now().strftime("%Y-%m-%d"):
@@ -155,6 +157,24 @@ def modificarCita(request, user):
             "rol": user.role.nombre})
           
       if citaModificada.is_valid():
+        citaDb= obtener_objeto_por_id(Cita, request.POST.get('id'))
+        empleadoDB = asigna_citas_empleado.objects.get(cita_id=citaDb.id)
+        
+        if citaDb.servicio_id != request.POST.get('servicio'):
+          citaDb.servicio_id = request.POST.get('servicio')
+        if citaDb.cliente_id != request.POST.get('cliente'):
+          citaDb.cliente_id = request.POST.get('cliente')
+        if citaDb.fecha_cita != request.POST.get('fecha_cita'):
+          citaDb.fecha_cita = request.POST.get('fecha_cita')
+        if empleadoDB.empleado != request.POST.get('empleado'):
+          empleadoDB.empleado_id = request.POST.get('empleado')
+
+          
+        citaDb.save()
+        empleadoDB.save()
+        
+        return redirect("Citas")
+      elif citaClienteModificada.is_valid():
         citaDb= obtener_objeto_por_id(Cita, request.POST.get('id'))
         empleadoDB = asigna_citas_empleado.objects.get(cita_id=citaDb.id)
         

@@ -196,6 +196,19 @@ class modificarCitaForm(crearCitaAdminForm):
   class Meta:
     model = Cita
     fields = ['servicio', 'cliente', 'empleado', 'fecha_cita', ]
+
+class modificarCitaClienteForm(crearCitaAdminForm):
+
+  id= forms.CharField(widget=forms.HiddenInput)
+  cliente = forms.CharField(widget=forms.HiddenInput)
+  def __init__(self, *args, **kwargs):
+    super().__init__(*args, **kwargs)
+    self.fields['id'].label = ''
+    self.fields['cliente'].label = ''
+  
+  class Meta:
+    model = Cita
+    fields = ['servicio', 'empleado', 'fecha_cita', ]
   
 class modificarCitaPasada(modificarCitaForm):
 
