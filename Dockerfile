@@ -8,12 +8,11 @@ COPY docker-entrypoint.sh /tmp/docker-entrypoint.sh
 
 RUN mv /tmp/docker-entrypoint.sh /docker-entrypoint.sh && chmod +x docker-entrypoint.sh
 
-WORKDIR /code
-COPY requirements.txt /code/
-RUN pip install -r requirements.txt
+COPY ./code/hairdresser /hairdresser
 
-
+WORKDIR /hairdresser
+COPY requirements.txt /hairdresser/
+RUN pip install -r requirements.txt \
+	&& rm -rf /hairdresser/requirements.txt
 
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
-
-# COPY ./code /code/ # Solo para empaquetado y distribucion de la app
