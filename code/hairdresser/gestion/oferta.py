@@ -19,6 +19,7 @@ def crearOferta(request, user):
       nuevaOferta = crearOfertaForm(request.POST)
       if nuevaOferta.is_valid() :
         ofertaObject = Oferta(nombre = nuevaOferta.cleaned_data['nombre'], fecha_fin = nuevaOferta.cleaned_data['fecha_fin'], descuento = nuevaOferta.cleaned_data['descuento'], activo = nuevaOferta.cleaned_data['activo'])
+        # Guardado en base de datos
         ofertaObject.save()
         return redirect("Ofertas")
       else:
@@ -48,7 +49,7 @@ def modificarOferta(request, user):
       
         if ofertaModificada.is_valid() : 
             ofertaDb = obtener_objeto_por_id(Oferta, request.POST.get('id'))
-                    
+            # Comprobaciones para detectar si algun campo ha sufrido alguna modificacion.    
             if ofertaDb.nombre != request.POST.get('nombre'):
                 ofertaDb.nombre = request.POST.get('nombre')
             if ofertaDb.descuento != request.POST.get('descuento'):
@@ -59,7 +60,7 @@ def modificarOferta(request, user):
                 ofertaDb.activo = 1
             else:
                 ofertaDb.activo = 0	
-            
+            # Guardado en base de datos
             ofertaDb.save()
             return redirect('Ofertas')
         else:

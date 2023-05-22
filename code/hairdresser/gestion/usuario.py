@@ -22,7 +22,7 @@ def crearUsuario(request, user):
         roleObject = Roles.objects.get(nombre=role_nombre)
                 
         usuarioObject = Usuario(nombre = nuevoUsuario.cleaned_data['nombre'], apellidos = nuevoUsuario.cleaned_data['apellidos'], fecha_nacimiento = nuevoUsuario.cleaned_data['fecha_nacimiento'], password = nuevoUsuario.cleaned_data['password'], email = nuevoUsuario.cleaned_data['email'], role = roleObject, movil = nuevoUsuario.cleaned_data['movil'], activo = nuevoUsuario.cleaned_data['activo'])
-        
+        # Guardado en base de datos
         usuarioObject.save()
         return redirect("Usuarios")
       else:
@@ -56,6 +56,7 @@ def modificarUsuario(request, user):
         usuarioModificado = modificarUsuarioForm(request.POST)
  
         if usuarioModificado.is_valid():
+            # Comprobaciones para detectar si algun campo ha sufrido alguna modificacion.
             if usuarioDb.nombre != request.POST.get('nombre'):
                 usuarioDb.nombre = request.POST.get('nombre')
 
@@ -78,7 +79,7 @@ def modificarUsuario(request, user):
                 usuarioDb.activo = 1
             else:
                 usuarioDb.activo = 0	
-
+            # Guardado en base de datos
             usuarioDb.save()
             return redirect("Usuarios")
         else:
@@ -115,7 +116,8 @@ def eliminarUsuario(request, user):
       if request.POST.get('activo') == "checked":
         usuarioDb.activo = 1
       else:
-        usuarioDb.activo = 0	
+        usuarioDb.activo = 0
+      # Guardado en base de datos
       usuarioDb.save()
       return redirect("Usuarios")
 
@@ -137,7 +139,7 @@ def misDatos(request, user):
     elif request.method == "POST":
         usuarioDb = obtener_objeto_por_id(Usuario, user.id)
         usuarioModificado = misDatosForm(request.POST)
- 
+        # Reasignacion de valores en caso de que haya sido cambiado algun atributo
         if usuarioModificado.is_valid():
             if usuarioDb.nombre != request.POST.get('nombre'):
                 usuarioDb.nombre = request.POST.get('nombre')
@@ -153,7 +155,7 @@ def misDatos(request, user):
 
             if usuarioDb.movil != request.POST.get('movil'):
                 usuarioDb.movil = request.POST.get('movil')
-
+            # Guardado en base de datos
             usuarioDb.save()
             return redirect("Gestion")
         else:

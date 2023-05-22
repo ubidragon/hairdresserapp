@@ -48,9 +48,10 @@ def signUp(request):
         if formularioRegistro.is_valid():
             password = request.POST.get('passwd')
             passwordRepeat = request.POST.get('repeatPasswd')
-            
+            # Comprobacion de que las contraseñas coinciden 
             if password == passwordRepeat:
                 existeUsuario = Usuario.objects.filter(email=request.POST.get('email')).exists()
+                # Comprobacion de que el usuario no existe en base de datos
                 if not existeUsuario:
                     nuevoUsuario = Usuario( nombre = formularioRegistro.cleaned_data['nombre'], 
                             apellidos = formularioRegistro.cleaned_data['apellidos'], 
@@ -60,7 +61,7 @@ def signUp(request):
                             email = formularioRegistro.cleaned_data['email'],
                             role = Roles.objects.filter(nombre = "cliente").first(),
                             activo = 1)
-                    
+                    # Guardado en base de datos
                     nuevoUsuario.save()
     
                     login(request,nuevoUsuario)
@@ -70,14 +71,3 @@ def signUp(request):
             else:
                 messages.error(request, formularioRegistro.add_error("repeatPasswd","Las contraseñas deben de ser iguales."))   
         return render(request, "acceso/signup.html", {'formularioRegistro':formularioRegistro})
-        
-        # # TODO: Construir el formulario de registro con sus validaciones.
-        # if len(request.GET) > 0:
-        #     return render(request, "acceso/signup.html", {'formularioRegistro':signup})
-        # elif signup.is_valid():
-        #     login(request)
-        #     return redirect('Gestion')
-        # else:
-        #     for error in signup.errors:
-        #         messages.error(request, signup.errors[error])
-        #     return render(request, "acceso/signup.html", {'formularioRegistro':signup})

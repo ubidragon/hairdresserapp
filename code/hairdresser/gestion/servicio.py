@@ -26,7 +26,7 @@ def crearServicio(request, user):
         if nuevoServicio.cleaned_data['oferta'] is not None:
           oferta_id = nuevoServicio.cleaned_data['oferta'].id
           servicioObject.oferta = Oferta.objects.get(id=oferta_id)
-
+        # Guardado en base de datos
         servicioObject.save()
         return redirect("Servicios")
     else:
@@ -109,7 +109,7 @@ def modificarServicio(request, user):
             servicio_oferta = servicioDb.oferta.values_list('id', flat=True).first()
             # ofertaDelete=Oferta.objects.filter(Q(id = servicioDb.oferta.id))
             servicioDb.oferta.remove(servicio_oferta)
-
+        # Guardado en base de datos
         servicioDb.save()
         return redirect("Servicios")
       else:

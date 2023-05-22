@@ -10,14 +10,15 @@ from .utils_gestion import obtener_objeto_por_id, is_Active, is_admin, is_client
 def proximasCitas(request, user):
   user = request.user
   fechaProximos7Dias=datetime.now() + timedelta(days=7)
-  
+  # Segun que usuario este accediendo, se hara una query u otra a base de datos para mostrar solo los datos que deban ser accesibles
+  # dependiendo del rol que dicho usuario tenga
   if is_admin(user):
     citas=Cita.objects.filter(Q(fecha_cita__gt=datetime.now().strftime("%Y-%m-%d")) & Q(fecha_cita__lt=fechaProximos7Dias.strftime("%Y-%m-%d")))
   elif is_cliente(user):
     citas=Cita.objects.filter(Q(cliente=user) & Q(fecha_cita__gt=datetime.now().strftime("%Y-%m-%d")) & Q(fecha_cita__lt=fechaProximos7Dias.strftime("%Y-%m-%d")))
   elif is_empleado(user):
     citas=[]
-    
+    # Se debera de hacer una query a la tabla intermedia para saber que citas pertenecen a cierto empleado.
     citasEmpleado = asigna_citas_empleado.objects.filter(empleado_id=user.id)
     
     for cita in citasEmpleado:
@@ -35,13 +36,15 @@ def proximasCitas(request, user):
 
 def historicoCitas(request, user):
   user = request.user
+  # Segun que usuario este accediendo, se hara una query u otra a base de datos para mostrar solo los datos que deban ser accesibles
+  # dependiendo del rol que dicho usuario tenga
   if is_admin(user):
     citas=Cita.objects.all()  
   elif is_cliente(user):
     citas=Cita.objects.filter(cliente=user)
   elif is_empleado(user):
     citas=[]
-    
+    # Se debera de hacer una query a la tabla intermedia para saber que citas pertenecen a cierto empleado.
     citasEmpleado = asigna_citas_empleado.objects.filter(empleado_id=user.id)
     
     for cita in citasEmpleado:
@@ -59,6 +62,7 @@ def historicoCitas(request, user):
 
 def crearCita(request, user):
     if request.method == "GET":
+      # Segun que tipo de usuario acceda se renderizara con unos parametros u otros.
       if is_admin(user):
         return render(request, "gestion/snippets/accionesObjetos.html", {
         "accion":"crear",
@@ -78,7 +82,7 @@ def crearCita(request, user):
     elif request.method == "POST":
       if is_admin(user):
         nuevaCita = crearCitaAdminForm(request.POST)
-
+        # Se valida que el formulario recibido sea correcto
         if nuevaCita.is_valid() :
             empleadoId=nuevaCita.cleaned_data['empleado'].id
             # Creamos un nuevo objecto 
@@ -125,14 +129,16 @@ def crearCita(request, user):
               
 def modificarCita(request, user):
     if request.method == "GET":
-      
+      # Recuperamos el objeto cita de base de datos para poder mostrarlo en la vista de modificacion.
       citaDb = obtener_objeto_por_id(Cita, request.GET.get('id'))
       empleadoDB = asigna_citas_empleado.objects.get(cita_id=citaDb.id)
       fecha_formateada = citaDb.fecha_cita.strftime("%Y-%m-%d")
       initial_data = {'id': citaDb.id,'servicio': citaDb.servicio.id,'cliente':citaDb.cliente.id, 'empleado':empleadoDB.empleado_id, 'fecha_cita': fecha_formateada}
-
+      # Inicializamos el formulario con los datos de base de datos.
       elemento = modificarCitaForm(instance=citaDb,initial=initial_data)
  
+      # En caso de que sea una cita antigua se cargara un formulario alternativo que no permitirá la edicion
+      # y se vera en modo solo lectura
       if str(citaDb.fecha_cita) < datetime.now().strftime("%Y-%m-%d") or citaDb.estado == "Cancelada":
         return render(request, "gestion/snippets/accionesObjetos.html", {
             "accion":"modificar",
@@ -183,7 +189,7 @@ def modificarCita(request, user):
       if citaModificada.is_valid():
         citaDb= obtener_objeto_por_id(Cita, request.POST.get('id'))
         empleadoDB = asigna_citas_empleado.objects.get(cita_id=citaDb.id)
-        
+        # Comprobaciones para detectar si algun campo ha sufrido alguna modificacion.
         if citaDb.servicio_id != request.POST.get('servicio'):
           citaDb.servicio_id = request.POST.get('servicio')
         if citaDb.cliente_id != request.POST.get('cliente'):
@@ -193,7 +199,7 @@ def modificarCita(request, user):
         if empleadoDB.empleado != request.POST.get('empleado'):
           empleadoDB.empleado_id = request.POST.get('empleado')
 
-          
+        # Guardado en base de datos  
         citaDb.save()
         empleadoDB.save()
         
@@ -201,7 +207,7 @@ def modificarCita(request, user):
       elif citaClienteModificada.is_valid():
         citaDb= obtener_objeto_por_id(Cita, request.POST.get('id'))
         empleadoDB = asigna_citas_empleado.objects.get(cita_id=citaDb.id)
-        
+        # Comprobaciones para detectar si algun campo ha sufrido alguna modificacion.
         if citaDb.servicio.id != request.POST.get('servicio'):
           citaDb.servicio.id = request.POST.get('servicio')
         if citaDb.cliente_id != request.POST.get('cliente'):
@@ -211,7 +217,7 @@ def modificarCita(request, user):
         if empleadoDB.empleado != request.POST.get('empleado'):
           empleadoDB.empleado_id = request.POST.get('empleado')
 
-          
+        # Guardado en base de datos
         citaDb.save()
         empleadoDB.save()
         
@@ -231,6 +237,7 @@ def eliminarCita(request, user):
       empleadoDB = asigna_citas_empleado.objects.get(cita_id=citaDb.id)
       fecha_formateada = citaDb.fecha_cita.strftime("%Y-%m-%d")
       initial_data = {'id': citaDb.id,'servicio': citaDb.servicio.id,'cliente':citaDb.cliente.id, 'empleado':empleadoDB.empleado_id, 'fecha_cita': fecha_formateada}
+      # Se itera sobre los fields del objeto àra generar las labels de solo lectura de la pantalla de eliminacion
       campos_modelo = citaDb._meta.fields     
       atributos = {}
       for campo in campos_modelo:

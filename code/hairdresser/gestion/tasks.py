@@ -12,4 +12,5 @@ def terminarCitasPasadas():
 
 		if fecha_actual > cita.fecha_cita:
 			cita.estado = "Realizada"
+   			# Guardado en base de datos
 			cita.save()
