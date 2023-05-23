@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ivwo#o2%3$k$3zecr_nh8fzv_nc=*dvt+d*u594ilm5#k9uwws
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','194-62-97-189.es-mad1.upcloud.host']
+ALLOWED_HOSTS = ['127.0.0.1','194.62.97.189','194-62-97-189.es-mad1.upcloud.host']
 
 
 # Application definition

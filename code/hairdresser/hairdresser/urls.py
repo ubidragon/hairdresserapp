@@ -26,7 +26,6 @@ urlpatterns = [
     path('acceso/', include('acceso.urls')),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 """Carga de estaticos
 + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 Para realizar la carga de estaticos de subapps deberemos de especificar esta configuracion
