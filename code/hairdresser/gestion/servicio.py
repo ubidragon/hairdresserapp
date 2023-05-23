@@ -140,6 +140,7 @@ def eliminarServicio(request, user):
         "rol": user.role.nombre})
     if request.method == "POST":
       servicioDb = obtener_objeto_por_id(Servicio, request.POST.get('id'))
-      servicioDb.delete()
+      servicioDb.activo = 0	
+      servicioDb.save()
       return redirect("Servicios")
 
