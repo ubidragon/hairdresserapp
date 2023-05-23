@@ -53,8 +53,8 @@ def modificarServicio(request, user):
         # ofertaDb=Servicio.objects.filter(servicio_oferta__oferta_id=request.GET.get('oferta'))
 
     
-      if  servicioDb.ubicacion.nombre is not None:
-        ubicacionDbData= servicioDb.ubicacion.nombre
+      if  servicioDb.ubicacion_id is not None:
+        ubicacionDbData= servicioDb.ubicacion_id
       
       initial_data = {'ubicacion': ubicacionDbData,
           'oferta': ofertaDbData,
